@@ -1,0 +1,134 @@
+<?xml version = "1.0"?>
+<words>
+	<opening>Every 12,000 years the September Dragon {0}rises from her slumber to grant a wish to the {0}best alchemist in the world. {0}{0}Today, she awakens...</opening> <!-- ({0} is NEWLINE) -->
+	<!-- Main Menu -->
+	<starttext>Press {0} or {1} to begin!</starttext> <!-- {0} is LAUNCH key/button, {1} is PAUSE key/button. -->
+	<quickplay>Quick Play</quickplay>
+	<arcade>Story Mode</arcade>
+	<campaign>Endless Mode</campaign>
+	<versus>2P Versus</versus>
+	<training>Training</training>
+	<challenge>Puzzle Mode</challenge>
+	<playerdata>Player Data</playerdata>
+	<options>Options</options>
+	<quit>Quit</quit>
+	<!-- Main HUD -->
+	<time>Time</time>
+	<next>Next</next>
+	<score>Score</score>
+	<p1score>1P Score</p1score>
+	<p2score>2P Score</p2score>
+	<!-- Puzzle HUD -->
+	<lockedrow>Locked</lockedrow>
+	<launches>Launches</launches>
+	<rotations>Rotations</rotations>
+	<!-- Cutscene Shit -->
+	<skip>Skip</skip>
+	<skipmessage>Press {2} to skip.{0}Press {1} to continue.</skipmessage> <!-- {0} is NEWLINE. {1} is LAUNCH key/button, {2} is PAUSE key/button. -->
+	<!-- High Scores -->
+	<entername>Enter your name</entername>
+	<!-- Puzzle Info -->
+	<none>None</none>
+	<rowlimit>Clear a column only rotating the {0} row!</rowlimit>
+	<rotatelimit>Clear a column in under {0} rotations!</rotatelimit>
+	<launchlimit>Clear a column in under {0} launches!</launchlimit>
+	<playerrows>Player Rows</playerrows>
+	<targetrows>Target Rows</targetrows>
+	<bestscore>Best Score</bestscore>
+	<fewestrotations>Fewest Rotations</fewestrotations>
+	<fewestlaunches>Fewest Launches</fewestlaunches>
+	<!-- Campaign HUD -->
+	<money>Gold</money>
+	<shop>Shop</shop>
+	<winner>Winner</winner>
+	<loser>Loser</loser>
+	<!-- Campaign Shop ({0} is always NEWLINE, {1} is PRICE) -->
+	<replacetile>Replace{0}{1}G</replacetile>
+	<tilereplaced>Tile{0}replaced!</tilereplaced>
+	<repairshield>Repair{0}{1}G</repairshield>
+	<shieldreplaced>Sheild{0}replaced!</shieldreplaced>
+	<cantafford>You can't{0}afford that!</cantafford>
+	<presstocontinue>Press {1}{0}to continue.</presstocontinue> <!-- {1} is the CONFIRM key here -->
+	<!-- Character Select -->
+	<chooseyourcharacter>Choose Your Character</chooseyourcharacter>
+	<specialtiles>Special Tiles</specialtiles>
+	<difficulty>Difficulty</difficulty>
+	<colheight>Row Count</colheight>
+	<trainingmode>Mode</trainingmode>
+	<rounds>Rounds</rounds>
+	<begin>Begin</begin>
+	<t_tutorial>Tutorial</t_tutorial>
+	<t_normal>Normal</t_normal>
+	<t_targets>Targets</t_targets>
+	<!--Bonus Data-->
+	<overall>Totals</overall>
+	<bios>Character Bios</bios>
+	<soundtest>Sound Test</soundtest>
+	<back>Back</back>
+	<!--Pause Menu-->
+	<pause>PAUSE</pause>
+	<resumecaps>RESUME</resumecaps>
+	<resume>Resume</resume>
+	<retry>Retry</retry>
+	<endgame>End Game</endgame>
+	<desktop>Quit to Desktop</desktop>
+	<!--Options Menu-->
+	<controls>Controls</controls>
+	<accessibility>Accessibility</accessibility>
+	<!--Player Data-->
+	<gamedata>Game Data</gamedata>
+	<returntomenu>Return to Main Menu</returntomenu>
+	<highscores>High Scores</highscores>
+	<besttimes>Best Times</besttimes>
+	<age>Age</age>
+	<likes>Likes</likes>
+	<dislikes>Dislikes</dislikes>
+	<totalplaytime>Total Playtime</totalplaytime>
+	<quickplaytime>Quick Play Time</quickplaytime>
+	<arcadetime>Story Mode Time</arcadetime>
+	<campaigntime>Endless Mode Time</campaigntime>
+	<versustime>2P Versus Time</versustime>
+	<trainingtime>Training Time</trainingtime>
+	<challengetime>Puzzle Time</challengetime>
+	<puzzlescompleted>Puzzles Completed</puzzlescompleted>
+	<arcademodevictories>Story Mode Victories</arcademodevictories>
+	<favoritecharacter>Favorite Character</favoritecharacter>
+	<gamecompletionpercent>Game Completion</gamecompletionpercent>
+	<!--Win Screen-->
+	<winstatement>Player {0} wins!</winstatement>
+	<wins>Wins</wins>
+	<losses>Losses</losses>
+	<totaltime>Total Time</totaltime>
+	<!--Pretty Generic Values-->
+	<apply>Apply</apply>
+	<cancel>Cancel</cancel>
+	<yes>Yes</yes>
+	<no>No</no>
+	<on>On</on>
+	<off>Off</off>
+	<!--Options Values-->
+	<optionscalewidth>1.1</optionscalewidth> <!-- adjust this value so that the right arrow does not overlap the largest possible value -->
+	<resolution>Resolution</resolution>
+	<fullscreen>Full Screen</fullscreen>
+	<musicvol>Music Volume</musicvol>
+	<soundvol>Sound Volume</soundvol>
+	<voicevol>Voice Volume</voicevol>
+	<gameplay>Gameplay</gameplay>
+	<clearSave>Clear Save Data</clearSave>
+	<clear>Clear</clear>
+	<really>Really?</really>
+	<done>Done.</done>
+	<!--Accessibility Values-->
+	<accessibilityscalewidth>0.8</accessibilityscalewidth> <!-- adjust this value so that the right arrow does not overlap the largest possible value -->
+	<colorblind>Color-Blind Mode</colorblind>
+	<hudplacement>In-Game HUD Placement</hudplacement>
+	<emphasizecursor>Use High Contrast Cursor</emphasizecursor>
+	<touchcontrols>In-Game Mouse Controls</touchcontrols>
+	<easymode>Slower CPUs</easymode>
+	<keydelay>Key Repeat Rate</keydelay>
+	<left>Left</left>
+	<right>Right</right>
+	<!--Challenge Retry Menu-->
+	<youlose>TRY AGAIN?</youlose>
+	<retry>Retry</retry>
+</words>

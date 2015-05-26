@@ -1,0 +1,111 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  tags:
+  - 
+  Builtin Layer 0: Default
+  Builtin Layer 1: TransparentFX
+  Builtin Layer 2: Ignore Raycast
+  Builtin Layer 3: 
+  Builtin Layer 4: Water
+  Builtin Layer 5: UI
+  Builtin Layer 6: 
+  Builtin Layer 7: 
+  User Layer 8: Gamepad
+  User Layer 9: TV
+  User Layer 10: 
+  User Layer 11: 
+  User Layer 12: 
+  User Layer 13: 
+  User Layer 14: 
+  User Layer 15: 
+  User Layer 16: 
+  User Layer 17: 
+  User Layer 18: 
+  User Layer 19: 
+  User Layer 20: 
+  User Layer 21: 
+  User Layer 22: 
+  User Layer 23: 
+  User Layer 24: 
+  User Layer 25: 
+  User Layer 26: 
+  User Layer 27: 
+  User Layer 28: 
+  User Layer 29: 
+  User Layer 30: 
+  User Layer 31: 
+  m_SortingLayers:
+  - name: BG0
+    userID: 3
+    uniqueID: 3418264299
+    locked: 0
+  - name: BG1
+    userID: 4
+    uniqueID: 3056626143
+    locked: 0
+  - name: Default
+    userID: 0
+    uniqueID: 0
+    locked: 0
+  - name: Tile
+    userID: 11
+    uniqueID: 2375236445
+    locked: 0
+  - name: Shape
+    userID: 12
+    uniqueID: 1704022973
+    locked: 0
+  - name: ShapeOverlay
+    userID: 13
+    uniqueID: 3102247177
+    locked: 0
+  - name: Zapper
+    userID: 2
+    uniqueID: 3319717077
+    locked: 0
+  - name: HUD
+    userID: 1
+    uniqueID: 4234948103
+    locked: 0
+  - name: HUDText
+    userID: 5
+    uniqueID: 2178703593
+    locked: 0
+  - name: Reference
+    userID: 6
+    uniqueID: 1294452579
+    locked: 0
+  - name: Cover HUD
+    userID: 14
+    uniqueID: 3162128925
+    locked: 0
+  - name: Cover HUD Actor
+    userID: 8
+    uniqueID: 1917975519
+    locked: 0
+  - name: Cover HUD Dialog Box
+    userID: 7
+    uniqueID: 4153863797
+    locked: 0
+  - name: Cover HUD Dialog Text
+    userID: 9
+    uniqueID: 2313968009
+    locked: 0
+  - name: Pause HUD
+    userID: 17
+    uniqueID: 3548716127
+    locked: 0
+  - name: Pause HUD Buttons
+    userID: 10
+    uniqueID: 1800695987
+    locked: 0
+  - name: Pause HUD Text
+    userID: 18
+    uniqueID: 145679683
+    locked: 0
+  - name: Pause HUD Cursor
+    userID: 19
+    uniqueID: 988408491
+    locked: 0

@@ -1,0 +1,255 @@
+<?xml version = "1.0"?>
+<credits>
+	<credit>
+		<text>BLOCKARA</text>
+	</credit>
+	<credit>
+		<text>Core Team</text>
+	</credit>
+	<credit>
+		<img>01</img>
+		<name>Sean Finch</name>
+		<job>Director, Programmer,{0}Game Designer, Writer,{0}Character Designer</job>
+	</credit>
+	<credit>
+		<img>00</img>
+		<name>Brandt White</name>
+		<job>Character Artist, Character{0}Designer, Game Designer</job>
+	</credit>
+	<credit>
+		<img>03</img>
+		<name>Michio Poppleton</name>
+		<job>Composer, Musician</job>
+	</credit>
+	<credit>
+		<img>02</img>
+		<name>Jenette Sellin</name>
+		<job>Background Artist</job>
+	</credit>
+	<credit>
+		<text>Voice Crew</text>
+	</credit>
+	<credit>
+		<img>04</img>
+		<borbs>2,1</borbs>
+		<name>Abner Hauge</name>
+		<for>Milo, Devin</for>
+	</credit>
+	<credit>
+		<img>05</img>
+		<borbs>0</borbs>
+		<name>Cal Young</name>
+		<for>George</for>
+	</credit>
+	<credit>
+		<img>06</img>
+		<borbs>10,7,5</borbs>
+		<name>Carolina Madrid</name>
+		<for>Joan, Laila, September</for>
+	</credit>
+	<credit>
+		<img>07</img>
+		<borbs>4,3</borbs>
+		<name>Matt Simpson</name>
+		<for>Andrew, M.J.</for>
+	</credit>
+	<credit>
+		<img>08</img>
+		<borbs>9</borbs>
+		<name>Dylan Aiello</name>
+		<for>White</for>
+	</credit>
+	<credit>
+		<img>09</img>
+		<borbs>11,6</borbs>
+		<name>Sean Mabry</name>
+		<for>Lars, Narrator</for>
+	</credit>
+	<credit>
+		<img>10</img>
+		<borbs>8</borbs>
+		<name>Veronica Christie</name>
+		<for>Alice/Ana</for>
+	</credit>
+	<credit>
+		<text>Helping Hands Crew</text>
+	</credit>
+	<credit>
+		<name>Marcin Rojek</name>
+		<for>Character Design, Game Design</for>
+	</credit>
+	<credit>
+		<name>Hari Kota</name>
+		<for>Character Design</for>
+	</credit>
+	<credit>
+		<name>Diego Gutierrez</name>
+		<for>Game Testing</for>
+	</credit>
+	<credit>
+		<name>Joe Mazeika</name>
+		<for>Game Testing</for>
+	</credit>
+	<credit>
+		<name>Kevin Simpson</name>
+		<for>Game Testing, Game Design</for>
+	</credit>
+	<credit>
+		<name>Jacob Barajas</name>
+		<for>Game Testing, Game Design</for>
+	</credit>
+	<credit>
+		<name>Luke Madden</name>
+		<for>Game Testing</for>
+	</credit>
+	<credit>
+		<name>Nolan Poe</name>
+		<for>Game Testing, Game Design</for>
+	</credit>
+	<credit>
+		<name>AnaSophia Eiseman</name>
+		<for>Game Testing</for>
+	</credit>
+	<credit>
+		<name>George Kontsevich</name>
+		<for>Game Testing</for>
+	</credit>
+	<credit>
+		<name>Evin Sellin</name>
+		<for>Game Testing</for>
+	</credit>
+	<credit>
+		<text>Additional Assets</text>
+	</credit>
+	<credit>
+		<name>Mirko Horstmann</name>
+		<for>theater applause/applause_13sec_2.wav</for>
+		<from>Freesound.org / CC BY 3.0 License</from>
+	</credit>
+	<credit>
+		<name>milton.</name>
+		<for>aplauso iglesia.wav</for>
+		<from>Freesound.org / CC0 1.0 License</from>
+	</credit>
+	<credit>
+		<name>daenerys</name>
+		<for>applause</for>
+		<from>Freesound.org / CC BY 3.0 License</from>
+	</credit>
+	<credit>
+		<name>sandyrb</name>
+		<for>FEMALES REJOICING CLOSE.wav</for>
+		<from>Freesound.org / CC BY 3.0 License</from>
+	</credit>
+	<credit>
+		<name>maarten_wez</name>
+		<for>some_people_applauding.wav</for>
+		<from>Freesound.org / CC BY 3.0 License</from>
+	</credit>
+	<credit>
+		<name>xtrgamr</name>
+		<for>awww than applause and cheering.wav</for>
+		<from>Freesound.org / CC BY 3.0 License</from>
+	</credit>
+	<credit>
+		<name>theta4</name>
+		<for>ding30603-spedup.wav</for>
+		<from>Freesound.org / CC BY 3.0 License</from>
+	</credit>
+	<credit>
+		<name>qubodup</name>
+		<for>Fire Magic Spell Sound Effect</for>
+		<from>Freesound.org / CC0 1.0 License</from>
+	</credit>
+	<credit>
+		<name>CTCollab</name>
+		<for>Fire Ball Release</for>
+		<from>Freesound.org / CC BY 3.0 License</from>
+	</credit>
+	<credit>
+		<name>Cristiano Neves</name>
+		<for>pause.mp3 and unpause.mp3</for>
+		<from>Freesound.org / CC0 1.0 License</from>
+	</credit>
+	<credit>
+		<name>zerolagtime</name>
+		<for>tape_slow11.wav</for>
+		<from>Freesound.org / CC BY 3.0 License</from>
+	</credit>
+	<credit>
+		<name>Northern_Monkey</name>
+		<for>Buffer Spell</for>
+		<from>Freesound.org / CC0 1.0 License</from>
+	</credit>
+	<credit>
+		<name>timgormly</name>
+		<for>8-bit Explosion.aif</for>
+		<from>Freesound.org / CC BY 3.0 License</from>
+	</credit>
+	<credit>
+		<name>soundnimja</name>
+		<for>generic game dev sound/coin_3.wav</for>
+		<from>Freesound.org / CC0 1.0 License</from>
+	</credit>
+	<credit>
+		<name>Udderdude</name>
+		<for>bfxr5.wav</for>
+		<from>Freesound.org / CC0 1.0 License</from>
+	</credit>
+	<credit>
+		<name>Erdie</name>
+		<for>Foley/wooden01.wav</for>
+		<from>Freesound.org / CC BY 3.0 License</from>
+	</credit>
+	<credit>
+		<name>Tobiasz 'unfa' Karoń</name>
+		<for>Synthetic Game Sound FX/Projectile Shoot</for>
+		<from>Freesound.org / CC BY 3.0 License</from>
+	</credit>
+	<credit>
+		<name>NenadSimic</name>
+		<for>Menu Selection Click</for>
+		<from>Freesound.org / CC0 1.0 License</from>
+	</credit>
+	<credit>
+		<name>D W</name>
+		<for>Menu Interface - Confirm 003.wav</for>
+		<from>Freesound.org / CC BY 3.0 License</from>
+	</credit>
+	<credit>
+		<name>broumbroum</name>
+		<for>sf3-sfx-menu-select.wav</for>
+		<from>Freesound.org / CC BY 3.0 License</from>
+	</credit>
+	<credit>
+		<name>Kenney</name>
+		<for>UI Pack: RPG Extension</for>
+		<from>OpenGameArt.org / CC0 1.0 License</from>
+	</credit>
+	<credit>
+		<name>Ed Merritt</name>
+		<for>Nevis Font</for>
+		<from></from>
+	</credit>
+	<credit>
+		<name>Cody Boisclair</name>
+		<for>Press Start 2P Font</for>
+		<from>Open Font Library / Open Font License</from>
+	</credit>
+	<credit>
+		<name>Jonathan Duddington</name>
+		<for>MODE Voice: -ven+f3</for>
+		<from>eSpeak: Speech Synthesizer</from>
+	</credit>
+	<credit>
+		<name>Daniele Giardini</name>
+		<for>DOTween Engine</for>
+		<from>Artistic License</from>
+	</credit>
+	<credit>
+		<text>Special Thanks</text>
+	</credit>
+	<credit>
+		<text>Andrew W.K.</text>
+	</credit>
+</credits>

@@ -42,7 +42,14 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-/DOTween/
+
+DOTween
+
+/Assets/Resources/Fonts*
+/Assets/Resources/Sounds*
+/Assets/Resources/Spritesheets*
+/Assets/Resources/XML/en/[^cnt]*
+
 /[Ll]ibrary/
 /[Tt]emp/
 /[Oo]bj/

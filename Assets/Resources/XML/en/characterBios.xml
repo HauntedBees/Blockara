@@ -1,0 +1,78 @@
+<?xml version = "1.0"?>
+<bios>
+	<character name = "George" idx = "0">
+		<age>112</age>
+		<likes>His tractor, his wife, and his dog food.</likes>
+		<dislikes>Change, vacuums, German Shepards.</dislikes>
+		<bio>George died in a farm accident, but his love for his wife kept his soul alive so he would never be without her. Then she died, too, and he was just sort of stuck in the mortal plane alone.</bio>
+	</character>
+	<character name = "Milo" idx = "1">
+		<age>47</age>
+		<likes>Hair spray, punching, motorcycles.</likes>
+		<dislikes>The police, social norms, macho men.</dislikes>
+		<bio>Milo took up alchemy to give her an advantage in bar fights and peaceful protests gone wrong. She tries to use her powers for good, but if you get on her nerves, she might make an exception!</bio>
+	</character>
+	<character name = "Devin" idx = "2">
+		<age>513</age>
+		<likes>Treasure.</likes>
+		<dislikes>Not treasure, Scurvy.</dislikes>
+		<bio>Devin was once the captain of the Retinal Pirates, but after a long battle with the Navy, he went down with his ship. But I guess he drank a lot of milk or something because his bones were so strong that even when he died his skeleton lived on.</bio>
+	</character>
+	<character name = "M.J." idx = "3">
+		<age>38</age>
+		<likes>Love, everything that was cool thirty years ago.</likes>
+		<dislikes>Modern technology, bullies, 2D movies.</dislikes>
+		<bio>If you've ever watched a children's TV show where someone says that friendship is the answer to all of life's problems, then you already know exactly what M.J. is like. If you aren't M.J.'s friend, then they'll just beat you up until you are!</bio>
+	</character>
+	<character name = "Andrew" idx = "4">
+		<age>32</age>
+		<likes>Lifting, lowering, lifting again.</likes>
+		<dislikes>The people who crowd the gym after New Years.</dislikes>
+		<bio>Fairies usually rely on magic to get things done, but sometimes you just need some raw muscle to save the day! Andrew is a fairy firefighter who gets called in when water magic alone just isn't good enough.</bio>
+	</character>
+	<character name = "Joan" idx = "5">
+		<age>19</age>
+		<likes>Geology, bad jokes, soft drinks.</likes>
+		<dislikes>Rain, golf, early bedtimes.</dislikes>
+		<bio>Joan got her first alchemy book after mailing in the labels on the back of her cereal boxes and comic books as a kid. Now the best alchemist in her high school, she thinks that'll translate to being the best alchemist in the world.</bio>
+	</character>
+	<character name = "MODE" idx = "6">
+		<age>2</age>
+		<likes>Rechargeable batteries, glue guns, Free software.</likes>
+		<dislikes>Viruses (biological), viruses (computers), failure.</dislikes>
+		<bio>Good alchemy is done by following instructions. Computers are very good at following instructions, hence the creation of the world's first alchemy robot, MODE. It is not known why its creators gave it such an annoying personality.</bio>
+	</character>
+	<character name = "Lars" idx = "7">
+		<age>26</age>
+		<likes>Poetry, postmodernism, painting.</likes>
+		<dislikes>Popularity, power, alliteration.</dislikes>
+		<bio>Lars is a professor at the prestegious Poe University, teaching poetry and alchemy. No one knows why he took up alchemy, but it is rumored that he tries to communicate with the Earth itself to inspire his poetry.</bio>
+	</character>
+	<character name = "Laila" idx = "8">
+		<age>24</age>
+		<likes>Grapes, dancing, postage stamps.</likes>
+		<dislikes>Sad kittens, sad puppies, grapes.</dislikes>
+		<bio>Laila takes her postal service job very seriously - she mastered the dark arts just to make sure that all her deliveries would be on-time! Unfortunately, this sometimes leads to spontaneously combusting mailboxes and exploding stamps.</bio>
+	</character>
+	<character name = "Alice/Ana" idx = "9">
+		<age>616</age>
+		<likes>Sunshine! No, darkness! No, flowers! BURNING FLOWERS!</likes>
+		<dislikes>Nothing! Everything! Burn it all down!</dislikes>
+		<bio>Remember when you were younger and your mean older brother broke all your dolls and when you put them back together they weren't quite right? Alice/Ana is basically that, but replace your brother with a demon and yourself with a different demon.</bio>
+	</character>
+	<character name = "White" idx = "10">
+		<age>???</age>
+		<likes>Alchemy, competition, devotion.</likes>
+		<dislikes>Evil, dishonesty, strange goats.</dislikes>
+		<bio>White is an ancient and mighty alchemist who guards the September Dragon and ensures that only the most worthy alchemists may have their wishes granted. He also enjoys Bunco.</bio>
+	</character>
+	<character name = "September" idx = "11">
+		<age>???</age>
+		<likes>Alchemy, granting wishes, sleeping for thousands of years.</likes>
+		<dislikes>People who argue about whether or not she is technically a wyvern.</dislikes>
+		<bio>The September Dragon is a magical wish-granting being. She also sleeps a lot. A LOT. You think your cat sleeps a lot? Has your cat been asleep for a thousand years? Yes? Really? Your cat is probably dead.</bio>
+	</character>
+	<character name = "???" idx = "-1">
+		<bio>Beat the Story Mode to unlock more characters!</bio>
+	</character>
+</bios>

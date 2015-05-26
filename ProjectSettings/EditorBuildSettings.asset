@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/intro.unity
+  - enabled: 1
+    path: Assets/wMainMenu.unity
+  - enabled: 1
+    path: Assets/charSel.unity
+  - enabled: 1
+    path: Assets/WarWarWarWar.unity
+  - enabled: 1
+    path: Assets/puzzleSelect.unity
+  - enabled: 1
+    path: Assets/cutscene.unity
+  - enabled: 1
+    path: Assets/highScores.unity
+  - enabled: 1
+    path: Assets/playerData.unity
+  - enabled: 1
+    path: Assets/credits.unity
+  - enabled: 1
+    path: Assets/youWin.unity
+  - enabled: 1
+    path: Assets/options.unity
+  - enabled: 1
+    path: Assets/RoundWinner.unity
+  - enabled: 1
+    path: Assets/openingCutscene.unity

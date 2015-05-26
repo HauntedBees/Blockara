@@ -1,0 +1,19 @@
+<?xml version = "1.0"?>
+<instructions>
+	<instruction>Welcome to the tutorial! In this game you can see two BOARDS, yours is on the bottom, and your opponent's is on the top! Use {move} to MOVE your cursor! Try MOVING your cursor to the highlighted tile!</instruction>
+	<instruction>Hot! Now the next thing to learn about is SHIFTING! Press {shlf} and {shrt} to SHIFT the current ROW of tiles! Try SHIFTING until there is a FIRE tile under the cursor!</instruction>
+	<instruction>Kicking rad! Now move down to the next ROW and SHIFT until there's a FIRE tile below this one!</instruction>
+	<instruction>You're rocking it! Now you're ready to LAUNCH! Press {lnch} to LAUNCH into your opponent's board!</instruction>
+	<instruction>See how that EARTH tile on your opponent's BOARD is gone? Your goal is drill through your opponent's BOARD and hit the back! Try lining up two WATER tiles in this COLUMN to destroy that FIRE tile, then LAUNCH! </instruction>
+	<instruction>Excellent! Now you're getting the hang of it! Try one more time! Take out that WATER tile with two EARTH tiles in this COLUMN!</instruction>
+	<instruction>Great! You've taken out half of the tiles in the COLUMN! But now try to line up two more FIRE tiles and you might notice something strange!</instruction>
+	<instruction>Look at that! The opponent's EARTH tile isn't highlighted! When you've worn down half of a column, you'll need more than just two tiles to destroy the remaining tiles! Try adding another FIRE tile to this column and see what happens!</instruction>
+	<instruction>Yeah! There we go! But before you LAUNCH that, try lining up FIVE tiles in this COLUMN!</instruction>
+	<instruction>Check it out! TWO of the tiles on your opponent's BOARD are highlighted! If you line up 5 tiles in a COLUMN, you can take out up to TWO tiles with one launch! But what happens if you have SIX? Try it out!</instruction>
+	<instruction>THREE TILES! LAUNCH that and clear the entire column!</instruction>
+	<instruction>Score! Once your opponent has a clear COLUMN like this on their BOARD, any three tiles of the same type in a column will be able to take out the opponent, making you the winner! Go ahead, line some tiles up to finish them off!</instruction>
+	<instruction>Of course, it would be too easy if your opponent couldn't fight back! They can LAUNCH tiles at your BOARD just like you can to theirs! And, more importantly, they can SHIFT tiles to prevent you from taking them out! Try destroying that new tile!</instruction>
+	<instruction>Now finish them off! Wait, what did they just do? Oh, right, I forgot something! You can SHIFT all of your ROWS at once! This is useful to defend yourself, but also to AIM! Use {shal} and {shar} to SHIFT everything, even your cursor! AIM for the empty column!</instruction>
+	<instruction>Now LAUNCH!</instruction>
+	<instruction>You did it! You won! Now go out there and play!</instruction>
+</instructions>
