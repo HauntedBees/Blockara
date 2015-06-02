@@ -56,6 +56,7 @@ public class MainMenuController:MenuController {
 			} else {
 				GetGameObject(new Vector3(xOffset, -0.5f), "A Player Is You", sheet[(PD.p2Char == PersistData.C.White)?0:1], false, "Zapper");
 				PD.sounds.SetMusicAndPlay(SoundPaths.M_Title_DerivPath + "White");
+				PD.sounds.SetVoiceAndPlay(SoundPaths.VoicePath + "White/032", 0);
 			}
 		} else {
 			PD.sounds.SetVoiceAndPlay(SoundPaths.NarratorPath + "001", 0);
