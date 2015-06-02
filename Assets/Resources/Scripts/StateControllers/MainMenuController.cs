@@ -72,7 +72,7 @@ public class MainMenuController:MenuController {
 		if(PD.p2Char == PersistData.C.Everyone) { texty = -1.8f; }
 		pressButtonToStart = GetMeshText(new Vector3(0.0f, texty), presstext, PD.mostCommonFont);
 		pressButtonToStart.color = Color.white;
-		timeUntilDemo = 800;
+		timeUntilDemo = 600;
 	}
 	private void CleanupTitle() {
 		Destroy(pressButtonToStart.gameObject);
