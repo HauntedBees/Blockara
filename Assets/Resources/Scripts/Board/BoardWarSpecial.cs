@@ -192,7 +192,9 @@ public class BoardWarSpecial:BoardWar {
 		for(int i = 0; i < 15; i++) { 
 			int iFrameGETITBECAUSEEYES = Random.Range(0, eyecount) * eyeFrames + eyeFrames - 1;
 			eyeFramePositions.Add(iFrameGETITBECAUSEEYES);
-			eyeballs.Add(GetGameObject(GetScreenPosFromXY(Random.Range(1, width - 1), Random.Range (0, height - 1)) + new Vector3(Random.Range(-0.2f, 0.2f), Random.Range(-0.2f, 0.2f)), player + "eyeball" + i, eyeSheet[iFrameGETITBECAUSEEYES], false, "Cover HUD"));
+			GameObject g = GetGameObject(GetScreenPosFromXY(Random.Range(1, width - 1), Random.Range (0, height - 1)) + new Vector3(Random.Range(-0.2f, 0.2f), Random.Range(-0.2f, 0.2f)), player + "eyeball" + i, eyeSheet[iFrameGETITBECAUSEEYES], false, "Cover HUD");
+			g.renderer.sortingOrder = i;
+			eyeballs.Add(g);
 		}
 	}
 }
