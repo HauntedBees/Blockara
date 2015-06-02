@@ -18,11 +18,17 @@ public class Background:All {
 	public bool isCutscene, isWinScreen; // set in Scene
 	void Start() {
 		GetPersistData();
-		string path = PD.GetPlayerSpritePath(isWinScreen?PD.p1Char:PD.p2Char, true);
+		string path = GetPath();
 		Sprite bgSprite = Resources.Load<Sprite>(SpritePaths.BGPath + path);
 		if(bgSprite == null) { bgSprite = Resources.Load<Sprite>(SpritePaths.DefaultBG); }
 		bg = GetGameObject(Vector3.zero, "Background", bgSprite, false, "BG0");
 		bg.transform.parent = gameObject.transform;
 		if(isCutscene) { if(!isWinScreen) { bg.transform.localScale *= 2.5f; } } else { bg.GetComponent<SpriteRenderer>().color = new Color(0.5f, 0.5f, 0.5f, 1.0f); }
+	}
+	private string GetPath() {
+		if(isWinScreen) { return PD.GetPlayerSpritePath(PD.p1Char, true); }
+		if(PD.gameType == PersistData.GT.Versus) { return PD.GetPlayerSpritePath(Random.value > 0.5f?PD.p1Char:PD.p2Char, true); }
+		if(PD.gameType == PersistData.GT.QuickPlay) { return PD.GetPlayerSpritePath(Random.value > 0.35f?PD.p1Char:PD.p2Char, true); }
+		return PD.GetPlayerSpritePath(PD.p2Char, true);
 	}
 }
