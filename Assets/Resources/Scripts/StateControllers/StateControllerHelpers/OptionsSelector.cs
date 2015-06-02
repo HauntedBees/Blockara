@@ -40,8 +40,8 @@ public class OptionsSelector:All {
 		ClearArrows();
 	}
 	public void HideAnArrowIfAtCorner(int val, int min, int max) {
-		leftArrow.SetActive(val != min);
-		rightArrow.SetActive(val != max);
+		leftArrow.renderer.material.color = (val != min) ? Color.white : Color.grey;
+		rightArrow.renderer.material.color = (val != max) ? Color.white : Color.grey;
 	}
 	public void HighlightArrow(bool right) {
 		if(right) {
