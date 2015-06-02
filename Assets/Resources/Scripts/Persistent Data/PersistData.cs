@@ -305,20 +305,28 @@ public class PersistData:MonoBehaviour {
 	}
 	public void MoveFromWinScreen() { winType = 0; ChangeScreen(GS.HighScore); }
 	public int GetScore(int depth, int length, float bonus, int d = -1) { return Mathf.FloorToInt(((d<0?difficulty:d) * 0.25f) * bonus * (depth * (depth>1?150:100) + length * 10)); }
+
+	private bool AreAdditionalMatchesAreRedundant() {
+		int p1Wins = 0, p2Wins = 0, halfRounds = Mathf.FloorToInt(rounds/2.0f);
+		for(int i = 0; i < playerOneWonRound.Count; i++) { if(playerOneWonRound[i]) { p1Wins++; } else { p2Wins++; } }
+		return (p1Wins > halfRounds || p2Wins > halfRounds);
+	}
 	public void DoWin(int score, int time, bool lost, bool updateData = true) {
 		if(isTransitioning) { return; }
 		if(updateData) { runningTime = time; runningScore = score; }
 		won = !lost;
 		if(rounds > 0) {
 			totalRoundTime += time;
+			bool endGame = false;
 			if(++currentRound <= rounds) {
 				if(won) { playerRoundTimes.Add(time); playerRoundScores.Add(score); }
 				playerOneWonRound.Add(won);
 				runningScore = 0;
 				runningTime = 0;
-				SaveAndReset(time);
-				return;
-			} else {
+				endGame = AreAdditionalMatchesAreRedundant();
+				if(!endGame) { SaveAndReset(time); return; }
+			}
+			if(endGame || currentRound > rounds) {
 				if(won) { playerRoundTimes.Add(time); playerRoundScores.Add(score); }
 				playerRoundTimes.Sort();
 				playerRoundScores.Sort();

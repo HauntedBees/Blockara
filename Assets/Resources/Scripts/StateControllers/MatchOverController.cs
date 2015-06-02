@@ -24,7 +24,7 @@ public class MatchOverController:CharDisplayController {
 		pars = new ParticleSystem.Particle[particles.maxParticles];
 
 		int p1Wins = 0, p2Wins = 0;
-		for(int i = 0; i < PD.rounds; i++) { if(PD.playerOneWonRound[i]) { p1Wins++; } else { p2Wins++; } }
+		for(int i = 0; i < PD.playerOneWonRound.Count; i++) { if(PD.playerOneWonRound[i]) { p1Wins++; } else { p2Wins++; } }
 		PersistData.C winChar = p1Wins>p2Wins?PD.p1Char:PD.p2Char;
 		PersistData.C loseChar = p1Wins<p2Wins?PD.p1Char:PD.p2Char;
 		GetGameObject(Vector3.zero, "BG", Resources.Load<Sprite>(SpritePaths.BGPath + PD.GetPlayerSpritePath(p1Wins>p2Wins?PD.p1Char:PD.p2Char, true)), false, "BG0");
