@@ -72,14 +72,26 @@ public class CutsceneChar {
 	public void SayThingFromReaction(SpeechType type) {
 		if(_PD.gameType == PersistData.GT.Challenge) { return; }
 		int startidx, endidx;
-		switch(type) {
-			case SpeechType.doDamage: startidx = 4; endidx = 20; break;
-			case SpeechType.nonDamagePositive: startidx = 9; endidx = 20; break;
-			case SpeechType.takeDamage: startidx = 20; endidx = 36; break;
-			case SpeechType.nonDamageNegative: startidx = 25; endidx = 36; break;
-			case SpeechType.win: startidx = 70; endidx = 76; break;
-			case SpeechType.lose: startidx = 76; endidx = 82; break;
-			default: startidx = 4; endidx = 5; break;
+		if(_path == "White" || _path == "September") {
+			switch(type) {
+				case SpeechType.doDamage: startidx = 1; endidx = 9; break;
+				case SpeechType.nonDamagePositive: startidx = 1; endidx = 9; break;
+				case SpeechType.takeDamage: startidx = 9; endidx = 17; break;
+				case SpeechType.nonDamageNegative: startidx = 9; endidx = 17; break;
+				case SpeechType.win: startidx = 30; endidx = 31; break;
+				case SpeechType.lose: startidx = 31; endidx = 32; break;
+				default: startidx = 1; endidx = 2; break;
+			}
+		} else {
+			switch(type) {
+				case SpeechType.doDamage: startidx = 4; endidx = 20; break;
+				case SpeechType.nonDamagePositive: startidx = 9; endidx = 20; break;
+				case SpeechType.takeDamage: startidx = 20; endidx = 36; break;
+				case SpeechType.nonDamageNegative: startidx = 25; endidx = 36; break;
+				case SpeechType.win: startidx = 70; endidx = 76; break;
+				case SpeechType.lose: startidx = 76; endidx = 82; break;
+				default: startidx = 4; endidx = 5; break;
+			}
 		}
 		int idx = Random.Range(startidx, endidx);
 		SayThingFromXML(idx.ToString("D3"));
