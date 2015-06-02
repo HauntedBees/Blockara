@@ -42,6 +42,8 @@ public class PersistData:MonoBehaviour {
 		prevMainMenuLocationY = 4;
 		p1Char = C.Null;
 		p2Char = C.Null;
+		initialDifficulty = 4;
+		difficulty = 4;
 		isDemo = false;
 		dontFade = false;
 		isTransitioning = false;
