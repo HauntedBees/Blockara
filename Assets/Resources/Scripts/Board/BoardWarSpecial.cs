@@ -106,6 +106,11 @@ public class BoardWarSpecial:BoardWar {
 			changes.Add(new MirrorChangeShield((int)GetXYFromListPos(shieldPos).x, 0));
 		}
 	}
+	public int GetShieldHP(int pos) {
+		Shield s = GetShieldAtPos(pos);
+		if(s == null) { return 0; }
+		return s.health;
+	}
 	public bool SetHPAndReturnIfDestroyed(int pos, int hp) {
 		Shield s = GetShieldAtPos(pos);
 		if(s == null) { return false; }

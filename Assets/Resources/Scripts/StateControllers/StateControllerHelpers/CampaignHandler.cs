@@ -75,7 +75,7 @@ public class CampaignHandler {
 					newText = string.Format(GetXmlValue("cantafford"), "\r\n");
 				}
 			}
-		} else if(cy == (board1.height - 1) && t.isShield) { // shields
+		} else if(cy == (board1.height - 1) && t.isShield && !IsFullShield(cx, cy)) { // shields
 			newText = string.Format(GetXmlValue("repairshield"), "\r\n", GetShieldPrice());
 			if(cursor1.launch() || isClickingTile) {
 				forceTextUpdate = true;
@@ -101,6 +101,7 @@ public class CampaignHandler {
 		board1.CreateTileAtLocation(x, y);
 		return true;
 	}
+	private bool IsFullShield(int x, int y) { return board1.GetShieldHP(board1.GetListPosFromXY(x, y)) == 6; }
 	private bool RepairShield(int x, int y) {
 		int price = GetShieldPrice();
 		if(price > board2.gold) { return false; }
