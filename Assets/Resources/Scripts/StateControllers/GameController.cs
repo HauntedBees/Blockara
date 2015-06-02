@@ -237,7 +237,7 @@ public class GameController:CharDisplayController {
 	public void Update() {
 		DebugShit();
 		if(PD.isTransitioning) { return; }
-		if(ShouldExitDemo()) { return; }
+		if(ExitDemoIfNeeded()) { return; }
 		UpdateMouseInput();
 		EasterEggsArentSoEasteryWhenTheCodeIsOpenSourceIsItYouFuckdummy();
 		if(HandleCountdown()) { return; }
@@ -296,10 +296,10 @@ public class GameController:CharDisplayController {
 		}
 		return false;
 	}
-	private bool ShouldExitDemo() {
+	private bool ExitDemoIfNeeded() {
 		if(!PD.isDemo) { return false; }
-		if(PD.IsKeyDownOrButtonPressed() || --demoCountdown <= 0) { PD.sounds.SetSoundAndPlay(SoundPaths.S_Menu_Confirm); PD.MoveOutOfDemo(); return true; }
-		if(PD.ReturnLaunchOrPauseOrNothingIsPressed() > 0) { PD.sounds.SetSoundAndPlay(SoundPaths.S_Menu_Confirm); PD.MoveOutOfDemo(); return true; }
+		bool keyPress = PD.IsKeyDownOrButtonPressed() || PD.ReturnLaunchOrPauseOrNothingIsPressed() > 0;
+		if(keyPress || --demoCountdown <= 0) { if(keyPress) { PD.sounds.SetSoundAndPlay(SoundPaths.S_Menu_Confirm); } PD.MoveOutOfDemo(); return true; }
 		return false;
 	}
 	private bool HandleCountdown() { cd.DoUpdate(); return !cd.goDisplayed; }
