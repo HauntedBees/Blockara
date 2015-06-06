@@ -319,15 +319,14 @@ public class PersistData:MonoBehaviour {
 			totalRoundTime += time;
 			bool endGame = false;
 			playerOneWonRound.Add(won);
+			if(won) { playerRoundTimes.Add(time); playerRoundScores.Add(score); }
 			if(++currentRound <= rounds) {
-				if(won) { playerRoundTimes.Add(time); playerRoundScores.Add(score); }
 				runningScore = 0;
 				runningTime = 0;
 				endGame = AreAdditionalMatchesAreRedundant();
 				if(!endGame) { SaveAndReset(time); return; }
 			}
 			if(endGame || currentRound > rounds) {
-				if(won) { playerRoundTimes.Add(time); playerRoundScores.Add(score); }
 				playerRoundTimes.Sort();
 				playerRoundScores.Sort();
 				runningTime = (playerRoundTimes.Count > 0) ? playerRoundTimes[0] : 0;

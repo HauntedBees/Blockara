@@ -374,6 +374,10 @@ public class GameController:CharDisplayController {
 				end.Setup(!board1.IsDead());
 			}
 		}
+		if(!gameOver) {
+			PD.totalP1RoundScore += board1.GetScore();
+			PD.totalP2RoundScore += board2.GetScore();
+		}
 		gameOver = true;
 		paused = true;
 		Vector3 p1Pos, p2Pos;
