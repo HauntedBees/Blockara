@@ -318,9 +318,9 @@ public class PersistData:MonoBehaviour {
 		if(rounds > 0) {
 			totalRoundTime += time;
 			bool endGame = false;
+			playerOneWonRound.Add(won);
 			if(++currentRound <= rounds) {
 				if(won) { playerRoundTimes.Add(time); playerRoundScores.Add(score); }
-				playerOneWonRound.Add(won);
 				runningScore = 0;
 				runningTime = 0;
 				endGame = AreAdditionalMatchesAreRedundant();
@@ -330,7 +330,6 @@ public class PersistData:MonoBehaviour {
 				if(won) { playerRoundTimes.Add(time); playerRoundScores.Add(score); }
 				playerRoundTimes.Sort();
 				playerRoundScores.Sort();
-				playerOneWonRound.Add(won);
 				runningTime = (playerRoundTimes.Count > 0) ? playerRoundTimes[0] : 0;
 				runningScore = (playerRoundScores.Count > 0) ? playerRoundScores[playerRoundScores.Count - 1] : 0;
 				if(rounds > 1) { ChangeScreen(GS.RoundWinner); }
