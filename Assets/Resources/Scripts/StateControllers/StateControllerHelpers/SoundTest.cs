@@ -16,12 +16,12 @@ using System.Collections.Generic;
 using UnityEngine;
 public class SoundTest:All {
 	private const int playlistShown = 12;
-	private float offsetx, offsety;
+	private float offsetx, offsety, keyDelay;
 	private Sprite[] playPauseButtonSprite;
 	private GameObject soundTestBG, playerDataBG, playPauseButton;
 	private GameObject[] playlistColliders;
 	private TextMesh playlist, titleText, trackinfo;
-	private int topIdx, cursorIdx, playingIdx, dy, keyDelay;
+	private int topIdx, cursorIdx, playingIdx, dy;
 	private int[] visualizer;
 	private string trackLength;
 	private bool isPlaying, isActive;
@@ -83,7 +83,8 @@ public class SoundTest:All {
 	public bool DoUpdate(bool acceptKeyboardInput, InputMethod c) {
 		bool forceSwitch = false;
 		if(acceptKeyboardInput) {
-			if(--keyDelay <= 0) {
+			keyDelay -= Time.deltaTime * 60.0f;
+			if(keyDelay <= 0) {
 				if(c.Nav_Down()) { cursorIdx++; keyDelay = PD.KEY_DELAY; } else if(c.Nav_Up()) { cursorIdx--; keyDelay = PD.KEY_DELAY; }
 				else if(c.M_Cancel()) { return false; }
 				else if(c.M_Confirm() || c.Pause()) {

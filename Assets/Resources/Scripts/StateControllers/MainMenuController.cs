@@ -19,7 +19,8 @@ public class MainMenuController:MenuController {
 	private TextMesh pressButtonToStart;
 	private TextMesh[] texts;
 	private Sprite[] buttonSheet;
-	private int konamiCodeState, delay;
+	private int konamiCodeState;
+	private float delay;
 	System.Xml.XmlNode top;
 	public void Start() {
 		StateControllerInit(false);
@@ -153,7 +154,8 @@ public class MainMenuController:MenuController {
 		}
 	}
 	private void KonamiCodeCheck() {
-		if(--delay > 0) { return; }
+		delay -= Time.deltaTime * 60.0f;
+		if(delay > 0) { return; }
 		if(PD.controller.Nav_Up() && konamiCodeState < 2) { delay = PD.KEY_DELAY; konamiCodeState++; return; }
 		if(PD.controller.Nav_Down() && konamiCodeState < 4) { delay = PD.KEY_DELAY; konamiCodeState++; return; }
 		if(PD.controller.Nav_Left() && (konamiCodeState == 4 || konamiCodeState == 6)) { delay = PD.KEY_DELAY; konamiCodeState++; return; }

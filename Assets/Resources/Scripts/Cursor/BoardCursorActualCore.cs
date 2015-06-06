@@ -17,7 +17,8 @@ public class BoardCursorActualCore:BoardCursorCore {
 	#region "Members"
 	protected GameObject white;
 	protected GameObject[] whiteDepth;
-	protected int moveDelay, depth, maxWhiteDepth;
+	protected int depth, maxWhiteDepth;
+	protected float moveDelay;
 	public bool canKill, penetr, hideWhite, frozen;
 	#endregion
 	#region "Setup"

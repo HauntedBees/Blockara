@@ -17,7 +17,8 @@ public class BoardWar:BoardWarCore {
 	private const int TIMER_BONUS = 120;
 	private int countdownFromLaunch;
 	protected BoardCursorActualCore cursor;
-	public int actionDelay, score, misses, shifting;
+	public int score, misses, shifting;
+	public float actionDelay;
 	public bool dead, shiftall, usingTouchControls;
 	public LaunchInfo launchInfo;
 	private BoardMirror mirror;
@@ -57,15 +58,16 @@ public class BoardWar:BoardWarCore {
 	public BoardMirror GetMirror() { return mirror; }
 	override protected int GetTileColor(int pos = -1) { return bn.GetTileForPlayer(); }
 	private void ClearKeyStates() { for(int i = 0; i < 4; i++) { keyStates[i] = -1; } }
-	public bool IsKeyPressAccepted() { return 0 >= actionDelay--; }
+	public bool IsKeyPressAccepted() { actionDelay -= Time.deltaTime * 60.0f;  return 0 >= actionDelay; }
 	virtual public void DoUpdate() {
 		launchInfo.launching = false; shifting = 0; shiftall = false; countdownFromLaunch--;
 		ClearChanges();
-		if(--actionDelay < 0 && !usingTouchControls) {
+		actionDelay -= Time.deltaTime * 60.0f;
+		if(actionDelay < 0 && !usingTouchControls) {
 			bool shiftKeyDown = false;
 			if(cursor.launch()) {
 				SetLaunchInfoForLaunch();
-				actionDelay = 2 * PD.KEY_DELAY;
+				actionDelay = PD.KEY_DELAY;
 			} else if(cursor.shiftLeft()) {
 				shiftKeyDown = true;
 				keyStates[0]++;

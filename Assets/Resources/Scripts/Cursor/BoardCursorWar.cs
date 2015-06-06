@@ -34,7 +34,8 @@ public class BoardCursorWar:BoardCursorActualCore {
 	#region "Control Execution"
 	private void ClearKeyStates() { for(int i = 0; i < 4; i++) { keyStates[i] = -1; } }
 	protected void HandleControls() {
-		if(--moveDelay > 0) { return; }
+		moveDelay -= Time.deltaTime * 60.0f;
+		if(moveDelay > 0) { return; }
 		int dx = 0;
 		int dy = 0;
 		bool keysPressed = false;

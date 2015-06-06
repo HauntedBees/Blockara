@@ -15,9 +15,9 @@ using UnityEngine;
 using System.Collections.Generic;
 public class GameTouchHandler:All {
 	private GameObject rowCollider;
-	private float halfHeight, lastYPos;
+	private float halfHeight, lastYPos, moveDelay;
 	private bool isDown, lockY;
-	private int height, moveDelay;
+	private int height;
 	public int shift, rowX, rowY;
 	public bool launching, aboveEverything, launchLimiter;
 	public void Initialize(int h, float xOffset) {
@@ -26,7 +26,8 @@ public class GameTouchHandler:All {
 		halfHeight = rowCollider.renderer.bounds.size.y / 2.0f; height = h - 1; lockY = false; moveDelay = 0;
 	}
 	public int HandleUpdate(MouseCore clicker) {
-		if(--moveDelay > 0) { return 0; }
+		moveDelay -= Time.deltaTime * 60.0f;
+		if(moveDelay > 0) { return 0; }
 		launching = false;
 		int prevX = rowX;
 		float newYPos = SetSelectedRowAndReturnY(clicker);

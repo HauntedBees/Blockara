@@ -90,7 +90,7 @@ public class AccessibilityHandler:MenuHandler {
 		return true;
 	}
 	public bool ChangeKeyDelay(int dx) {
-		if((val_keydelay == 15 && dx == 1) || (val_keydelay == 1 && dx == -1)) { return false; }
+		if((val_keydelay == 20 && dx == 1) || (val_keydelay == 6 && dx == -1)) { return false; }
 		val_keydelay += dx;
 		UpdateKeyDelayText();
 		UpdateCursorPosition(3, val_keydelay);
@@ -112,7 +112,7 @@ public class AccessibilityHandler:MenuHandler {
 		optionInfos.Add(new OptionMinMaxInfo(0, 0, 0));
 		optionInfos.Add(new OptionMinMaxInfo(1, 0, 2));
 		optionInfos.Add(new OptionMinMaxInfo(1, 0, 2));
-		optionInfos.Add(new OptionMinMaxInfo(val_keydelay, 4, 15));
+		optionInfos.Add(new OptionMinMaxInfo(val_keydelay, 6, 20));
 		optionInfos.Add(new OptionMinMaxInfo(val_easymode, 0, 1));
 		optionInfos.Add(new OptionMinMaxInfo(val_touchcontrols, 0, 1));
 		optionInfos.Add(new OptionMinMaxInfo(val_emphasizecursor, 0, 1));
