@@ -23,7 +23,7 @@ public class CreditsController:StateController {
 		if(end.transform.position.y < 0.0f) {
 			foreach(GameObject g in objects) {
 				Vector3 p = g.transform.position;
-				p.y += 0.005f;
+				p.y += Time.deltaTime * 0.475f;
 				g.transform.position = p;
 			}
 		} else if(finalTimeout-- < 0 && !PD.sounds.IsMusicPlaying()) {
