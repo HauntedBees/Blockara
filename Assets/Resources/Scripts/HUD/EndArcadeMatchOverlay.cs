@@ -28,6 +28,7 @@ public class EndArcadeMatchOverlay:CharDisplayController {
 		tbox = (DialogContainer) gameObject.AddComponent("DialogContainer");
 		tbox.Setup(new Vector3(0.0f, -1.4f), true);
 		isFirstLoad = true;
+		PD.sounds.SetSoundVolume(PD.GetSaveData().savedOptions["vol_s"] / 350.0f);
 		setText();
 	}
 	public bool doUpdate(bool skip) {
