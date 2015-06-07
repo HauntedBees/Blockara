@@ -128,6 +128,7 @@ public static class SpritePaths {
 	public const string CharWins2 				= CharPath + "Wins2";
 	public const string CharSeptWhite 			= CharPath + "WhiteSeptOnly";
 	public const string CharGroupShot 			= CharPath + "GroupShot";
+	public const string CharNames	 			= CharPath + "names";
 	public const string LockedRow 				= TilePath + "LockedRow";
 	public const string TileShape 				= TilePath + "AllTileLarge_Shapes";
 	public const string TileBlock 				= TilePath + "AllTileLarge_Tiles";

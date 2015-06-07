@@ -15,12 +15,12 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Xml;
 public class CharSelectController:MenuController {
-	private GameObject bg1, bg2, charactersel, begin, beginText, cancel, charSprite1, charSprite2, chooseText;
+	private GameObject bg1, bg2, charactersel, begin, beginText, cancel, charSprite1, charSprite2, chooseText, charName1, charName2;
 	private OptionsSelector cursorOpDisplay;
 	private OptionsCursor cursorOp;
 	private MenuCursor cursor2;
 	private bool conf1, conf1options, conf2;
-	private Sprite[] chars, beginSheet, cancelSheet;
+	private Sprite[] chars, beginSheet, cancelSheet, charNames;
 	private int p1_delay, p2_delay;
 	private Rect originalRect;
 	private XmlNode top;
@@ -168,10 +168,13 @@ public class CharSelectController:MenuController {
 
 	private void InitPlayer1Select() {
 		chars = Resources.LoadAll<Sprite>(SpritePaths.CharSelProfiles);
+		charNames = Resources.LoadAll<Sprite>(SpritePaths.CharNames);
 		charSprite1 = GetGameObject(new Vector3(-2.5f, 0.8f), "Player 1 Character", chars[0]);
+		charName1 = GetGameObject(new Vector3(-1.6f, 0.15f), "Player 1 Name", charNames[0], false, "HUDText");
 	}
 	private void InitPlayer2Select() {
 		charSprite2 = GetGameObject(new Vector3(2.5f, 0.8f), "Player 2 Character", chars[1]);
+		charName2 = GetGameObject(new Vector3(1.6f, 0.15f), "Player 2 Name", charNames[1], false, "HUDText");
 		Vector3 scale = charSprite2.transform.localScale; scale.x *= -1.0f;
 		charSprite2.transform.localScale = scale;
 	}
@@ -284,6 +287,7 @@ public class CharSelectController:MenuController {
 		cursor.DoUpdate();
 		if(cursor.HasMoved()) { UpdateBackground(true); }
 		charSprite1.GetComponent<SpriteRenderer>().sprite = chars[cursor.getX()];
+		charName1.GetComponent<SpriteRenderer>().sprite = charNames[cursor.getX()];
 		if(clicked || cursor.launchOrPause()) {
 			conf1 = true;
 			pressed = true;
@@ -344,6 +348,7 @@ public class CharSelectController:MenuController {
 					cursor2.DoUpdate();
 					if(cursor2.HasMoved()) { UpdateBackground(false); }
 					charSprite2.GetComponent<SpriteRenderer>().sprite = chars[cursor2.getX()];
+					charName2.GetComponent<SpriteRenderer>().sprite = charNames[cursor2.getX()];
 					if(cursor2.launchOrPause()) { SpeakCharacterName(cursor2.getX(), 1); SignalSuccess(); conf2 = true; pressed = true; } 
 				} else if(cursor2.back()) {
 					conf2 = false;
