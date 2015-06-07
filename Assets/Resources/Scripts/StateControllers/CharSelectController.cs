@@ -150,8 +150,9 @@ public class CharSelectController:MenuController {
 		int cy = cursorOp.getY() - 1;
 		if(cy < 0) {
 			begin.GetComponent<SpriteRenderer>().sprite = beginSheet[1];
-			cursorOpDisplay.HideAnArrowIfAtCorner(0, 0, 0);
+			cursorOpDisplay.ToggleArrowVisibility(false);
 		} else {
+			cursorOpDisplay.ToggleArrowVisibility(true);
 			OptionInfo o = options[cy];
 			cursorOpDisplay.HideAnArrowIfAtCorner(o.curVal, o.minVal, o.maxVal);
 		}

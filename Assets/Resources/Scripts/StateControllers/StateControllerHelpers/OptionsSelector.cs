@@ -39,6 +39,10 @@ public class OptionsSelector:All {
 		rightArrow.transform.position = new Vector3(xPos + width, yBottom + yIdx * dy);
 		ClearArrows();
 	}
+	public void ToggleArrowVisibility(bool show) {
+		leftArrow.SetActive(show);
+		rightArrow.SetActive(show);
+	}
 	public void HideAnArrowIfAtCorner(int val, int min, int max) {
 		leftArrow.renderer.material.color = (val != min) ? Color.white : Color.grey;
 		rightArrow.renderer.material.color = (val != max) ? Color.white : Color.grey;
