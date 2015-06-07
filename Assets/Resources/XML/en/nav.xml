@@ -21,7 +21,7 @@
 	<!-- Puzzle HUD -->
 	<lockedrow>Locked</lockedrow>
 	<launches>Launches</launches>
-	<rotations>Rotations</rotations>
+	<rotations>Shifts</rotations>
 	<!-- Cutscene Shit -->
 	<skip>Skip</skip>
 	<skipmessage>Press {2} to skip.{0}Press {1} to continue.</skipmessage> <!-- {0} is NEWLINE. {1} is LAUNCH key/button, {2} is PAUSE key/button. -->
@@ -29,13 +29,13 @@
 	<entername>Enter your name</entername>
 	<!-- Puzzle Info -->
 	<none>None</none>
-	<rowlimit>Clear a column only rotating the {0} row!</rowlimit>
-	<rotatelimit>Clear a column in under {0} rotations!</rotatelimit>
+	<rowlimit>Clear a column only shifting the {0} row!</rowlimit>
+	<rotatelimit>Clear a column in under {0} shifts!</rotatelimit>
 	<launchlimit>Clear a column in under {0} launches!</launchlimit>
 	<playerrows>Player Rows</playerrows>
 	<targetrows>Target Rows</targetrows>
 	<bestscore>Best Score</bestscore>
-	<fewestrotations>Fewest Rotations</fewestrotations>
+	<fewestrotations>Fewest Shifts</fewestrotations>
 	<fewestlaunches>Fewest Launches</fewestlaunches>
 	<!-- Campaign HUD -->
 	<money>Gold</money>
