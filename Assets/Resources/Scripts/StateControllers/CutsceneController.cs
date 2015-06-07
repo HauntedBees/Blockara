@@ -123,7 +123,7 @@ public class CutsceneController:CharDisplayController {
 			if(line.Attributes["voice"] != null) { playeractor.SayThingFromXML(line.Attributes["voice"].Value); }
 		} else { 
 			UpdateActorPoseAndTextBoxName(opponentactor, line.Attributes["pose"].Value);
-			if(line.Attributes["voice"] != null) { opponentactor.SayThingFromXML(line.Attributes["voice"].Value); }
+			if(line.Attributes["voice"] != null) { opponentactor.SayThingFromXML(line.Attributes["voice"].Value, true); }
 		}
 		if(line.Attributes["speed"] == null) { dialogueBox.UpdateFrameRate(1.0f); }
 		else { dialogueBox.UpdateFrameRate(float.Parse(line.Attributes["speed"].Value)); }
