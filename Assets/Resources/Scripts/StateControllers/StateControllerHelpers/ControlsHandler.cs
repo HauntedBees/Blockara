@@ -97,7 +97,7 @@ public class ControlsHandler:MenuHandler {
 		}
 	}
 	public void SetToQuestion(int y, bool player1) {
-		cancelButton = GetGameObject(new Vector3(p1x + 0.4f, -1.4f + y * 0.2f), "back", cancelSheet[0], true, "HUDText");
+		cancelButton = GetGameObject(new Vector3((player1?p1x:p2x) + 0.4f, -1.4f + y * 0.2f), "back", cancelSheet[0], true, "HUDText");
 		cancelButton.transform.localScale = new Vector3(0.75f, 0.75f);
 		if(player1) {
 			Destroy(p1[y]);
