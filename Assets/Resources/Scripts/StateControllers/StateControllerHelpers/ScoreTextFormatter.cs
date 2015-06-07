@@ -24,7 +24,7 @@ public class ScoreTextFormatter:WritingWriter {
 	}
 	public string GetRowText(string front, string back, bool time) {
 		int paddingLength = (time?timeRowWidth:scoreRowWidth) - front.Length - back.Length;
-		if(paddingLength == 0) { return front + back; }
+		if(paddingLength <= 0) { return front + back; }
 		string filler = new string('0', paddingLength);
 		return front + filler + back;
 	}
