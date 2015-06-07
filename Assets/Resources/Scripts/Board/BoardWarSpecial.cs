@@ -16,11 +16,11 @@ using System.Collections.Generic;
 public class BoardWarSpecial:BoardWar {
 	private const int eyeTimerLength = 480, eyeFrames = 8, eyeFrameLength = 2;
 	private List<Shield> shields;
-	private List<GameObject> eyeballs;
+	private List<GameObject> eyeballs, lockedRows;
 	private List<int> eyeFramePositions;
 	private Sprite[] shieldSheet, eyeSheet;
 	public int gold, eyeballTimer;
-	public bool justGotAShield;
+	public bool justGotAShield, frozen;
 	public override void Setup(BoardCursorActualCore c, TweenHandler t, BlockHandler b, Vector2 nexterPos, bool smallNext, bool show = true, bool touch = false) {
 		deathTile = 7; // might be useless
 		base.Setup(c, t, b, nexterPos, smallNext, show, touch);
@@ -32,8 +32,10 @@ public class BoardWarSpecial:BoardWar {
 		eyeSheet = Resources.LoadAll<Sprite>(SpritePaths.EyeSheet);
 		gold = 0; eyeballTimer = 0;
 		justGotAShield = false;
+		frozen = false;
 	}
 	override public void DoUpdate() {
+		if(frozen && actionDelay <= 0) { frozen = false; CleanUpFreezs(); }
 		if(eyeballTimer > 0 && eyeballs != null) {
 			eyeballTimer--;
 			if(eyeballTimer == 0) {
@@ -170,6 +172,7 @@ public class BoardWarSpecial:BoardWar {
 				int delay = (PD.gameType == PersistData.GT.Campaign)?480:180;
 				actionDelay = delay;
 				cursor.FreezyPop(delay);
+				FreezeGraphs();
 				PD.sounds.SetSoundAndPlay(SoundPaths.S_Freeze);
 				break;
 			case 2:
@@ -186,6 +189,22 @@ public class BoardWarSpecial:BoardWar {
 				PD.sounds.SetSoundAndPlay(SoundPaths.S_EyeOpen);
 				break;
 		}
+	}
+	private void FreezeGraphs() {
+		frozen = true;
+		Sprite rowLockSprite = Resources.Load<Sprite>(SpritePaths.LockedRow);
+		CleanUpFreezs();
+		lockedRows = new List<GameObject>();
+		for(int y = 0; y < PD.rowCount; y++) {
+			Vector3 pos = GetScreenPosFromXY(3, y);
+			pos.x += Consts.TILE_SIZE / 2.0f;
+			lockedRows.Add(GetGameObject(pos, "lock" + y, rowLockSprite, false, "Zapper"));
+		}
+	}
+	private void CleanUpFreezs() {
+		if(lockedRows == null || lockedRows.Count == 0) { return; }
+		for(int y = 0; y < lockedRows.Count; y++) { Destroy(lockedRows[y]); }
+		lockedRows.Clear();
 	}
 	private void EyeballsOnThePrizeBalls() {
 		eyeballTimer = eyeTimerLength;
