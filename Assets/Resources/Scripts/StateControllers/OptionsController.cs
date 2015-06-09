@@ -194,12 +194,14 @@ public class OptionsController:LeftButtonsMenuController {
 				if(key >= 0 && (KeyCode) key != KeyCode.Mouse0) {
 					controlsScreen.ChangeKey(cursor2.getY(), key, isP1);
 					controlsPos = 1;
+					cursor2.FreezyPop(PD.KEY_DELAY * 2);
 					return;
 				}
 				string axis = controlsScreen.DetectAxisInput();
 				if(!string.IsNullOrEmpty(axis)) {
 					controlsScreen.ChangeAxis(cursor2.getY (), axis, isP1);
 					controlsPos = 1;
+					cursor2.FreezyPop(PD.KEY_DELAY * 2);
 					return;
 				}
 			}
