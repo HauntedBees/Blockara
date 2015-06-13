@@ -96,5 +96,8 @@ public class CutsceneChar {
 		int idx = Random.Range(startidx, endidx);
 		SayThingFromXML(idx.ToString("D3"));
 	}
-	public void SayThingFromXML(string path, bool forcePlayer1 = false) { _PD.sounds.SetVoiceAndPlay(voicePath + path, forcePlayer1?0:_player); }
+	public void SayThingFromXML(string path, bool forcePlayer1 = false) {
+		if(_path == "September" && path == "017" && Random.value < 0.05f) { path = "018"; }
+		_PD.sounds.SetVoiceAndPlay(voicePath + path, forcePlayer1?0:_player);
+	}
 }
