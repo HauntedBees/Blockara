@@ -83,6 +83,8 @@
 		<score name = "Lars">0</score>
 		<score name = "Laila">0</score>
 		<score name = "AliceAna">0</score>
+		<score name = "White">0</score>
+		<score name = "September">0</score>
 	</characterFreqs>
 	<characterWinsArcade>
 		<score name = "Total">0</score>
@@ -96,6 +98,8 @@
 		<score name = "Andrew">0</score>
 		<score name = "Depeche">0</score>
 		<score name = "MJ">0</score>
+		<score name = "White">0</score>
+		<score name = "September">0</score>
 	</characterWinsArcade>
 	<timePlayed>
 		<score mode = "Quick Play">0</score>

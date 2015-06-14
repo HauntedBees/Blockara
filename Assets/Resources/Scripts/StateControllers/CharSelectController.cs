@@ -25,15 +25,31 @@ public class CharSelectController:MenuController {
 	private Rect originalRect;
 	private XmlNode top;
 	private List<OptionInfo> options;
+	private float initX, dX;
 	public void Start() {
 		StateControllerInit();
 		PD.sounds.SetVoiceAndPlay(SoundPaths.NarratorPath + "022", 0);
 		p1_delay = 0; p2_delay = 0;
 		PD.controller2 = null;
 		conf1 = false; conf1options = false; conf2 = true;
-		charactersel = GetGameObject(new Vector3(0.0f, -0.99f), "Character Select", Resources.Load<Sprite>(SpritePaths.CharSelSheet), true, "HUD");
-		cursor = GetMenuCursor(10, 1, SpritePaths.CharSelCursors, -3.2f, -0.99f, 0.71f, 0.0f, 0, 0, 1, 0, 0.2f);
-		
+		int completionPercent = PD.GetSaveData().CalculateGameCompletionPercent();
+		string spPath = SpritePaths.CharSelSheet, crPath = SpritePaths.CharSelCursors;
+		int crNum = 10; dX = 0.71f; initX = -3.2f;
+		if(completionPercent == 100) {
+			spPath = SpritePaths.CharSelSheetAll;
+			crPath = SpritePaths.CharSelCursorsAll;
+			crNum = 12;
+			initX = -3.25f;
+			dX = 0.591f;
+		} else if(completionPercent >= 50) {
+			spPath = SpritePaths.CharSelSheetWhite;
+			crPath = SpritePaths.CharSelCursorsWhite;
+			crNum = 11;
+			dX = 0.6455f;
+		}
+		charactersel = GetGameObject(new Vector3(0.0f, -0.99f), "Character Select", Resources.Load<Sprite>(spPath), true, "HUD");
+		cursor = GetMenuCursor(crNum, 1, crPath, initX, -0.99f, dX, 0.0f, 0, 0, 1, 0, 0.2f);
+
 		beginSheet = Resources.LoadAll<Sprite>(SpritePaths.ShortButtons);
 		begin = GetGameObject(new Vector3(0.0f, 0.3f), "Begin", beginSheet[0], true, "HUD");
 		FontData f = PD.mostCommonFont.Clone(); f.scale = 0.045f;
@@ -168,6 +184,10 @@ public class CharSelectController:MenuController {
 
 	private void InitPlayer1Select() {
 		chars = Resources.LoadAll<Sprite>(SpritePaths.CharSelProfiles);
+		Sprite[] chars2 = Resources.LoadAll<Sprite>(SpritePaths.CharSeptWhite);
+		System.Array.Resize(ref chars, 12);
+		chars[10] = chars2[0];
+		chars[11] = chars2[1];
 		charNames = Resources.LoadAll<Sprite>(SpritePaths.CharNames);
 		charSprite1 = GetGameObject(new Vector3(-2.5f, 0.8f), "Player 1 Character", chars[0]);
 		charName1 = GetGameObject(new Vector3(-1.6f, 0.15f), "Player 1 Name", charNames[0], false, "HUDText");
@@ -221,12 +241,14 @@ public class CharSelectController:MenuController {
 				case "Lars": AddVictoryIcon(7, v.Value, trophies); break;
 				case "Laila": AddVictoryIcon(8, v.Value, trophies); break;
 				case "AliceAna": AddVictoryIcon(9, v.Value, trophies); break;
+				case "White": AddVictoryIcon(10, v.Value, trophies); break;
+				case "September": AddVictoryIcon(11, v.Value, trophies); break;
 			}
 		}
 	}
 	private void AddVictoryIcon(int idx, int type, Sprite[] trophies) {
 		if(type == 0) { return; }
-		GameObject troph = GetGameObject(new Vector3(-2.95f + 0.71f * idx, -1.85f), "Trophy for Character " + idx, trophies[type], false, "HUDText");
+		GameObject troph = GetGameObject(new Vector3(initX - dX * 0.65f + dX * (idx + 1), -1.85f), "Trophy for Character " + idx, trophies[type], false, "HUDText");
 		troph.transform.localScale = new Vector3(1.5f, 1.5f);
 	}
 
@@ -358,9 +380,19 @@ public class CharSelectController:MenuController {
 				if(pressed) { p2_delay = 5; }
 			}
 		} else if(PD.gameType == PersistData.GT.Versus && PD.controller2 == null) {
+			int completionPercent = PD.GetSaveData().CalculateGameCompletionPercent();
+			string crPath = SpritePaths.CharSelCursors;
+			int crNum = 10; float dx = 0.71f, initx = -3.2f;
+			if(completionPercent == 100) {
+				crPath = SpritePaths.CharSelCursorsAll;
+				crNum = 12;
+			} else if(completionPercent >= 50) {
+				crPath = SpritePaths.CharSelCursorsWhite;
+				crNum = 11;
+			}
 			PD.controller2 = PD.detectInput_P2();
 			if(PD.controller2 != null) { 
-				cursor2 = GetMenuCursor(10, 1, SpritePaths.CharSelCursors, -3.2f, -0.99f, 0.71f, 0.0f, 1, 0, 2, 1, 0.2f);
+				cursor2 = GetMenuCursor(crNum, 1, crPath, initX, -0.99f, dX, 0.0f, 1, 0, 2, 1, 0.2f);
 				InitPlayer2Select();
 				UpdateBackground(false);
 				SignalSuccess();
@@ -384,16 +416,43 @@ public class CharSelectController:MenuController {
 		Vector3 p = clicker.getPositionInGameObject(charactersel);
 		if(p.z == 0.0f) { return false; }
 		int nx = -1;
-		if(p.x > 2.8f) { nx = 9; }
-		else if(p.x > 2.1f) { nx = 8; }
-		else if(p.x > 1.4f) { nx = 7; }
-		else if(p.x > 0.7f) { nx = 6; }
-		else if(p.x > 0.0f) { nx = 5; }
-		else if(p.x > -0.7f) { nx = 4; }
-		else if(p.x > -1.4f) { nx = 3; }
-		else if(p.x > -2.1f) { nx = 2; }
-		else if(p.x > -2.8f) { nx = 1; } 
-		else { nx = 0; }
+		if(cursor.GetWidth() == 10) {
+			if(p.x > 2.8f) { nx = 9; }
+			else if(p.x > 2.1f) { nx = 8; }
+			else if(p.x > 1.4f) { nx = 7; }
+			else if(p.x > 0.7f) { nx = 6; }
+			else if(p.x > 0.0f) { nx = 5; }
+			else if(p.x > -0.7f) { nx = 4; }
+			else if(p.x > -1.4f) { nx = 3; }
+			else if(p.x > -2.1f) { nx = 2; }
+			else if(p.x > -2.8f) { nx = 1; } 
+			else { nx = 0; }
+		} else if(cursor.GetWidth() == 11) {
+			if(p.x > 2.95f) { nx = 10; }
+			else if(p.x > 2.3f) { nx = 9; }
+			else if(p.x > 1.65f) { nx = 8; }
+			else if(p.x > 1.0f) { nx = 7; }
+			else if(p.x > 0.35f) { nx = 6; }
+			else if(p.x > -0.3f) { nx = 5; }
+			else if(p.x > -0.95f) { nx = 4; }
+			else if(p.x > -1.6f) { nx = 3; }
+			else if(p.x > -2.25f) { nx = 2; }
+			else if(p.x > -2.9f) { nx = 1; } 
+			else { nx = 0; }
+		} else if(cursor.GetWidth() == 12) {
+			if(p.x > 2.9f) { nx = 11; }
+			else if(p.x > 2.35f) { nx = 10; }
+			else if(p.x > 1.8f) { nx = 9; }
+			else if(p.x > 1.2f) { nx = 8; }
+			else if(p.x > 0.6f) { nx = 7; }
+			else if(p.x > 0.0f) { nx = 6; }
+			else if(p.x > -0.6f) { nx = 5; }
+			else if(p.x > -1.2f) { nx = 4; }
+			else if(p.x > -1.8f) { nx = 3; }
+			else if(p.x > -2.35f) { nx = 2; }
+			else if(p.x > -2.9f) { nx = 1; } 
+			else { nx = 0; }
+		}
 		cursor.setX(nx);
 		return clicker.isDown();
 	}

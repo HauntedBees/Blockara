@@ -263,8 +263,9 @@ public class PersistData:MonoBehaviour {
 	#endregion
 	#region "Arcade Mode"
 	public void GetNextOpponent() {
-		if(level == 5) { p2Char = C.White; return; }
-		if(level >= 6) { p2Char = C.September; return; }
+		bool isBossChar = p1Char == C.White || p1Char == C.September;
+		if(!isBossChar && level == 5) { p2Char = C.White; return; }
+		if(!isBossChar && level >= 6) { p2Char = C.September; return; }
 		C[] c;
 		switch(p1Char) {
 			case C.George: c = new C[] {C.Joan, C.Lars, C.Devin, C.Laila, C.Depeche}; break;
@@ -277,7 +278,7 @@ public class PersistData:MonoBehaviour {
 			case C.Milo: c = new C[] {C.George, C.AliceAna, C.Joan, C.Andrew, C.Devin}; break;
 			case C.Laila: c = new C[] {C.MJ, C.Depeche, C.Devin, C.AliceAna, C.Lars}; break;
 			case C.MJ: c = new C[] {C.Andrew, C.Lars, C.George, C.Milo, C.Joan}; break;
-			default: c = new C[] {C.White, C.September, C.White, C.September, C.Laila}; break;
+			default: c = new C[] {C.George, C.Milo, C.Devin, C.MJ, C.Andrew, C.Joan, C.Depeche, C.Lars, C.Laila, C.AliceAna}; break;
 		}
 		p2Char = c[level];
 	}
@@ -370,12 +371,29 @@ public class PersistData:MonoBehaviour {
 		}
 		int dragonScore = 100 * GetScore(2, 5, 1.0f, initialDifficulty), puhLoonScore = dragonScore * 3;
 		if(level % 2 == 0) { difficulty++; }
-		if(level == 7 && runningScore >= puhLoonScore) { aboutToFightAFuckingBalloon = true; level++; }
-		else if(level == 5 && runningScore >= dragonScore) {
-			level = 7;
-			difficulty++;
-		} else { level++; }
-		ChangeScreen(GS.CutScene);
+		if(p1Char == C.White || p1Char == C.September) {
+			if(level == 9) {
+				ChangeScreen(GS.WinnerIsYou);
+				winType = 2;
+				saveInfo.addPlayTime(gameType, runningTime);
+				SaveGeemu();
+				string name = GetPlayerSpritePath(p1Char);
+				saveInfo.saveArcadeVictory(name, winType);
+				SaveGeemu();
+				ChangeScreen(GS.WinnerIsYou);
+			} else {
+				level++;
+				ChangeScreen(GS.CutScene);
+			}
+		} else {
+			dragonScore = 0;
+			if(level == 7 && runningScore >= puhLoonScore) { aboutToFightAFuckingBalloon = true; level++; }
+			else if(level == 5 && runningScore >= dragonScore) {
+				level = 7;
+				difficulty++;
+			} else { level++; }
+			ChangeScreen(GS.CutScene);
+		}
 	}
 	#endregion
 	#region "Saving/Loading/Options"

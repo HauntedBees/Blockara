@@ -121,7 +121,11 @@ public static class SpritePaths {
 	public const string OpeningAnimTiles		= CharPath + "OpeningRects";
 	public const string EyeSparkle				= CharPath + "EyeSparkle";
 	public const string CharSelCursors 			= CharPath + "charSelCursors";
+	public const string CharSelCursorsWhite 	= CharPath + "charSelCursors2";
+	public const string CharSelCursorsAll		= CharPath + "charSelCursors3";
 	public const string CharSelSheet 			= CharPath + "charSelGrid";
+	public const string CharSelSheetWhite		= CharPath + "charSelGrid2";
+	public const string CharSelSheetAll			= CharPath + "charSelGrid3";
 	public const string CharSelProfiles 		= CharPath + "CharSelPlayers1";
 	public const string CharSelVictoryIcons 	= CharPath + "completionIcons";
 	public const string CharWins1 				= CharPath + "Wins1";

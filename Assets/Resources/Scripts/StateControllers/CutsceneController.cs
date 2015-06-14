@@ -40,7 +40,8 @@ public class CutsceneController:CharDisplayController {
 		dialogueBox = gameObject.AddComponent<DialogContainer>();
 		dialogueBox.Setup(new Vector3(0.0f, -3.5f));
 
-		curFrame = (PD.level == 6 || PD.level == 8)?0:2;
+		bool isBossChar = PD.p1Char == PersistData.C.White || PD.p1Char == PersistData.C.September;
+		curFrame = (!isBossChar && (PD.level == 6 || PD.level == 8))?0:2;
 		StartFrame(curFrame);
 
 		skipButtonSheet = Resources.LoadAll<Sprite>(SpritePaths.ShortButtons);
@@ -106,7 +107,8 @@ public class CutsceneController:CharDisplayController {
 	}
 	private void AdvanceToGameOrCredits() {
 		PD.sounds.SetSoundVolume(PD.GetSaveData().savedOptions["vol_s"] / 100.0f);
-		if(PD.level == 6 || PD.level == 8) { 
+		bool isBossChar = PD.p1Char == PersistData.C.White || PD.p1Char == PersistData.C.September;
+		if(!isBossChar && (PD.level == 6 || PD.level == 8)) { 
 			if(PD.level == 6) { PD.winType = 1; } else { PD.winType = 2; }
 			PD.ChangeScreen(PersistData.GS.Credits);
 		} else { PD.ChangeScreen(PersistData.GS.Game); }

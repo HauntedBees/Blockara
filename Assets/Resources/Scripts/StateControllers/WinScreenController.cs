@@ -26,7 +26,15 @@ public class WinScreenController:StateController {
 			PD.sounds.SetVoiceAndPlay(SoundPaths.NarratorPath + "043", 0);
 			winText = winTexts[1];
 		}
-		GameObject pose = GetGameObject(new Vector3(0.0f, -1.0f), "win", sheet[(int)PD.p1Char], false, "HUDText");
+		Sprite charSpr;
+		if(PD.p1Char == PersistData.C.September) {
+			charSpr = Resources.LoadAll<Sprite>(SpritePaths.CharSeptWhite)[1];
+		} else if(PD.p1Char == PersistData.C.White) {
+			charSpr = Resources.LoadAll<Sprite>(SpritePaths.CharSeptWhite)[0];
+		} else {
+			charSpr = sheet[(int)PD.p1Char];
+		}
+		GameObject pose = GetGameObject(new Vector3(0.0f, -1.0f), "win", charSpr, false, "HUDText");
 		pose.renderer.transform.localScale = new Vector3(0.5f, 0.5f);
 		GetGameObject(new Vector3(0.0f, 1.0f), "win2", winText, false, "HUDText");
 	}

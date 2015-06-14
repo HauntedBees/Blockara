@@ -82,7 +82,7 @@ public class SaveData {
 	public int getArcadeVictorySummation() {
 		int res = 0;
 		for(int i = 0; i < characterWinsArcade.Count; i++) {
-			if(characterWinsArcade[i].Key == "Total") { continue; }
+			if(characterWinsArcade[i].Key == "Total" || characterWinsArcade[i].Key == "White" || characterWinsArcade[i].Key == "September") { continue; }
 			res += characterWinsArcade[i].Value;
 		}
 		return res;

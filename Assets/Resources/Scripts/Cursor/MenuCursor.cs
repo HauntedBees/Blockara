@@ -54,6 +54,7 @@ public class MenuCursor:BoardCursorWar {
 		UpdateCursorPos();
 		FinishUpdate();
 	}
+	public int GetWidth() { return boardwidth; }
 	public void Rotate(float z) { cursor.name = "rotated"; cursor.transform.Rotate(0.0f, 0.0f, z); }
 	override public Vector3 getPos(int x, int y) { return new Vector3(xOff + x * xDiff, yOff + y * yDiff); }
 }

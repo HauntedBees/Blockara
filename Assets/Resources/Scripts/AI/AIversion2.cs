@@ -34,9 +34,14 @@ public class AIversion2:AICore {
 	}
 	override protected void setUpDifficulty(int d) {
 		difficulty = d;
-		if(d == 13) {
+		if(d == 14) {
 			delayLowerbound = 5;
 			delayUpperbound = 5;
+			paddingForPathetic = 0.2f;
+			selfAwareness = 1.0f;
+		} else if(d == 13) {
+			delayLowerbound = 5;
+			delayUpperbound = 6;
 			paddingForPathetic = 0.3f;
 			selfAwareness = 0.9f;
 		} else if(d < 3) {
