@@ -382,7 +382,7 @@ public class CharSelectController:MenuController {
 		} else if(PD.gameType == PersistData.GT.Versus && PD.controller2 == null) {
 			int completionPercent = PD.GetSaveData().CalculateGameCompletionPercent();
 			string crPath = SpritePaths.CharSelCursors;
-			int crNum = 10; float dx = 0.71f, initx = -3.2f;
+			int crNum = 10; dX = 0.71f; initX = -3.2f;
 			if(completionPercent == 100) {
 				crPath = SpritePaths.CharSelCursorsAll;
 				crNum = 12;
