@@ -21,11 +21,30 @@ public class CreditsController:StateController {
 	private int finalTimeout;
 	public void Update() {
 		if(end.transform.position.y < 0.0f) {
-			foreach(GameObject g in objects) {
+			int gm = objects.Count;
+			for(int i = 0; i < gm; i++) {
+				GameObject g = objects[i];
+				if(g == null) { continue; }
 				Vector3 p = g.transform.position;
 				p.y += Time.deltaTime * 0.475f;
+				if(g.transform.position.y < -3.0f && p.y >= -3.0f) {
+					g.SetActive(true);
+				} else if(g.transform.position.y < 3.0f && p.y >= 3.0f) {
+					Destroy(g);
+					objects[i] = null;
+				}
 				g.transform.position = p;
 			}
+			/*foreach(GameObject g in objects) {
+				Vector3 p = g.transform.position;
+				p.y += Time.deltaTime * 0.475f;
+				if(g.transform.position.y < -3.0f && p.y >= -3.0f) {
+					g.SetActive(true);
+				} else if(g.transform.position.y < 3.0f && p.y >= 3.0f) {
+					g.SetActive(false);
+				}
+				g.transform.position = p;
+			}*/
 		} else if(finalTimeout-- < 0 && !PD.sounds.IsMusicPlaying()) {
 			PD.DoWin(0, 0, true, false);
 		}
@@ -101,6 +120,9 @@ public class CreditsController:StateController {
 
 		end = GetGameObject(new Vector3(0.0f, -24.5f), "thanks", Resources.Load<Sprite>(SpritePaths.CreditsPath + "11"));
 		objects.Add(end);
+
+		foreach(GameObject g in objects) { g.SetActive(false); }
+		objects[0].SetActive(true);
 	}
 	private void AddFullCredit(XmlNode credit, float x, float y) {
 		float gap = 0.43f;
