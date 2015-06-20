@@ -192,6 +192,7 @@ public class BoardWarSpecial:BoardWar {
 	}
 	private void FreezeGraphs() {
 		frozen = true;
+		if(!isShown) { return; }
 		Sprite rowLockSprite = Resources.Load<Sprite>(SpritePaths.LockedRow);
 		CleanUpFreezs();
 		lockedRows = new List<GameObject>();
