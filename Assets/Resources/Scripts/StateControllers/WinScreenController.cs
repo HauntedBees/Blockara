@@ -13,8 +13,15 @@ See the License for the specific language governing permissions and
 limitations under the License.*/
 using UnityEngine;
 public class WinScreenController:StateController {
+	private int unlockTimer;
+	private bool isUnlock;
+	private GameObject winTextGO, pose;
 	public void Start() {
 		StateControllerInit(false);
+		if(PD.gameType == PersistData.GT.Challenge) {
+			SetUpUnlock(true);
+			return;
+		}
 		Sprite[] sheet, winTexts = Resources.LoadAll<Sprite>(SpritePaths.WinnerTexts);
 		Sprite winText;
 		if(PD.winType == 2) {
@@ -34,9 +41,40 @@ public class WinScreenController:StateController {
 		} else {
 			charSpr = sheet[(int)PD.p1Char];
 		}
-		GameObject pose = GetGameObject(new Vector3(0.0f, -1.0f), "win", charSpr, false, "HUDText");
+		pose = GetGameObject(new Vector3(0.0f, -1.0f), "win", charSpr, false, "HUDText");
 		pose.renderer.transform.localScale = new Vector3(0.5f, 0.5f);
-		GetGameObject(new Vector3(0.0f, 1.0f), "win2", winText, false, "HUDText");
+		winTextGO = GetGameObject(new Vector3(0.0f, 1.0f), "win2", winText, false, "HUDText");
 	}
-	public void Update() { UpdateMouseInput(); if(clicker.isDown() || PD.controller.Pause() || PD.controller.G_Launch() || PD.controller.M_Confirm()) { PD.MoveFromWinScreen(); } }
+	public void Update() {
+		UpdateMouseInput();
+		if(isUnlock) {
+			if(unlockTimer-- > 0) { return; }
+			if(clicker.isDown() || PD.controller.Pause() || PD.controller.G_Launch() || PD.controller.M_Confirm()) {
+				if(PD.gameType == PersistData.GT.Challenge) { PD.ChangeScreen(PersistData.GS.PuzSel); }
+				else { PD.MoveFromWinScreen(); }
+			}
+		} else {
+			if(clicker.isDown() || PD.controller.Pause() || PD.controller.G_Launch() || PD.controller.M_Confirm()) {
+				if(PD.unlockNew > 0) { SetUpUnlock(false); }
+				else { PD.MoveFromWinScreen(); }
+			}
+		}
+	}
+	private void SetUpUnlock(bool fromPuzzle) {
+		if(!fromPuzzle) {
+			Destroy(pose);
+			Destroy(winTextGO);
+		}
+		Sprite[] sheet = Resources.LoadAll<Sprite>(SpritePaths.CharSeptWhite);
+		Sprite[] winText = Resources.LoadAll<Sprite>(SpritePaths.NewUnlocks);
+		
+		pose = GetGameObject(new Vector3(0.0f, -1.0f), "win", sheet[PD.unlockNew - 1], false, "HUDText");
+		pose.renderer.transform.localScale = new Vector3(0.5f, 0.5f);
+		winTextGO = GetGameObject(new Vector3(0.0f, 1.0f), "win2", winText[PD.unlockNew - 1], false, "HUDText");
+		PD.sounds.SetSoundAndPlay(SoundPaths.S_Applause + Random.Range(1, 7).ToString());
+		PD.sounds.SetMusicAndPlay(SoundPaths.M_Title_DerivPath + "White");
+		isUnlock = true;
+		unlockTimer = 60;
+		PD.unlockNew = 0;
+	}
 }

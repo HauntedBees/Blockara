@@ -21,7 +21,7 @@ public class PersistData:MonoBehaviour {
 	public C p1Char, p2Char;
 	private GS currentScreen;
 	public GT gameType;
-	public int demoPlayers, level, puzzleType, initialDifficulty, difficulty, rounds, currentRound, rowCount, rowCount2, totalRoundTime, totalP1RoundScore, totalP2RoundScore, winType, runningScore, runningTime, prevMainMenuLocationX, prevMainMenuLocationY, balloonType;
+	public int unlockNew, demoPlayers, level, puzzleType, initialDifficulty, difficulty, rounds, currentRound, rowCount, rowCount2, totalRoundTime, totalP1RoundScore, totalP2RoundScore, winType, runningScore, runningTime, prevMainMenuLocationX, prevMainMenuLocationY, balloonType;
 	public bool won, useSpecial, firstTime, firstTimeCampaign, isTutorial, isDemo, override2P, isTransitioning, aboutToFightAFuckingBalloon, usingMouse;
 	public List<bool> playerOneWonRound;
 	public List<int> playerRoundScores, playerRoundTimes;
@@ -44,6 +44,7 @@ public class PersistData:MonoBehaviour {
 		p2Char = C.Null;
 		initialDifficulty = 4;
 		difficulty = 4;
+		unlockNew = 0;
 		isDemo = false;
 		dontFade = false;
 		isTransitioning = false;
@@ -335,27 +336,51 @@ public class PersistData:MonoBehaviour {
 				if(rounds > 1) { ChangeScreen(GS.RoundWinner); }
 			}
 		}
+		bool advanceToWinScreenFromPuzzleScreen = false;
 		if(gameType == GT.QuickPlay || gameType == GT.Campaign) {
 			saveInfo.addPlayTime(gameType, runningTime);
 			SaveGeemu();
 			ChangeScreen(GS.HighScore);
 			return;
 		} else if(gameType == GT.Challenge) {
+			int prevComplet = saveInfo.CalculateGameCompletionPercent();
 			if(won) { saveInfo.addToPuzzles(level, runningScore, runningTime); }
 			SaveGeemu();
+			int newComplet = saveInfo.CalculateGameCompletionPercent();
+			if(prevComplet < 50 && newComplet >= 50) {
+				unlockNew = 1;
+				advanceToWinScreenFromPuzzleScreen = true;
+			} else if(prevComplet < 100 && newComplet == 100) {
+				unlockNew = 2;
+				advanceToWinScreenFromPuzzleScreen = true;
+			}
 		} 
 		if(gameType != GT.Arcade) {
 			saveInfo.addPlayTime(gameType, runningTime);
 			SaveGeemu();
 			runningScore = 0;
 			runningTime = 0;
+			if(gameType == GT.Challenge && advanceToWinScreenFromPuzzleScreen) {
+				ChangeScreen(GS.WinnerIsYou); 
+				return;
+			}
 			ChangeScreen(gameType==GT.Challenge?GS.PuzSel:GS.CharSel); 
 			return;
 		}
 		if(p2Char == C.FuckingBalloon) {
 			if(won) { saveInfo.savedOptions["beatafuckingballoon"] = 1; }
 			saveInfo.addPlayTime(gameType, runningTime);
-			if(winType > 0) { won = true; saveInfo.saveArcadeVictory(name, winType); }
+			if(winType > 0) {
+				won = true;
+				int prevComplet = saveInfo.CalculateGameCompletionPercent();
+				saveInfo.saveArcadeVictory(name, winType);
+				int newComplet = saveInfo.CalculateGameCompletionPercent();
+				if(prevComplet < 50 && newComplet >= 50) {
+					unlockNew = 1;
+				} else if(prevComplet < 100 && newComplet == 100) {
+					unlockNew = 2;
+				}
+			}
 			SaveGeemu();
 			GoToMainMenu();
 			return;
@@ -364,7 +389,17 @@ public class PersistData:MonoBehaviour {
 			saveInfo.addPlayTime(gameType, runningTime);
 			SaveGeemu();
 			string name = GetPlayerSpritePath(p1Char);
-			if(winType > 0) { won = true; saveInfo.saveArcadeVictory(name, winType); }
+			if(winType > 0) { 
+				won = true;
+				int prevComplet = saveInfo.CalculateGameCompletionPercent();
+				saveInfo.saveArcadeVictory(name, winType);
+				int newComplet = saveInfo.CalculateGameCompletionPercent();
+				if(prevComplet < 50 && newComplet >= 50) {
+					unlockNew = 1;
+				} else if(prevComplet < 100 && newComplet == 100) {
+					unlockNew = 2;
+				}
+			}
 			SaveGeemu();
 			ChangeScreen(won?GS.WinnerIsYou:GS.HighScore);
 			return;
@@ -386,7 +421,6 @@ public class PersistData:MonoBehaviour {
 				ChangeScreen(GS.CutScene);
 			}
 		} else {
-			dragonScore = 0;
 			if(level == 7 && runningScore >= puhLoonScore) { aboutToFightAFuckingBalloon = true; level++; }
 			else if(level == 5 && runningScore >= dragonScore) {
 				level = 7;
