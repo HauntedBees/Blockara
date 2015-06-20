@@ -78,10 +78,10 @@ public class GameController:CharDisplayController {
 	private void SetupActors() {
 		float posx = (player2Human || (PD.isDemo && PD.demoPlayers == 2))?3.15f:2.25f;
 		actor1 = CreateActor(PD.GetPlayerSpritePath(PD.p1Char), new Vector3(-posx, -0.75f));
-		actor1.SetSprite(0); actor1.SetScale(0.33f);
+		actor1.SetScale(0.33f); actor1.SetSprite(0);
 		if(PD.gameType == PersistData.GT.Challenge) { actor1.Hide(); }
 		actor2 = CreateActor(PD.GetPlayerSpritePath(PD.p2Char), new Vector3(posx, -0.75f), true);
-		actor2.SetSprite(0); actor2.SetScale(0.33f);
+		actor2.SetScale(0.33f); actor2.SetSprite(0);
 		if(PD.gameType == PersistData.GT.Campaign || PD.gameType == PersistData.GT.Challenge || PD.gameType == PersistData.GT.Training) { actor2.Hide(); }
 	}
 	private void SetupRoundDisplay() {

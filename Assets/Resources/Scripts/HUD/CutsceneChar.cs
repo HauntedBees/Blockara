@@ -11,11 +11,13 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.*/
+using DG.Tweening;
 using UnityEngine;
 public class CutsceneChar {
 	public enum Reaction { firstStrike, hit, hit2, hit3, block, miss2, combo2, combo3, win }
 	public enum SpeechType { doDamage, nonDamagePositive, takeDamage, nonDamageNegative, lose, win }
 	private string _name, _path, voicePath;
+	private Vector3 sheetScale;
 	private GameObject _obj;
 	private Sprite[] _sheet;
 	private int _player;
@@ -35,8 +37,23 @@ public class CutsceneChar {
 	public string GetName() { return _name; }
 	public void Hide() { _obj.transform.localPosition = new Vector3(-100f, -100f); }
 	public CutsceneChar SetSortingLayer(string s) { _obj.GetComponent<SpriteRenderer>().sortingLayerName = s; return this; }
-	public CutsceneChar SetSprite(int idx) { _obj.GetComponent<SpriteRenderer>().sprite = _sheet[idx]; return this; }
-	public CutsceneChar SetScale(float f) { _obj.transform.localScale = _obj.transform.localScale * f; return this; }
+
+	public CutsceneChar SetSprite(int idx) { 
+		if(_obj.GetComponent<SpriteRenderer>().sprite == null) { ChangeSprite(idx); return this; }
+		if(_obj.GetComponent<SpriteRenderer>().sprite == _sheet[idx]) { return this; }
+		Vector3 newScale = new Vector3(sheetScale.x * 0.8f, sheetScale.y * 1.2f);
+		Sequence s = DOTween.Sequence();
+		s.Append(_obj.transform.DOScale(newScale, 0.05f).OnComplete(()=>ChangeSprite(idx)));
+		s.Append(_obj.transform.DOScale(sheetScale, 0.05f));
+		return this;
+	}
+	private void ChangeSprite(int idx) { _obj.GetComponent<SpriteRenderer>().sprite = _sheet[idx]; }
+
+	public CutsceneChar SetScale(float f) {
+		_obj.transform.localScale = _obj.transform.localScale * f;
+		sheetScale = new Vector3(_obj.transform.localScale.x, _obj.transform.localScale.y);
+		return this;
+	}
 	public CutsceneChar SetTint(Color c) { _obj.renderer.material.SetColor("_Color", c); return this; }
 	virtual public void DoReaction(Reaction r, bool sender) {
 		switch(r) {
