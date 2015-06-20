@@ -310,6 +310,7 @@ MonoBehaviour:
   p1Char: 0
   p2Char: 0
   gameType: 0
+  unlockNew: 0
   demoPlayers: 0
   level: 0
   puzzleType: 0

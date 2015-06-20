@@ -34,6 +34,7 @@ public class MainMenuController:MenuController {
 		delay = 0;
 		SetupBGAndTitleText();
 		SetupCharacter();
+		SetupAFuckingBalloon();
 		if(PD.controller == null) { SetupTitle(); }
 		else { SetupMenu(); }
 	}
@@ -67,6 +68,15 @@ public class MainMenuController:MenuController {
 			PD.sounds.SetVoiceAndPlay(SoundPaths.NarratorPath + "001", 0);
 			PD.sounds.SetMusicAndPlay(SoundPaths.M_Title_Default);
 		}
+	}
+	private void SetupAFuckingBalloon() {
+		if(PD.GetSaveData().savedOptions["beatafuckingballoon"] != 1) { return; }
+		Sprite[] puhloon = Resources.LoadAll<Sprite>(SpritePaths.CharPath + "MasterAlchemist");
+		Sprite psprite = puhloon[Random.Range(0, 8)];
+		GameObject pleaseDadCanIHgaaveOne = GetGameObject(new Vector3(-2.0f, 1.2f), "Puhloonverlay", psprite, false, "HUDText");
+		pleaseDadCanIHgaaveOne.renderer.material.color = new Color(1.0f, 1.0f, 1.0f, 0.5f);
+		pleaseDadCanIHgaaveOne.renderer.transform.localScale = new Vector2(0.16733f, 0.16733f);
+		pleaseDadCanIHgaaveOne.renderer.transform.Rotate(new Vector3(0.0f, 0.0f, 1.0f), 331.95f);
 	}
 	private void SetupBGAndTitleText() {
 		GetGameObject(Vector3.zero, "Gradient BG Cover", Resources.Load<Sprite>(SpritePaths.BGBlackFade), false, "BG1");
