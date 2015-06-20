@@ -20,6 +20,7 @@ public class CampaignHandler {
 	private BoardCursorWar cursor1;
 	private BoardCursorBot cursor2;
 	private CampaignHUD hud;
+	private float repairFlipCount;
 	private int prevCursorX, prevCursorY;
 	public bool inCampaignShop, playerDied;
 	private XmlNode navDetails;
@@ -44,6 +45,8 @@ public class CampaignHandler {
 			mirror2.DoUpdate();
 			cursor2.LevelUpAI(1);
 			inCampaignShop = true;
+			hud.repairText.SetActive(true);
+			repairFlipCount = 1.0f;
 			PD.difficulty++;
 			cursor1.hideWhite = true;
 		}
@@ -54,8 +57,11 @@ public class CampaignHandler {
 			PD.sounds.SetSoundAndPlay(SoundPaths.S_Menu_Confirm);
 			hud.UpdateShopBox("");
 			cursor1.hideWhite = false;
+			hud.repairText.SetActive(false);
 			return;
 		}
+		repairFlipCount -= UnityEngine.Time.deltaTime;
+		if(repairFlipCount <= 0) { repairFlipCount = 1.0f; hud.repairText.SetActive(!hud.repairText.activeSelf); }
 		hud.DoUpdate(true, board1.GetScore(), board2.gold, true);
 		cursor1.DoUpdate();
 		int cx = cursor1.getX();

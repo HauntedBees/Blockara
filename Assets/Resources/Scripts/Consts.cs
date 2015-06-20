@@ -108,6 +108,7 @@ public static class SpritePaths {
 	public const string HiContastTileCursor 	= HUDPath + "tileCursor_HI";
 	public const string LogoText 				= HUDPath + "titleText";
 	public const string DetailsBox 				= HUDPath + "winBox";
+	public const string RepairText 				= HUDPath + "repairsText";
 	public const string WinnerTexts 			= HUDPath + "congratsText";
 	public const string White					= HUDPath + "white";
 	public const string WhiteSingle				= HUDPath + "whiteSingle";

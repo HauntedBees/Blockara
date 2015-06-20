@@ -13,6 +13,7 @@ See the License for the specific language governing permissions and
 limitations under the License.*/
 using UnityEngine;
 public class CampaignHUD:InGameHUD {
+	public GameObject repairText;
 	private TextMesh moneyText, shopText;
 	private int money;
 	override protected void AdditionalSetup(Sprite tile, int players, Vector3 offset, System.Xml.XmlNode top, int additionalInfo) {
@@ -23,6 +24,8 @@ public class CampaignHUD:InGameHUD {
 		moneyText = GetMeshText(new Vector3(x + 0.6f, 0.84f), money.ToString(), new FontData(TextAnchor.MiddleRight, TextAlignment.Right, 0.045f));
 		shopText = GetMeshText(new Vector3(x + 0.3f, 0.5f), "", new FontData(TextAnchor.MiddleCenter, TextAlignment.Center, 0.023f));
 		AddDamageReferenceKey();
+		repairText = GetGameObject(new Vector3(2.4f, -0.65f), "repairs text", Resources.Load<Sprite>(SpritePaths.RepairText), false, "HUDText");
+		repairText.SetActive(false);
 	}
 	override public void DoUpdate(bool paused, int p1val, int p2val, bool hiddenPause = false) {
 		if(gameEnd) { return; }
