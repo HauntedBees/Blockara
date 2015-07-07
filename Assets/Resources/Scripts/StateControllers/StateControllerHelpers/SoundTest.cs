@@ -209,14 +209,14 @@ public class SoundTest:All {
 		playlistEntries.Add(new TrackInfo("Credits", artist, SoundPaths.M_Credits));
 		playlistEntries.Add(new TrackInfo("George's Ballad", artist, SoundPaths.M_Title_DerivPath + "George"));
 		playlistEntries.Add(new TrackInfo("Milo's Rally", artist, SoundPaths.M_Title_DerivPath + "Milo"));
-		//playlistEntries.Add(new TrackInfo("Devin's Shanty", artist, SoundPaths.M_Title_DerivPath + "HOLD"));
+		playlistEntries.Add(new TrackInfo("Devin's Shanty", artist, SoundPaths.M_Title_DerivPath + "Devin"));
 		playlistEntries.Add(new TrackInfo("M.J.'s Beat", artist, SoundPaths.M_Title_DerivPath + "MJ"));
 		playlistEntries.Add(new TrackInfo("Andrew's Funk", artist, SoundPaths.M_Title_DerivPath + "Andrew"));
 		playlistEntries.Add(new TrackInfo("Joan's Rock", artist, SoundPaths.M_Title_DerivPath + "Joan"));
 		playlistEntries.Add(new TrackInfo("MODE SONG.FLAC", artist, SoundPaths.M_Title_DerivPath + "Depeche"));
 		playlistEntries.Add(new TrackInfo("Lars' Rhythm", artist, SoundPaths.M_Title_DerivPath + "Lars"));
 		playlistEntries.Add(new TrackInfo("Laila's Honk", artist, SoundPaths.M_Title_DerivPath + "Laila"));
-		//playlistEntries.Add(new TrackInfo("Alice/Ana's Screech", artist, SoundPaths.M_Title_DerivPath + "Depeche"));
+		playlistEntries.Add(new TrackInfo("Alice/Ana's Screech", artist, SoundPaths.M_Title_DerivPath + "AliceAna"));
 		playlistEntries.Add(new TrackInfo("Do You Remember?", artist, SoundPaths.M_Title_DerivPath + "White"));
 		for(int i = 1; i <= 83; i++) { playlistEntries.Add(new TrackInfo("George " + i.ToString("d2"), "Cal Young", SoundPaths.VoicePath + "George/" + i.ToString("d3"), false)); }
 		for(int i = 1; i <= 83; i++) { playlistEntries.Add(new TrackInfo("Milo " + i.ToString("d2"), "Abner Hauge", SoundPaths.VoicePath + "Milo/" + i.ToString("d3"), false)); }
