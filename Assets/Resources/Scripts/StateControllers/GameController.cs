@@ -76,11 +76,11 @@ public class GameController:CharDisplayController {
 	}
 	private void SetupCountdown() { cd = ScriptableObject.CreateInstance("Countdown") as Countdown; cd.Setup(PD); }
 	private void SetupActors() {
-		float posx = (player2Human || (PD.isDemo && PD.demoPlayers == 2))?3.15f:2.25f;
-		actor1 = CreateActor(PD.GetPlayerSpritePath(PD.p1Char), new Vector3(-posx, -0.75f));
+		float posx = (player2Human || (PD.isDemo && PD.demoPlayers == 2))?3.15f:2.35f, posy = -0.75f; // TODO: make the 3.15f be better
+		actor1 = CreateActor(PD.GetPlayerSpritePath(PD.p1Char), new Vector3(-posx, posy));
 		actor1.SetScale(0.33f); actor1.SetSprite(0);
 		if(PD.gameType == PersistData.GT.Challenge) { actor1.Hide(); }
-		actor2 = CreateActor(PD.GetPlayerSpritePath(PD.p2Char), new Vector3(posx, -0.75f), true);
+		actor2 = CreateActor(PD.GetPlayerSpritePath(PD.p2Char), new Vector3(posx, posy), true);
 		actor2.SetScale(0.33f); actor2.SetSprite(0);
 		if(PD.gameType == PersistData.GT.Campaign || PD.gameType == PersistData.GT.Challenge || PD.gameType == PersistData.GT.Training) { actor2.Hide(); }
 	}
