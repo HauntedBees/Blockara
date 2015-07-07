@@ -35,16 +35,6 @@ public class CreditsController:StateController {
 				}
 				g.transform.position = p;
 			}
-			/*foreach(GameObject g in objects) {
-				Vector3 p = g.transform.position;
-				p.y += Time.deltaTime * 0.475f;
-				if(g.transform.position.y < -3.0f && p.y >= -3.0f) {
-					g.SetActive(true);
-				} else if(g.transform.position.y < 3.0f && p.y >= 3.0f) {
-					g.SetActive(false);
-				}
-				g.transform.position = p;
-			}*/
 		} else if(finalTimeout-- < 0 && !PD.sounds.IsMusicPlaying()) {
 			PD.DoWin(0, 0, true, false);
 		}
