@@ -152,7 +152,7 @@ public class OptionsController:LeftButtonsMenuController {
 		if(controlsPos == 4) {
 			if(controlsScreen.HasReturnedToNormal()) { controlsPos = 3; }
 		} else if(controlsPos == 3) {
-			if(Input.GetKeyDown(KeyCode.Escape)) {
+			if(Input.GetKeyDown(KeyCode.Escape) || controlsScreen.ClickingCancelButton(clicker)) {
 				SignalFailure();
 				controlsPos = 1;
 				controlsScreen.UndoQuestion(cursor2.getY(), isP1);
@@ -223,6 +223,7 @@ public class OptionsController:LeftButtonsMenuController {
 			controlsPos = 3;
 			cursor2.setY(10);
 			cursor2Display.UpdatePosition(10);
+			controlsScreen.SetToQuestion(cursor2.getY(), cursor3.getX() == 0);
 		} else {
 			controlsPos = 2;
 			controlsScreen.SetToQuestion(cursor2.getY(), cursor3.getX() == 0);
