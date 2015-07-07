@@ -170,16 +170,16 @@ public class SoundTest:All {
 		int offset = 0;
 		if(topIdx > 0) { offset += 1; res = "...\r\n"; }
 		for(int i = topIdx + offset; i < (topIdx + playlistShown - 1); i++) {
-			res += GetFuckingDickCUNTSHITFUCKGOGSHIT(i);
+			res += GetDisplayValueForPlaylistText(i);
 		}
 		if(topIdx + playlistShown < playlistEntries.Count) {
 			res += "...";
 		} else {
-			res += GetFuckingDickCUNTSHITFUCKGOGSHIT(topIdx + playlistShown - 1);
+			res += GetDisplayValueForPlaylistText(topIdx + playlistShown - 1);
 		}
 		playlist.text = res;
 	}
-	private string GetFuckingDickCUNTSHITFUCKGOGSHIT(int idx) {
+	private string GetDisplayValueForPlaylistText(int idx) {
 		string displayValue = (idx + 1).ToString("d3") + ". " + playlistEntries[idx].title;
 		if(displayValue.Length > 18) { displayValue = displayValue.Substring(0, 15) + "..."; }
 		return displayValue + "\r\n";
