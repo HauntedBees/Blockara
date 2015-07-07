@@ -257,7 +257,7 @@ public class PersistData:MonoBehaviour {
 	}
 	public void CharacterSelectConfirmation() {
 		runningScore = 0; runningTime = 0;
-		if(gameType == GT.QuickPlay) { p2Char = (C) Random.Range(0, 10); }
+		if(gameType == GT.QuickPlay && p2Char == C.Null) { p2Char = (C) Random.Range(0, 10); } // TODO: REMOVE THE NULL CHECK LATER
 		if(gameType == GT.Arcade) { GetNextOpponent(); ChangeScreen(GS.CutScene); }
 		else { ChangeScreen(GS.Game); }
 	}

@@ -259,6 +259,20 @@ public class CharSelectController:MenuController {
 		HandlePlayer1Input();
 		HandlePlayer2Input();
 		if(conf1&&conf1options&&conf2) { AdvanceToGame(); }
+		Debug_ChooseChar();
+	}
+	private int debugX = -1;
+	private void Debug_ChooseChar() {
+		if(Input.GetKeyDown(KeyCode.Alpha1)) { debugX = 0; }
+		else if(Input.GetKeyDown(KeyCode.Alpha2)) { debugX = 1; }
+		else if(Input.GetKeyDown(KeyCode.Alpha3)) { debugX = 2; }
+		else if(Input.GetKeyDown(KeyCode.Alpha4)) { debugX = 3; }
+		else if(Input.GetKeyDown(KeyCode.Alpha5)) { debugX = 4; }
+		else if(Input.GetKeyDown(KeyCode.Alpha6)) { debugX = 5; }
+		else if(Input.GetKeyDown(KeyCode.Alpha7)) { debugX = 6; }
+		else if(Input.GetKeyDown(KeyCode.Alpha8)) { debugX = 7; }
+		else if(Input.GetKeyDown(KeyCode.Alpha9)) { debugX = 8; }
+		else if(Input.GetKeyDown(KeyCode.Alpha0)) { debugX = 9; }
 	}
 	private void AdvanceToGame() {
 		isTransitioning = true;
@@ -286,7 +300,7 @@ public class CharSelectController:MenuController {
 		PD.SaveGeemu();
 		if(PD.isTutorial) { PD.rowCount = 6; }
 		PD.SetPlayer1(cursor.getX());
-		if(cursor2 == null) { PD.SetPlayer2(-1); } else { PD.SetPlayer2(cursor2.getX()); }
+		if(cursor2 == null) { PD.SetPlayer2(debugX); } else { PD.SetPlayer2(cursor2.getX()); }
 		SignalSuccess();
 		PD.CharacterSelectConfirmation();
 	}
