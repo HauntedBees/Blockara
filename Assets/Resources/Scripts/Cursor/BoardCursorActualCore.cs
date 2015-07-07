@@ -19,6 +19,7 @@ public class BoardCursorActualCore:BoardCursorCore {
 	protected GameObject[] whiteDepth;
 	protected int depth, maxWhiteDepth;
 	protected float moveDelay;
+	private GameTouchHandler touchHandler;
 	public bool canKill, penetr, hideWhite, frozen;
 	#endregion
 	#region "Setup"
@@ -39,6 +40,7 @@ public class BoardCursorActualCore:BoardCursorCore {
 		UpdateWhite(true);
 		FinishUpdate();
 	}
+	public void AttachTouchHandler(GameTouchHandler gth) { touchHandler = gth; }
 	private void InitializeWhite() {
 		if(!isShown) { return; }
 		white = GetGameObject(Vector3.zero, "White", Resources.Load<Sprite>(SpritePaths.White), false, "HUD");
@@ -51,7 +53,7 @@ public class BoardCursorActualCore:BoardCursorCore {
 	}
 	#endregion
 	#region "Updating"
-	virtual public void FreezyPop(int i) { frozen = true; moveDelay = i; }
+	virtual public void FreezyPop(int i) { frozen = true; moveDelay = i; if(touchHandler != null) { touchHandler.SetMoveDelay(i); } }
 	virtual protected void MainUpdate() {
 		if(moveDelay <= 0) { frozen = false; } 
 		cursor.GetComponent<SpriteRenderer>().sprite = sheet[frozen?2:(penetr?1:0)];

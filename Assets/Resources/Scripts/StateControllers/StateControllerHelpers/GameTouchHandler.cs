@@ -42,6 +42,7 @@ public class GameTouchHandler:All {
 		if(dx != 0) { moveDelay = PD.KEY_DELAY; }
 		return dx;
 	}
+	public void SetMoveDelay(float i) { moveDelay = i; }
 	private float SetSelectedRowAndReturnY(MouseCore clicker) {
 		Vector3 pos = clicker.getPositionInGameObject(rowCollider);
 		if(pos.z == 0) { return 0.0f; }

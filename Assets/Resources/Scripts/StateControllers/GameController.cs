@@ -145,6 +145,7 @@ public class GameController:CharDisplayController {
 	private void SetupMouseControls(float xOffset) {
 		touchHandler = gameObject.AddComponent<GameTouchHandler>();
 		touchHandler.Initialize(height, xOffset);
+		cursor1.AttachTouchHandler(touchHandler);
 	}
 	private BoardWar CreateBoard(int player, float xOffset) {
 		GameObject g = new GameObject("Board " + player);
