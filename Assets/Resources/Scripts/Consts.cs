@@ -13,7 +13,6 @@ See the License for the specific language governing permissions and
 limitations under the License.*/
 public static class Consts {
 	public const float YBOTTOM = -1.85f;
-	public const float DTWEEN = 0.05f;
 	public const float TILE_SIZE = 0.2222222222222222222222222222222222222222222222f;
 	public const int DELAY_INT = 2;
 }

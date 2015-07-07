@@ -71,5 +71,4 @@ public class BoardCursorCore:InputCore {
 	public void setX(int nx) { x = nx; if(x >= boardwidth) { x = boardwidth - 1; } else if(x < 0) { x = 0; } }
 	public void setY(int ny) { y = ny; if(y >= boardheight) { y = boardheight - 1; } else if(y < 0) { y = 0; } }
 	virtual public Vector3 getPos(int x, int y) { return new Vector3((xOffset + x) * Consts.TILE_SIZE, y * Consts.TILE_SIZE - 1.85f); }
-	protected float getDTween() { if(myDTween <= 0) { return Consts.DTWEEN; } return myDTween; }
 }
