@@ -208,6 +208,7 @@ public class BoardWarSpecial:BoardWar {
 		lockedRows.Clear();
 	}
 	private void EyeballsOnThePrizeBalls() {
+		if(eyeballTimer > 0) { return; }
 		eyeballTimer = eyeTimerLength;
 		if(cursor is BoardCursorBot) { ((BoardCursorBot) cursor).Blind(eyeTimerLength); }
 		if(!isShown) { return; }
