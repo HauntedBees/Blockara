@@ -31,6 +31,7 @@ public class CutsceneChar {
 		_player = p;
 		_PD = PD;
 		voicePath = SoundPaths.VoicePath + _path + "/";
+		sheetScale = new Vector3(_obj.transform.localScale.x, _obj.transform.localScale.y);
 		loseFrame = 5;
 	}
 	public string GetPath() { return _path; }
@@ -38,7 +39,7 @@ public class CutsceneChar {
 	public void Hide() { _obj.transform.localPosition = new Vector3(-100f, -100f); }
 	public CutsceneChar SetSortingLayer(string s) { _obj.GetComponent<SpriteRenderer>().sortingLayerName = s; return this; }
 
-	public CutsceneChar SetSprite(int idx) { 
+	public CutsceneChar SetSprite(int idx) {
 		if(_obj.GetComponent<SpriteRenderer>().sprite == null) { ChangeSprite(idx); return this; }
 		if(_obj.GetComponent<SpriteRenderer>().sprite == _sheet[idx]) { return this; }
 		Vector3 newScale = new Vector3(sheetScale.x * 0.8f, sheetScale.y * 1.2f);
