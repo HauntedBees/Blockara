@@ -48,7 +48,7 @@ public class MainMenuController:MenuController {
 		float xOffset = (int)PD.p2Char%2==0?2.5f:-2.5f;
 		if(PD.p2Char == PersistData.C.Everyone) {
 			PD.sounds.SetVoiceAndPlay(SoundPaths.S_AllShout, 0);
-			PD.sounds.SetMusicAndPlay(SoundPaths.M_Title_DerivPath + "White");
+			PD.sounds.SetMusicAndPlay(SoundPaths.M_Title_DerivPath + "Group");
 			GetGameObject(new Vector3(0.0f, -0.5f), "A Player Is Everyone!", Resources.Load<Sprite>(SpritePaths.CharGroupShot), false, "Zapper");
 		} else if(PD.p2Char != PersistData.C.Null) {
 			PD.sounds.SetVoiceAndPlay(SoundPaths.VoicePath + PD.GetPlayerSpritePath(PD.p2Char) + "/" + "083", 0);
@@ -93,18 +93,19 @@ public class MainMenuController:MenuController {
 	private void SetupMenu() {
 		cursor = GetMenuCursor(2, 5, null, -0.5f, -1.32f, 0.2f, 0.2f, PD.prevMainMenuLocationX, PD.prevMainMenuLocationY);
 		cursor.SetVisibility(false);
-		float menuX = 0.0f, topy = 0.35f;
+		float menuX = 0.0f, topy = 0.35f, dx = 0.8f, bottomdy = 1.2f;
+		if(PD.p2Char == PersistData.C.Everyone) { dx = 3.0f; bottomdy = 2.1f; }
 		menuButtons = new GameObject[9];
 		texts = new TextMesh[9];
-		AddButton(0, menuX - 0.8f, topy, GetXmlValue(top, "quickplay"));
-		AddButton(1, menuX + 0.8f, topy, GetXmlValue(top, "versus"));
-		AddButton(2, menuX - 0.8f, topy - 0.3f, GetXmlValue(top, "arcade"));
-		AddButton(3, menuX + 0.8f, topy - 0.3f, GetXmlValue(top, "campaign"));
-		AddButton(4, menuX - 0.8f, topy - 0.6f, GetXmlValue(top, "challenge"));
-		AddButton(5, menuX + 0.8f, topy - 0.6f, GetXmlValue(top, "training"));
-		AddButton(6, menuX - 0.8f, topy - 0.9f, GetXmlValue(top, "playerdata"));
-		AddButton(7, menuX + 0.8f, topy - 0.9f, GetXmlValue(top, "options"));
-		AddButton(8, menuX, topy - 1.2f, GetXmlValue(top, "quit"));
+		AddButton(0, menuX - dx, topy, GetXmlValue(top, "quickplay"));
+		AddButton(1, menuX + dx, topy, GetXmlValue(top, "versus"));
+		AddButton(2, menuX - dx, topy - 0.3f, GetXmlValue(top, "arcade"));
+		AddButton(3, menuX + dx, topy - 0.3f, GetXmlValue(top, "campaign"));
+		AddButton(4, menuX - dx, topy - 0.6f, GetXmlValue(top, "challenge"));
+		AddButton(5, menuX + dx, topy - 0.6f, GetXmlValue(top, "training"));
+		AddButton(6, menuX - dx, topy - 0.9f, GetXmlValue(top, "playerdata"));
+		AddButton(7, menuX + dx, topy - 0.9f, GetXmlValue(top, "options"));
+		AddButton(8, menuX, topy - bottomdy, GetXmlValue(top, "quit"));
 	}
 
 	private void AddButton(int idx, float x, float y, string text) {
