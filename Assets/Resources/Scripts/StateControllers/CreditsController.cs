@@ -66,17 +66,22 @@ public class CreditsController:StateController {
 		AddVoiceCredit(credits[13], 0.0f, -12.5f); // VERONICA
 
 		AddHeadingCredit(credits[14], 0.0f, -14.0f); // HELPING HANDS
-		AddAdditionalCredit(credits[15], -1.0f, -14.25f); // MARCIN
-		AddAdditionalCredit(credits[16], 1.0f, -14.25f); // HARI
-		AddAdditionalCredit(credits[17], -2.0f, -14.75f); // DIEGO
-		AddAdditionalCredit(credits[18], 0.0f, -14.75f); // JOE
-		AddAdditionalCredit(credits[19], 2.0f, -14.75f); // KEVIN
-		AddAdditionalCredit(credits[20], -2.0f, -15.25f); // JACOB
-		AddAdditionalCredit(credits[21], 0.0f, -15.25f); // LUKE
-		AddAdditionalCredit(credits[22], 2.0f, -15.25f); // NOLAN
-		AddAdditionalCredit(credits[23], -2.0f, -15.75f); // ASH
-		AddAdditionalCredit(credits[24], 0.0f, -15.75f); // GEORGE
-		AddAdditionalCredit(credits[25], 2.0f, -15.75f); // EVIN
+		AddAdditionalCredit(credits[15], -2.0f, -14.25f); // MARCIN
+		AddAdditionalCredit(credits[16], 0.0f, -14.25f); // HARI
+		AddAdditionalCredit(credits[19], 2.0f, -14.25f); // KEVIN
+
+		AddAdditionalCredit(credits[22], -2.0f, -14.75f); // NOLAN
+		AddAdditionalCredit(credits[25], 0.0f, -14.75f); // EVIN
+		AddAdditionalCredit(credits[54], 2.0f, -14.75f); // AUBREY
+
+		AddAdditionalCredit(credits[17], -2.0f, -15.25f); // DIEGO
+		AddAdditionalCredit(credits[18], 0.0f, -15.25f); // JOE
+		AddAdditionalCredit(credits[20], 2.0f, -15.25f); // JACOB
+
+		AddAdditionalCredit(credits[21], -2.0f, -15.75f); // LUKE
+		AddAdditionalCredit(credits[23], 0.0f, -15.75f); // ASH
+		AddAdditionalCredit(credits[24], 2.0f, -15.75f); // GEORGE
+
 
 		AddHeadingCredit(credits[26], 0.0f, -16.75f); // ADDITIONAL ASSETS
 		AddAssetCredit(credits[27], -2.1f, -17.0f); // Mirko
@@ -107,8 +112,9 @@ public class CreditsController:StateController {
 		
 		AddHeadingCredit(credits[52], 0.0f, -21.5f); // SPECIAL THANKS
 		AddHeadingCredit(credits[53], 0.0f, -22.0f, 0.06f); // Andrew W.K.
+		AddHeadingCredit(credits[55], 0.0f, -22.5f, 0.06f); // AND YOU
 
-		end = GetGameObject(new Vector3(0.0f, -24.5f), "thanks", Resources.Load<Sprite>(SpritePaths.CreditsPath + "11"));
+		end = GetGameObject(new Vector3(0.0f, -25.0f), "thanks", Resources.Load<Sprite>(SpritePaths.CreditsPath + "11"));
 		objects.Add(end);
 
 		foreach(GameObject g in objects) { g.SetActive(false); }

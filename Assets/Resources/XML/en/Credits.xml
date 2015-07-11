@@ -22,7 +22,7 @@
 		<job>Composer, Musician</job>
 	</credit>
 	<credit>
-		<img>02</img>
+		<img>00</img>
 		<name>Jenette Sellin</name>
 		<job>Background Artist</job>
 	</credit>
@@ -36,13 +36,13 @@
 		<for>Milo, Devin</for>
 	</credit>
 	<credit>
-		<img>05</img>
+		<img>00</img>
 		<borbs>0</borbs>
 		<name>Cal Young</name>
 		<for>George</for>
 	</credit>
 	<credit>
-		<img>06</img>
+		<img>00</img>
 		<borbs>10,7,5</borbs>
 		<name>Carolina Madrid</name>
 		<for>Joan, Laila, September</for>
@@ -66,7 +66,7 @@
 		<for>Lars, Narrator</for>
 	</credit>
 	<credit>
-		<img>10</img>
+		<img>00</img>
 		<borbs>8</borbs>
 		<name>Veronica Christie</name>
 		<for>Alice/Ana</for>
@@ -251,5 +251,12 @@
 	</credit>
 	<credit>
 		<text>Andrew W.K.</text>
+	</credit>
+	<credit>
+		<name>Aubrey Hansen</name>
+		<for>Game Testing</for>
+	</credit>
+	<credit>
+		<text>And you!</text>
 	</credit>
 </credits>

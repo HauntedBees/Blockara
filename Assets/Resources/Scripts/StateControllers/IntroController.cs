@@ -31,7 +31,7 @@ public class IntroController:StateController {
 		}
 		DebugShit(); 
 		int input = PD.ReturnLaunchOrPauseOrNothingIsPressed();
-		if(--countdown < 0 || input > 0) { if(input != 2) {PD.ChangeScreen(PersistData.GS.OpeningScene); } else { PD.GoToMainMenu(); } }
+		if(--countdown < 0 || input > 0) { if(input != 2) { PD.ChangeScreen(PersistData.GS.OpeningScene); } else { PD.GoToMainMenu(); } }
 	}
 	private void DebugShit() {
 		if(Input.GetKeyDown(KeyCode.F) && Input.GetKey(KeyCode.Z)) { justWiped = true; PD.WipeData(); }
