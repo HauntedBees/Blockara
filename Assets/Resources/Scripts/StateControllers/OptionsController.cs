@@ -247,6 +247,7 @@ public class OptionsController:LeftButtonsMenuController {
 		cursor3.SetVisibility(false);
 		cursor2.DoUpdate();
 		int cy = cursor2.getY();
+		if(cy == 0) { cursor2.setY(1); cy = 1; }
 		cursor2Display.UpdatePosition(cy);
 		if(cursor2.launchOrPause()) {
 			if(cy == 1) {
