@@ -15,7 +15,7 @@ using UnityEngine;
 using System.Collections.Generic;
 public class Background:All {
 	private GameObject bg;
-	public bool isCutscene, isWinScreen; // set in Scene
+	public bool isCutscene, isWinScreen, isTitleScreen; // set in Scene
 	void Start() {
 		GetPersistData();
 		string path = GetPath();
@@ -26,9 +26,11 @@ public class Background:All {
 		if(isCutscene) { if(!isWinScreen) { bg.transform.localScale *= 2.5f; } } else { bg.GetComponent<SpriteRenderer>().color = new Color(0.5f, 0.5f, 0.5f, 1.0f); }
 	}
 	private string GetPath() {
-		if(isWinScreen) { return PD.GetPlayerSpritePath(PD.p1Char, true); }
-		if(PD.gameType == PersistData.GT.Versus) { return PD.GetPlayerSpritePath(Random.value > 0.5f?PD.p1Char:PD.p2Char, true); }
-		if(PD.gameType == PersistData.GT.QuickPlay) { return PD.GetPlayerSpritePath(Random.value > 0.35f?PD.p1Char:PD.p2Char, true); }
+		if(!isTitleScreen) {
+			if(isWinScreen) { return PD.GetPlayerSpritePath(PD.p1Char, true); }
+			if(PD.gameType == PersistData.GT.Versus) { return PD.GetPlayerSpritePath(Random.value > 0.5f?PD.p1Char:PD.p2Char, true); }
+			if(PD.gameType == PersistData.GT.QuickPlay) { return PD.GetPlayerSpritePath(Random.value > 0.35f?PD.p1Char:PD.p2Char, true); }
+		}
 		return PD.GetPlayerSpritePath(PD.p2Char, true);
 	}
 }

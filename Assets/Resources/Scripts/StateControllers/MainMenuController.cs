@@ -32,7 +32,7 @@ public class MainMenuController:MenuController {
 		selectedIdx = 0;
 		konamiCodeState = 0;
 		delay = 0;
-		SetupBGAndTitleText();
+		title = GetGameObject(new Vector3(0.0f, 1.25f), "Blockara Title", Resources.Load<Sprite>(SpritePaths.LogoText), true);
 		SetupCharacter();
 		SetupAFuckingBalloon();
 		if(PD.controller == null) { SetupTitle(); }
@@ -77,10 +77,6 @@ public class MainMenuController:MenuController {
 		pleaseDadCanIHgaaveOne.renderer.material.color = new Color(1.0f, 1.0f, 1.0f, 0.5f);
 		pleaseDadCanIHgaaveOne.renderer.transform.localScale = new Vector2(0.16733f, 0.16733f);
 		pleaseDadCanIHgaaveOne.renderer.transform.Rotate(new Vector3(0.0f, 0.0f, 1.0f), 331.95f);
-	}
-	private void SetupBGAndTitleText() {
-		GetGameObject(Vector3.zero, "Gradient BG Cover", Resources.Load<Sprite>(SpritePaths.BGBlackFade), false, "BG1");
-		title = GetGameObject(new Vector3(0.0f, 1.25f), "Blockara Title", Resources.Load<Sprite>(SpritePaths.LogoText), true);
 	}
 	private void SetupTitle() {
 		string presstext = string.Format(GetXmlValue(top, "starttext"), PD.GetP1InputName(InputMethod.KeyBinding.launch), PD.GetP1InputName(InputMethod.KeyBinding.pause));
