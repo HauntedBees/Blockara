@@ -26,9 +26,9 @@ public class CutsceneController:CharDisplayController {
 	public void Start() {
 		StateControllerInit(false);
 
-		playeractor = CreateActor(PD.GetPlayerSpritePath(PD.p1Char), new Vector3(-6.0f, 0.0f));
+		playeractor = CreateActor(PD.GetPlayerSpritePath(PD.p1Char), new Vector3(-5.15f, 1.0f));
 		PD.GetNextOpponent();
-		opponentactor = CreateActor(PD.GetPlayerSpritePath(PD.p2Char), new Vector3(6.0f, 0.0f), true);
+		opponentactor = CreateActor(PD.GetPlayerSpritePath(PD.p2Char), new Vector3(5.15f, 1.0f), true);
 		skipMenuIsUp = false;
 
 		XmlNodeList dialogs = GetXMLHead("/" + playeractor.GetPath(), "dialogs").SelectNodes("dialog");

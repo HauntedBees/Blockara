@@ -40,7 +40,7 @@ public class DialogContainer:StateController {
 		bounds = new Vector3(textBox.renderer.bounds.size.x * 0.97f, textBox.renderer.bounds.size.y * 0.66f);
 
 		Vector3 textpos = textBox.transform.position;
-		textpos.x -= 7.4f * (onGameScreen?0.4f:1.0f);
+		textpos.x -= 7.6f * (onGameScreen?0.4f:1.0f);
 		textpos.y += 1.5f * (onGameScreen?0.4f:1.0f);
 		FontData f = PD.mostCommonFont.Clone();
 		f.align = TextAlignment.Left; f.anchor = TextAnchor.UpperLeft; f.layerName = "Cover HUD Dialog Text";
