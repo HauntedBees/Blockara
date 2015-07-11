@@ -26,7 +26,7 @@ public class IntroController:StateController {
 	public void Update() {
 		if(!hasBeed) {
 			PD.SetupSound();
-			PD.sounds.SetSoundAndPlay(SoundPaths.A_BEEEEEE);
+			PD.sounds.SetVoiceAndPlay(SoundPaths.A_BEEEEEE, 0);
 			hasBeed = true;
 		}
 		DebugShit(); 
