@@ -39,6 +39,7 @@ public static class SoundPaths {
 	public const string S_Launch 			= SoundEffectsPath + "launch";
 	public const string S_Money 			= SoundEffectsPath + "money";
 	public const string S_Shield 			= SoundEffectsPath + "shield";
+	public const string S_ShieldHit 		= SoundEffectsPath + "shieldHit";
 	public const string S_ShiftRow 			= SoundEffectsPath + "shiftRow";
 	public const string S_ShiftRows 		= SoundEffectsPath + "shiftRowMult";
 	public const string S_Ding		 		= SoundEffectsPath + "ding";
@@ -113,7 +114,7 @@ public static class SpritePaths {
 	public const string White					= HUDPath + "white";
 	public const string WhiteSingle				= HUDPath + "whiteSingle";
 	public const string Texts					= HUDPath + "text";
-	public const string BGBlackFade 			= BGPath + "blackFade";
+	public const string BGBlackFade 			= BGPath + "blackFade";	// currently unused
 	public const string BGTileBack	 			= BGPath + "bgFull";
 	public const string BGBlackFadeCharSel 		= BGPath + "blackFadeCharSel";
 	public const string BGBlackFadeLeft 		= BGPath + "blackFadeLeft";

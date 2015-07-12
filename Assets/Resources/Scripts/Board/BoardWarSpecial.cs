@@ -116,7 +116,7 @@ public class BoardWarSpecial:BoardWar {
 	public bool SetHPAndReturnIfDestroyed(int pos, int hp) {
 		Shield s = GetShieldAtPos(pos);
 		if(s == null) { return false; }
-		PD.sounds.SetSoundAndPlay(SoundPaths.S_Shield);
+		PD.sounds.SetSoundAndPlay(SoundPaths.S_ShieldHit);
 		bool returnVal = s.SetHealthAndReturnIfDestroyed(hp);
 		changes.Add(new MirrorChangeShield((int)GetXYFromListPos(pos).x, s.curframe));
 		return returnVal;
@@ -215,7 +215,7 @@ public class BoardWarSpecial:BoardWar {
 		eyeballs = new List<GameObject>();
 		eyeFramePositions = new List<int>();
 		int eyecount = eyeSheet.Length / eyeFrames - 1;
-		for(int i = 0; i < 15; i++) { 
+		for(int i = 0; i < 6; i++) { 
 			int iFrameGETITBECAUSEEYES = Random.Range(0, eyecount) * eyeFrames + eyeFrames - 1;
 			eyeFramePositions.Add(iFrameGETITBECAUSEEYES);
 			GameObject g = GetGameObject(GetScreenPosFromXY(Random.Range(1, width - 1), Random.Range (0, height - 1)) + new Vector3(Random.Range(-0.2f, 0.2f), Random.Range(-0.2f, 0.2f)), player + "eyeball" + i, eyeSheet[iFrameGETITBECAUSEEYES], false, "Cover HUD");
