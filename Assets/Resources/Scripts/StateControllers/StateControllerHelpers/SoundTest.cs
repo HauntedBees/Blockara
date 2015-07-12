@@ -218,6 +218,7 @@ public class SoundTest:All {
 		playlistEntries.Add(new TrackInfo("Laila's Honk", artist, SoundPaths.M_Title_DerivPath + "Laila"));
 		playlistEntries.Add(new TrackInfo("Alice/Ana's Screech", artist, SoundPaths.M_Title_DerivPath + "AliceAna"));
 		playlistEntries.Add(new TrackInfo("Do You Remember?", artist, SoundPaths.M_Title_DerivPath + "White"));
+		playlistEntries.Add(new TrackInfo("BlockALLra!", artist, SoundPaths.M_Title_DerivPath + "Group"));
 		for(int i = 1; i <= 83; i++) { playlistEntries.Add(new TrackInfo("George " + i.ToString("d2"), "Cal Young", SoundPaths.VoicePath + "George/" + i.ToString("d3"), false)); }
 		for(int i = 1; i <= 83; i++) { playlistEntries.Add(new TrackInfo("Milo " + i.ToString("d2"), "Abner Hauge", SoundPaths.VoicePath + "Milo/" + i.ToString("d3"), false)); }
 		for(int i = 1; i <= 83; i++) { playlistEntries.Add(new TrackInfo("Devin " + i.ToString("d2"), "Abner Hauge", SoundPaths.VoicePath + "Devin/" + i.ToString("d3"), false)); }
