@@ -112,11 +112,19 @@ public class SoundTest:All {
 					keyDelay = PD.KEY_DELAY;
 					forceSwitch = true;
 				}
-				if(cursorIdx >= playlistShown) {
-					cursorIdx = playlistShown - 1;
+				if(cursorIdx >= (playlistShown - 1)) {
+					if(topIdx == (playlistEntries.Count - playlistShown)) {
+						cursorIdx = playlistShown - 1;
+					} else {
+						cursorIdx = playlistShown - 2;
+					}
 					dy++;
-				} else if(cursorIdx < 0) {
-					cursorIdx = 0;
+				} else if(cursorIdx < 1) {
+					if(topIdx == 0) {
+						cursorIdx = 0;
+					} else {
+						cursorIdx = 1;
+					}
 					dy--;
 				}
 			}
