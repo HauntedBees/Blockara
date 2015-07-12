@@ -14,12 +14,13 @@ limitations under the License.*/
 using UnityEngine;
 using System.Collections.Generic;
 public class DialogContainer:StateController {
-	private const int DEFAULT_DISPLAY_RATE = 5;
-	private int display_rate;
+	private const float DEFAULT_DISPLAY_RATE = 0.05f;
+	private float display_rate;
 
 	private TextMesh nameText, dialogText;
 	
-	private int stringIdx, delay;
+	private int stringIdx;
+	private float delay;
 	private string stringVal;
 
 	private WritingWriter writer;
@@ -61,7 +62,8 @@ public class DialogContainer:StateController {
 				SetDialog(stringVal);
 			}
 		}
-		if(--delay <= 0) {
+		delay -= Time.deltaTime;
+		if(delay <= 0) {
 			int idx = ++stringIdx;
 			if(idx < stringVal.Length) {
 				char s = stringVal[idx];
@@ -75,7 +77,7 @@ public class DialogContainer:StateController {
 	public void PlaySound() {
 		PD.sounds.SetSoundAndPlay(SoundPaths.CutscenePath + nameText.text.Replace(".", "").Replace("/", "").Replace("MODE", "Depeche"));
 	}
-	public void UpdateFrameRate(float f) { display_rate = Mathf.FloorToInt(DEFAULT_DISPLAY_RATE * f); }
+	public void UpdateFrameRate(float f) { display_rate = DEFAULT_DISPLAY_RATE * f; }
 	public void StartTextFrame(string text) {
 		delay = 0;
 		stringIdx = -1;
