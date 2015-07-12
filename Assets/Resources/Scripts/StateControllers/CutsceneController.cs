@@ -17,7 +17,8 @@ public class CutsceneController:CharDisplayController {
 	private CutsceneChar playeractor, opponentactor;
 	private InputCore rawInput;
 	private XmlNodeList dialogArr;
-	private int inputDelay, curFrame;
+	private int curFrame;
+	private float inputDelay;
 	private DialogContainer dialogueBox;
 	private GameObject skipButton, skipText, skipMenu;
 	private Sprite[] skipButtonSheet;
@@ -53,10 +54,10 @@ public class CutsceneController:CharDisplayController {
 		mouseObjects.Add(skipButton);
 		mouseObjects.Add(skipText);
 
-		skipMenu = GetGameObject(new Vector3(0.0f, 0.0f), "Skip Menu", Resources.Load<Sprite>(SpritePaths.CutsceneSkipBox), false, "HUD");
+		skipMenu = GetGameObject(new Vector3(0.0f, 0.0f), "Skip Menu", Resources.Load<Sprite>(SpritePaths.CutsceneSkipBox), false, "HUDText");
 
 		string f = string.Format(GetXmlValue(top, "skipmessage"), "\r\n", PD.controller.GetFriendlyActionName(InputMethod.Action.launch), PD.controller.GetFriendlyActionName(InputMethod.Action.pause));
-		font.scale = 0.08f;
+		font.scale = 0.08f; font.layerName = "Reference";
 		skipMenuText = GetMeshText(new Vector3(0.0f, 0.5f), f, font);
 		skipMenuText.text = new WritingWriter().GetWrappedString(skipMenuText, f, skipMenu.renderer.bounds.size);
 		skipMenuText.gameObject.SetActive(false);
@@ -65,7 +66,7 @@ public class CutsceneController:CharDisplayController {
 		PD.sounds.SetSoundVolume(PD.GetSaveData().savedOptions["vol_s"] / 350.0f);
 	}
 	private InputCore GetInputHandler() {
-		inputDelay = 0;
+		inputDelay = 0.0f;
 		InputCore c = gameObject.AddComponent<InputCore>();
 		c.SetController(PD.controller, PD.GetKeyBindings());
 		return c;
@@ -76,28 +77,32 @@ public class CutsceneController:CharDisplayController {
 		bool skip = false;
 		bool inSkipButton = (clicker.getPositionInGameObject(skipButton).z != 0);
 		skipButton.GetComponent<SpriteRenderer>().sprite = skipButtonSheet[inSkipButton?1:0];
+		inputDelay -= Time.deltaTime;
 		if(PD.usingMouse && clicker.isDown()) { 
 			if(inSkipButton) { 
 				AdvanceToGameOrCredits();
 			} else {
-				skip = true; 
+				skip = true;
 			}
-		} else if(--inputDelay <= 0) {
+		} else if(inputDelay <= 0) {
 			if(rawInput.pause()) {
+				PD.usingMouse = false;
 				if(skipMenuIsUp) {
 					AdvanceToGameOrCredits();
 				} else {
 					ToggleSkipMenu(true);
 				}
 			} else if(rawInput.launch()) {
+				PD.usingMouse = false;
 				if(skipMenuIsUp) {
 					ToggleSkipMenu(false);
 				} else {
 					skip = true;
 				}
-				inputDelay = 7;
+				inputDelay = 0.12f;
 			}
 		}
+		//if(!PD.usingMouse) { skipButton.SetActive(false); skipText.SetActive(false); }
 		if(dialogueBox.UpdateTextAndCheckIfMovingOn(skip)) {  StartFrame(++curFrame); }
 	}
 	private void ToggleSkipMenu(bool show) {
