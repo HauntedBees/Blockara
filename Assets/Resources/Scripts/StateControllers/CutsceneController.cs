@@ -102,7 +102,7 @@ public class CutsceneController:CharDisplayController {
 				inputDelay = 0.12f;
 			}
 		}
-		//if(!PD.usingMouse) { skipButton.SetActive(false); skipText.SetActive(false); }
+		if(!PD.usingMouse) { skipButton.SetActive(false); skipText.SetActive(false); }
 		if(dialogueBox.UpdateTextAndCheckIfMovingOn(skip)) {  StartFrame(++curFrame); }
 	}
 	private void ToggleSkipMenu(bool show) {
