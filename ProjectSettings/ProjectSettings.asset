@@ -118,7 +118,7 @@ PlayerSettings:
       m_Size: 128
     - m_Icon: {fileID: 0}
       m_Size: 48
-    - m_Icon: {fileID: 0}
+    - m_Icon: {fileID: 2800000, guid: c25c4e6b15d9e2d46bc5cbc2233ab2f8, type: 3}
       m_Size: 32
     - m_Icon: {fileID: 0}
       m_Size: 16
