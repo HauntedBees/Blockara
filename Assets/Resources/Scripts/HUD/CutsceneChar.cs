@@ -93,9 +93,9 @@ public class CutsceneChar {
 		if(_path == "White" || _path == "September") {
 			switch(type) {
 				case SpeechType.doDamage: startidx = 1; endidx = 9; break;
-				case SpeechType.nonDamagePositive: startidx = 1; endidx = 9; break;
+				case SpeechType.nonDamagePositive: startidx = 3; endidx = 9; break;
 				case SpeechType.takeDamage: startidx = 9; endidx = 17; break;
-				case SpeechType.nonDamageNegative: startidx = 9; endidx = 17; break;
+				case SpeechType.nonDamageNegative: startidx = 12; endidx = 17; break;
 				case SpeechType.win: startidx = 30; endidx = 31; break;
 				case SpeechType.lose: startidx = 31; endidx = 32; break;
 				default: startidx = 1; endidx = 2; break;
