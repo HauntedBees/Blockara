@@ -29,9 +29,8 @@ public class BoardWarPuzzlePlayer:BoardWar {
 				ShiftRow(unlockedRow, -1);
 				changes.Add(new MirrorChangeShift(unlockedRow, -1));
 			}
-		} else {
+		} else if(cursor.getY() == unlockedRow) {
 			if(isShown) { PD.sounds.SetSoundAndPlay(SoundPaths.S_ShiftRow); }
-			if(cursor.getY() != unlockedRow) { return; }
 			if(shifting > 0) {
 				ShiftRow(cursor.getY(), 1);
 				changes.Add(new MirrorChangeShift(cursor.getY(), 1));
@@ -39,6 +38,8 @@ public class BoardWarPuzzlePlayer:BoardWar {
 				ShiftRow(cursor.getY(), -1);
 				changes.Add(new MirrorChangeShift(cursor.getY(), -1));
 			}
+		} else {
+			PD.sounds.SetSoundAndPlay(SoundPaths.S_Menu_Deny);
 		}
 		actionDelay = PD.KEY_DELAY;
 	}
