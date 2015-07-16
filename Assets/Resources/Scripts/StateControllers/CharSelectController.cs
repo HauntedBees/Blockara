@@ -396,7 +396,7 @@ public class CharSelectController:MenuController {
 		} else if(PD.gameType == PersistData.GT.Versus && PD.controller2 == null) {
 			int completionPercent = PD.GetSaveData().CalculateGameCompletionPercent();
 			string crPath = SpritePaths.CharSelCursors;
-			int crNum = 10; dX = 0.71f; initX = -3.2f;
+			int crNum = 10;
 			if(completionPercent == 100) {
 				crPath = SpritePaths.CharSelCursorsAll;
 				crNum = 12;
@@ -405,7 +405,7 @@ public class CharSelectController:MenuController {
 				crNum = 11;
 			}
 			PD.controller2 = PD.detectInput_P2();
-			if(PD.controller2 != null) { 
+			if(PD.controller2 != null) {
 				cursor2 = GetMenuCursor(crNum, 1, crPath, initX, -0.99f, dX, 0.0f, 1, 0, 2, 1, 0.2f);
 				InitPlayer2Select();
 				UpdateBackground(false);
