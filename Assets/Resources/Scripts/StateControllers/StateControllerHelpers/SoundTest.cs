@@ -61,6 +61,7 @@ public class SoundTest:All {
 		isActive = show;
 	}
 	public bool HandleMouseInput(MouseCore clicker) {
+		if(!PD.usingMouse) { return false; }
 		int selected = -1;
 		if(clicker.getPositionInGameObject(playPauseButton).z > 0.0f && clicker.isDown()) {
 			if(isPlaying) {
