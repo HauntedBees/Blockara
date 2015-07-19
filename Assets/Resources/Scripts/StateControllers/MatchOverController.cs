@@ -18,7 +18,7 @@ public class MatchOverController:CharDisplayController {
 	private CutsceneChar winner, loser;
 	private int applauseTimer;
 	public void Start() {
-		GetPersistData();
+		StateControllerInit(false);
 		GameObject g = GameObject.Find("Confetti") as GameObject;
 		particles = g.GetComponent<ParticleSystem>();
 		pars = new ParticleSystem.Particle[particles.maxParticles];
@@ -31,7 +31,7 @@ public class MatchOverController:CharDisplayController {
 
 		PD.sounds.SetMusicAndPlay(SoundPaths.M_Title_DerivPath + PD.GetPlayerSpritePath(winChar));
 
-		winner = CreateActor(PD.GetPlayerSpritePath(winChar), new Vector3(-1.7f, -0.3f));
+		winner = CreateActor(PD.GetPlayerSpritePath(winChar), new Vector3(-2.06f, -0.5f));
 		winner.SetScale(0.4f).SetSprite(2).SetSortingLayer("BG1");
 
 		PD.sounds.SetVoiceAndPlay(SoundPaths.NarratorPath + (Random.value > 0.5f ? "039" : "040"), 0);
@@ -39,8 +39,9 @@ public class MatchOverController:CharDisplayController {
 		PD.sounds.QueueVoice(SoundPaths.NarratorPath + narratorIndex.ToString("d3"));
 		int val = Random.Range(70, 76);
 		PD.sounds.QueueVoice(SoundPaths.VoicePath + PD.GetPlayerSpritePath(winChar) + "/" + val.ToString("d3"));
+		PD.sounds.SetSoundVolume(PD.GetSaveData().savedOptions["vol_s"] / 115.0f);
 
-		loser = CreateActor(PD.GetPlayerSpritePath(loseChar), new Vector3(1.7f, -1.2f), true);
+		loser = CreateActor(PD.GetPlayerSpritePath(loseChar), new Vector3(2.81f, -1.25f), true);
 		loser.SetSprite(loser.loseFrame).SetScale(0.2f).SetSortingLayer("BG1").SetTint(new Color(0.5f, 0.5f, 0.5f));
 		GetGameObject(new Vector3(1.3f, 0.7f), "infoBox", Resources.Load<Sprite>(SpritePaths.DetailsBox));
 		System.Xml.XmlNode top = GetXMLHead();
@@ -64,7 +65,8 @@ public class MatchOverController:CharDisplayController {
 	}
 	public void Update() {
 		if(--applauseTimer == 0) { PD.sounds.SetSoundAndPlay(SoundPaths.S_Applause + Random.Range(1, 7).ToString()); }
-		if(PD.controller.G_Launch() || PD.controller.Pause()) {
+		if(PD.controller.G_Launch() || PD.controller.Pause() || clicker.isDown()) {
+			PD.sounds.SetSoundVolume(PD.GetSaveData().savedOptions["vol_s"] / 150.0f);
 			if(PD.gameType == PersistData.GT.Versus) {
 				PD.ChangeScreen(PersistData.GS.CharSel);
 			} else {
