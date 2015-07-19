@@ -211,7 +211,7 @@ public class BoardWar:BoardWarCore {
 	public override Vector3 GetScreenPosFromXY(int x, int y) { return new Vector3((xOffset + x) * Consts.TILE_SIZE, Consts.YBOTTOM + y * Consts.TILE_SIZE); }
 	public List<MirrorChange> GetChanges() { return changes; }
 	private void ClearChanges() { changes.Clear(); }
-	public void AddToScore(int n) { score += n; }
+	public void AddToScore(int n) { score += n; if(score >= 10000000) { score = 9999999; } }
 	public int GetScore() { return score; }
 	public int GetTopValueAtX(int x) {
 		int topy = GetHighestYAtX(x);
