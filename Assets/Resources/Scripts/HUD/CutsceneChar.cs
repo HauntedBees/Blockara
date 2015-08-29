@@ -16,7 +16,7 @@ using UnityEngine;
 public class CutsceneChar {
 	public enum Reaction { firstStrike, hit, hit2, hit3, block, miss2, combo2, combo3, win }
 	public enum SpeechType { doDamage, nonDamagePositive, takeDamage, nonDamageNegative, lose, win }
-	private string _name, _path, voicePath;
+	private string _name, _path;
 	private Vector3 sheetScale;
 	private GameObject _obj;
 	private Sprite[] _sheet;
@@ -30,7 +30,6 @@ public class CutsceneChar {
 		_sheet = s;
 		_player = p;
 		_PD = PD;
-		voicePath = SoundPaths.VoicePath + _path + "/";
 		sheetScale = new Vector3(_obj.transform.localScale.x, _obj.transform.localScale.y);
 		loseFrame = 5;
 	}
@@ -90,7 +89,12 @@ public class CutsceneChar {
 	public void SayThingFromReaction(SpeechType type) {
 		if(_PD.gameType == PersistData.GT.Challenge) { return; }
 		int startidx, endidx;
-		if(_path == "White" || _path == "September") {
+		string storedPath = _path;
+		if(_path == "MasterAlchemist") {
+			System.Array values = System.Enum.GetValues(typeof(PersistData.C));
+			storedPath = _PD.GetPlayerSpritePath((PersistData.C) values.GetValue(Random.Range(0, values.Length)));
+		}
+		if(storedPath == "White" || _path == "September") {
 			switch(type) {
 				case SpeechType.doDamage: startidx = 1; endidx = 9; break;
 				case SpeechType.nonDamagePositive: startidx = 3; endidx = 9; break;
@@ -112,10 +116,12 @@ public class CutsceneChar {
 			}
 		}
 		int idx = Random.Range(startidx, endidx);
-		SayThingFromXML(idx.ToString("D3"));
+		SayThingFromXML(idx.ToString("D3"), false, storedPath);
 	}
-	public void SayThingFromXML(string path, bool forcePlayer1 = false) {
-		if(_path == "September" && path == "017" && Random.value < 0.05f) { path = "018"; }
-		_PD.sounds.SetVoiceAndPlay(voicePath + path, forcePlayer1?0:_player);
+	public void SayThingFromXML(string path, bool forcePlayer1 = false, string newPath = "") {
+		string sayPath = newPath;
+		if(string.IsNullOrEmpty(sayPath)) { sayPath = _path; }
+		if(sayPath == "September" && path == "017" && Random.value < 0.05f) { path = "018"; }
+		_PD.sounds.SetVoiceAndPlay(SoundPaths.VoicePath + sayPath + "/" + path, forcePlayer1?0:_player);
 	}
 }

@@ -14,7 +14,8 @@ limitations under the License.*/
 using UnityEngine;
 public class MainMenuController:MenuController {
 	private GameObject[] menuButtons;
-	private GameObject title;
+	private GameObject title, character;
+	private CutsceneChar charTalker;
 	private int timeUntilDemo;
 	private TextMesh pressButtonToStart;
 	private TextMesh[] texts;
@@ -49,14 +50,17 @@ public class MainMenuController:MenuController {
 		if(PD.p2Char == PersistData.C.Everyone) {
 			PD.sounds.SetVoiceAndPlay(SoundPaths.S_AllShout, 0);
 			PD.sounds.SetMusicAndPlay(SoundPaths.M_Title_DerivPath + "Group");
-			GetGameObject(new Vector3(0.0f, -0.5f), "A Player Is Everyone!", Resources.Load<Sprite>(SpritePaths.CharGroupShot), false, "Zapper");
+			character = GetGameObject(new Vector3(0.0f, -0.5f), "A Player Is Everyone!", Resources.Load<Sprite>(SpritePaths.CharGroupShot), true, "Zapper");
+			charTalker = new CutsceneChar(PD.GetPlayerSpritePath(PD.p2Char), character, null, 0, PD);
 		} else if(PD.p2Char != PersistData.C.Null) {
 			PD.sounds.SetVoiceAndPlay(SoundPaths.VoicePath + PD.GetPlayerSpritePath(PD.p2Char) + "/" + "083", 0);
 			if(PD.p2Char != PersistData.C.September && PD.p2Char != PersistData.C.White) { 
-				GetGameObject(new Vector3(xOffset, -0.5f), "A Player Is You", sheet[(int)PD.p2Char], false, "Zapper");
+				character = GetGameObject(new Vector3(xOffset, -0.5f), "A Player Is You", sheet[(int)PD.p2Char], true, "Zapper");
+				charTalker = new CutsceneChar(PD.GetPlayerSpritePath(PD.p2Char), character, null, 0, PD);
 				PD.sounds.SetMusicAndPlay(SoundPaths.M_Title_DerivPath + PD.GetPlayerSpritePath(PD.p2Char));
 			} else {
-				GetGameObject(new Vector3(xOffset, -0.5f), "A Player Is You", sheet[(PD.p2Char == PersistData.C.White)?0:1], false, "Zapper");
+				character = GetGameObject(new Vector3(xOffset, -0.5f), "A Player Is You", sheet[(PD.p2Char == PersistData.C.White)?0:1], true, "Zapper");
+				charTalker = new CutsceneChar(PD.GetPlayerSpritePath(PD.p2Char), character, null, 0, PD);
 				PD.sounds.SetMusicAndPlay(SoundPaths.M_Title_DerivPath + "White");
 				if(PD.p2Char == PersistData.C.September) {
 					PD.sounds.SetVoiceAndPlay(SoundPaths.VoicePath + "September/042", 0);
@@ -183,6 +187,7 @@ public class MainMenuController:MenuController {
 	
 	protected override bool HandleMouse() {
 		if(!PD.usingMouse) { return false; }
+		HandleCharacterClick();
 		Vector3 inTitle = clicker.getPositionInGameObject(title);
 		if(inTitle.z == 1 && Mathf.Abs(inTitle.x) > 1.5f && Mathf.Abs(inTitle.y) < 0.3f && clicker.isDown()) {
 			if(PD.GetSaveData().savedOptions["beatafuckingballoon"] == 1) {
@@ -198,6 +203,12 @@ public class MainMenuController:MenuController {
 		cursor.setX(x); cursor.setY(y);
 		if(clicker.isDown()) { ConfirmSelectionAndAdvance(initv); }
 		return false;
+	}
+	private void HandleCharacterClick() {
+		if(character == null) { return; }
+		if(clicker.getPositionInGameObject(character).z == 1 && clicker.isDown()) {
+			charTalker.SayThingFromReaction(CutsceneChar.SpeechType.doDamage);
+		}
 	}
 	private int GetClickSelection() {
 		for(int i = 0; i < 9; i++) {

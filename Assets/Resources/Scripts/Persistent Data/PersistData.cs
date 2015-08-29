@@ -244,6 +244,7 @@ public class PersistData:MonoBehaviour {
 			case C.September: return "September";
 			case C.White: return "White";
 			case C.FuckingBalloon: return "MasterAlchemist";
+			case C.Everyone: return "MasterAlchemist";
 		}
 		return isBackground?"Default":"George";
 	}
