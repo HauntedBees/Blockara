@@ -37,7 +37,7 @@ public class Input_Computer:InputMethod {
 	public override bool Nav_Down() { return keyBinds.IsPress(KeyBinding.down); }
 	public override bool Nav_Right() { return keyBinds.IsPress(KeyBinding.right); }
 	public override bool M_Confirm() { return keyBinds.IsDown(KeyBinding.launch); }
-	public override bool M_Cancel() { return keyBinds.IsDown(KeyBinding.back); }
+	public override bool M_Cancel() { return Input.GetKeyDown(KeyCode.Escape) || keyBinds.IsDown(KeyBinding.back); }
 	public override bool Pause() { return keyBinds.IsDown(KeyBinding.pause); }
 	public override bool EnableCheat1() { return keyBinds.IsDown(KeyBinding.hidden1) && keyBinds.IsPress(KeyBinding.hidden3); }
 	public override bool EnableCheat2() { return keyBinds.IsDown(KeyBinding.hidden2) && keyBinds.IsPress(KeyBinding.hidden3); }
