@@ -11,12 +11,14 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.*/
+using DG.Tweening;
 using UnityEngine;
 using System.Collections.Generic;
 public class BoardCursorActualCore:BoardCursorCore {
 	#region "Members"
 	protected GameObject white;
 	protected GameObject[] whiteDepth;
+	private Sequence winningTweenJustSeventeenYoureTheWinningTween;
 	protected int depth, maxWhiteDepth;
 	protected float moveDelay;
 	private GameTouchHandler touchHandler;
@@ -66,6 +68,18 @@ public class BoardCursorActualCore:BoardCursorCore {
 		for(int i = (maxWhiteDepth - 1); i >= 0; i--) { whiteDepth[i].SetActive(!hideWhite && i > depth); }
 		whiteDepth[maxWhiteDepth].SetActive(!hideWhite && depth < 0 && canKill);
 		white.SetActive(!hideWhite);
+		if(canKill) {
+			if(winningTweenJustSeventeenYoureTheWinningTween == null || winningTweenJustSeventeenYoureTheWinningTween.IsComplete() || !winningTweenJustSeventeenYoureTheWinningTween.IsActive()) {
+				winningTweenJustSeventeenYoureTheWinningTween = DOTween.Sequence();
+				winningTweenJustSeventeenYoureTheWinningTween.Append(white.renderer.material.DOColor(Color.black, 0.2f));
+				winningTweenJustSeventeenYoureTheWinningTween.Append(white.renderer.material.DOColor(Color.white, 0.2f));
+				for(int i = 0; i < maxWhiteDepth; i++) {
+					Sequence s = DOTween.Sequence();
+					s.Append(whiteDepth[i].renderer.material.DOColor(Color.black, 0.2f));
+					s.Append(whiteDepth[i].renderer.material.DOColor(Color.yellow, 0.2f));
+				}
+			}
+		}
 
 		if(prevx == x) { return; }
 		Vector3 pos2 =  new Vector3((xOffset + x) * Consts.TILE_SIZE, 0.0f);
