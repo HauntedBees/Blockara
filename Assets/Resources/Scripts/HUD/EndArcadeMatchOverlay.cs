@@ -77,7 +77,7 @@ public class EndArcadeMatchOverlay:CharDisplayController {
 	}
 	private void setActor(CutsceneChar fucker, string pose) {
 		int poseInt = int.Parse(pose);
-		tbox.SetName(fucker.GetName());
+		tbox.SetName(fucker.GetName(), fucker == playeractor);
 		fucker.SetSprite(poseInt);
 	}
 	private void hideActor(CutsceneChar fucker) { fucker.Hide(); }
