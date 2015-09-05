@@ -18,35 +18,42 @@ public class DialogContainer:StateController {
 	private float display_rate;
 
 	private TextMesh nameText, dialogText;
-	
+
+	private GameObject textBox;
 	private int stringIdx;
-	private float delay;
+	private float delay, leftx, rightx, textBoxScale;
 	private string stringVal;
 
 	private WritingWriter writer;
 	private Vector2 bounds;
 
-	public void SetName(string s) { nameText.text = s; }
+	public void SetName(string s, bool left = false) {
+		nameText.text = s;
+		nameText.transform.position = new Vector3(left?leftx:rightx, nameText.transform.position.y);
+		textBox.transform.localScale = new Vector2(left?textBoxScale:-textBoxScale, textBoxScale);
+	}
 	private void SetDialog(string s) { dialogText.text = s; }
 	private void AddToDialog(char s) { dialogText.text += s; }
 	public void Setup(Vector3 pos, bool onGameScreen = false) {
 		GetPersistData();
 		writer = new WritingWriter();
 
-		GameObject textBox = GetGameObject(pos, "Text Box", Resources.Load<Sprite>(SpritePaths.DialogBox), false, "Cover HUD Dialog Box");
+		textBox = GetGameObject(pos, "Text Box", Resources.Load<Sprite>(SpritePaths.DialogBox), false, "Cover HUD Dialog Box");
 		if(onGameScreen) {
-			Vector3 half = new Vector3(0.4f, 0.4f);
-			textBox.transform.localScale = half;
-		}
-		bounds = new Vector3(textBox.renderer.bounds.size.x * 0.97f, textBox.renderer.bounds.size.y * 0.66f);
+			textBoxScale = 0.4f;
+			textBox.transform.localScale = new Vector3(textBoxScale, 0.4f);
+		} else { textBoxScale = 1.0f; }
+		bounds = new Vector3(textBox.renderer.bounds.size.x * 0.94f, textBox.renderer.bounds.size.y * 0.66f);
 
 		Vector3 textpos = textBox.transform.position;
-		textpos.x -= 7.6f * (onGameScreen?0.4f:1.0f);
+		textpos.x -= 8.7f * (onGameScreen?0.4f:1.0f);
 		textpos.y += 1.5f * (onGameScreen?0.4f:1.0f);
 		FontData f = PD.mostCommonFont.Clone();
 		f.align = TextAlignment.Left; f.anchor = TextAnchor.UpperLeft; f.layerName = "Cover HUD Dialog Text";
 		f.scale = onGameScreen?0.04f:0.1f;
 		nameText = GetMeshText(textpos, "Ass", f);
+		leftx = textpos.x;
+		rightx = 5.5f * (onGameScreen?0.4f:1.0f);
 		textpos.y -= 0.6f * (onGameScreen?0.4f:1.0f);
 		textpos.x += 0.025f;
 		f.scale = onGameScreen?0.04f:0.10f;

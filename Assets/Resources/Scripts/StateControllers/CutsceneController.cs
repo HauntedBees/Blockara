@@ -46,10 +46,11 @@ public class CutsceneController:CharDisplayController {
 		StartFrame(curFrame);
 
 		skipButtonSheet = Resources.LoadAll<Sprite>(SpritePaths.ShortButtons);
-		skipButton = GetGameObject(new Vector3(8.3f, -4.75f), "Skip", skipButtonSheet[0], true, "HUD");
+		skipButton = GetGameObject(new Vector3(8.3f, -4.75f), "Skip", skipButtonSheet[0], true, "Pause HUD Buttons");
 		FontData font = PD.mostCommonFont.Clone(); font.scale = 0.045f;
 		XmlNode top = GetXMLHead();
 		skipText = GetMeshText(new Vector3(8.3f, -4.61f), GetXmlValue(top, "skip"), font).gameObject;
+		skipText.renderer.sortingLayerName = "Pause HUD Text";
 
 		mouseObjects.Add(skipButton);
 		mouseObjects.Add(skipText);
@@ -137,7 +138,7 @@ public class CutsceneController:CharDisplayController {
 	}
 	private void UpdateActorPoseAndTextBoxName(CutsceneChar fucker, string pose) {
 		int poseInt = int.Parse(pose);
-		dialogueBox.SetName(fucker.GetName());
+		dialogueBox.SetName(fucker.GetName(), fucker == playeractor);
 		fucker.SetSprite(poseInt);
 	}
 }
