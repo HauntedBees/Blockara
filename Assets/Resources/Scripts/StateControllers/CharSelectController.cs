@@ -184,19 +184,15 @@ public class CharSelectController:MenuController {
 
 	private void InitPlayer1Select() {
 		chars = Resources.LoadAll<Sprite>(SpritePaths.CharSelProfiles);
-		Sprite[] chars2 = Resources.LoadAll<Sprite>(SpritePaths.CharSeptWhite);
-		System.Array.Resize(ref chars, 12);
-		chars[10] = chars2[0];
-		chars[11] = chars2[1];
 		charNames = Resources.LoadAll<Sprite>(SpritePaths.CharNames);
-		charSprite1 = GetGameObject(new Vector3(-2.5f, 0.8f), "Player 1 Character", chars[0]);
+		charSprite1 = GetGameObject(new Vector3(-2.6f, 1.0f), "Player 1 Character", chars[0]);
+		charSprite1.transform.localScale = new Vector3(0.7f, 0.7f);
 		charName1 = GetGameObject(new Vector3(-1.6f, 0.15f), "Player 1 Name", charNames[0], false, "HUDText");
 	}
 	private void InitPlayer2Select() {
-		charSprite2 = GetGameObject(new Vector3(2.5f, 0.8f), "Player 2 Character", chars[1]);
+		charSprite2 = GetGameObject(new Vector3(2.6f, 1.0f), "Player 2 Character", chars[1]);
 		charName2 = GetGameObject(new Vector3(1.6f, 0.15f), "Player 2 Name", charNames[1], false, "HUDText");
-		Vector3 scale = charSprite2.transform.localScale; scale.x *= -1.0f;
-		charSprite2.transform.localScale = scale;
+		charSprite2.transform.localScale = new Vector3(-0.7f, 0.7f);
 	}
 	private void SetupBackgrounds() {
 		bg1 = GetGameObject(new Vector3(-1.78f, 0.0f), "Background 1", Resources.Load<Sprite> (SpritePaths.DefaultBG), false, "BG0");
