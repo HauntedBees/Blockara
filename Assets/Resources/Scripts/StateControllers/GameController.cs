@@ -403,9 +403,9 @@ public class GameController:CharDisplayController {
 	}
 	private void UpdateCursors() {
 		depthPenetrateKill t1 = GetDepthAndKillForDisplay(cursor1, board1, board2);
-		cursor1.SetDepthAndKillForDisplay(t1.depth, t1.penetrate, t1.kill);
+		cursor1.SetDepthAndKillForDisplay(t1.depth, t1.penetrate, t1.penetratedepth, t1.kill);
 		depthPenetrateKill t2 = GetDepthAndKillForDisplay(cursor2, board2, board1);
-		cursor2.SetDepthAndKillForDisplay(t2.depth, t2.penetrate, t2.kill);
+		cursor2.SetDepthAndKillForDisplay(t2.depth, t2.penetrate, t2.penetratedepth, t2.kill);
 		cursor1.DoUpdate();
 		cursor2.DoUpdate();
 	}
@@ -481,8 +481,8 @@ public class GameController:CharDisplayController {
 	}
 	
 	private struct depthPenetrateKill {
-		public int depth; public bool penetrate; public bool kill;
-		public depthPenetrateKill(int d, bool p, bool k) { depth = d; penetrate = p; kill = k; }
+		public int depth; public bool penetrate; public int penetratedepth; public bool kill;
+		public depthPenetrateKill(int d, bool p, int dp, bool k) { depth = d; penetrate = p; penetratedepth = dp; kill = k; }
 	}
 	private depthPenetrateKill GetDepthAndKillForDisplay(BoardCursorCore launcherCur, BoardWar launcher, BoardWar victim) {
 		int invertedx = victim.width - launcherCur.getX() - 1;
@@ -490,7 +490,7 @@ public class GameController:CharDisplayController {
 		launcher.UpdateBlockNexter(lengthType[0]);
 		int topy = victim.GetHighestYAtX(invertedx);
 		int d = victim.GetHitDepth(invertedx, lengthType[0], lengthType[1], topy);
-		return new depthPenetrateKill(d, d < topy, victim.CanBeKilled(invertedx, lengthType[0]));
+		return new depthPenetrateKill(d, d < topy, topy - d, victim.CanBeKilled(invertedx, lengthType[0]));
 	}
 	private void HandleLaunch(BoardWar launcher, BoardWar victim, int player) {
 		BoardWar.LaunchInfo lI = launcher.launchInfo;

@@ -18,8 +18,8 @@ public class BoardCursorActualCore:BoardCursorCore {
 	#region "Members"
 	protected GameObject white;
 	protected GameObject[] whiteDepth;
-	private Sequence winningTweenJustSeventeenYoureTheWinningTween;
-	protected int depth, maxWhiteDepth;
+	private Sequence winningTweenJustSeventeenYoureTheWinningTween, damageTween;
+	protected int depth, penetrateDepth, maxWhiteDepth;
 	protected float moveDelay;
 	private GameTouchHandler touchHandler;
 	public bool canKill, penetr, hideWhite, frozen;
@@ -49,7 +49,7 @@ public class BoardCursorActualCore:BoardCursorCore {
 		white.transform.localScale = new Vector2(1.0f, 1.6f + ((8 - maxWhiteDepth) * 2.0f));
 		whiteDepth = new GameObject[maxWhiteDepth + 1];
 		for(int i = 0; i < (maxWhiteDepth + 1); i++) {
-			whiteDepth[i] = GetGameObject(Vector3.zero, "White", Resources.Load<Sprite>(SpritePaths.WhiteSingle), false, "HUD");
+			whiteDepth[i] = GetGameObject(Vector3.zero, "White" + i, Resources.Load<Sprite>(SpritePaths.WhiteSingle), false, "HUD");
 			whiteDepth[i].SetActive(false);
 		}
 	}
@@ -65,7 +65,19 @@ public class BoardCursorActualCore:BoardCursorCore {
 	}
 	private void UpdateWhite(bool skipTween = false) {
 		if(!isShown) { return; }
-		for(int i = (maxWhiteDepth - 1); i >= 0; i--) { whiteDepth[i].SetActive(!hideWhite && i > depth); }
+		for(int i = 0; i < maxWhiteDepth; i++) { whiteDepth[i].SetActive(!hideWhite && i > depth); }
+		if(penetrateDepth > 0) {
+			if(damageTween == null || damageTween.IsComplete() || !damageTween.IsActive()) {
+				damageTween = DOTween.Sequence();
+				damageTween.Append(whiteDepth[depth + 1].renderer.material.DOColor(Color.black, 0.2f));
+				damageTween.Append(whiteDepth[depth + 1].renderer.material.DOColor(Color.white, 0.2f));
+				for(int i = depth + 2; i < (depth + 1 + penetrateDepth); i++) {
+					Sequence s = DOTween.Sequence();
+					s.Append(whiteDepth[i].renderer.material.DOColor(Color.black, 0.2f));
+					s.Append(whiteDepth[i].renderer.material.DOColor(Color.white, 0.2f));
+				}
+			}
+		}
 		whiteDepth[maxWhiteDepth].SetActive(!hideWhite && depth < 0 && canKill);
 		white.SetActive(!hideWhite);
 		if(canKill) {
@@ -103,7 +115,7 @@ public class BoardCursorActualCore:BoardCursorCore {
 	}
 	#endregion
 	#region "Control Execution"
-	public void SetDepthAndKillForDisplay(int d, bool p, bool k) { depth = d; penetr = p; canKill = k; }
+	public void SetDepthAndKillForDisplay(int d, bool p, int dp, bool k) { depth = d; penetr = p; penetrateDepth = dp; canKill = k; }
 	public void shiftX(int x) { this.x += x; }
 	#endregion
 }
