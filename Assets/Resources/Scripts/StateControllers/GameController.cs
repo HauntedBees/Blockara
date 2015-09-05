@@ -496,7 +496,7 @@ public class GameController:CharDisplayController {
 		BoardWar.LaunchInfo lI = launcher.launchInfo;
 		int invertedX = victim.width - lI.x - 1;
 		int depth = victim.TakeDamage(invertedX, lI.len, lI.type);
-		HandleLaunchAnimations(launcher, victim, depth);
+		HandleLaunchAnimations(launcher, victim, depth, lI.type);
 		if(depth > 0) { launcher.AddToScore(PD.GetScore(depth, lI.len, lI.bonus)); }
 		if(player == 1 && player1Human || player == 2 && player2Human) {
 			GameObject zGo = GetGameObject(Vector3.zero, "zGo", null, false, "Zapper");
@@ -514,7 +514,7 @@ public class GameController:CharDisplayController {
 		}
 		launcher.AcceptLaunch();
 	}
-	private void HandleLaunchAnimations(BoardWar launcher, BoardWar victim, int damageDealt) {
+	private void HandleLaunchAnimations(BoardWar launcher, BoardWar victim, int damageDealt, int type) {
 		CutsceneChar sender, receiver;
 		if(launcher.player == 1) { sender = actor1; receiver = actor2; } else { sender = actor2; receiver = actor1; }
 		if(damageDealt == 0) {
@@ -536,6 +536,7 @@ public class GameController:CharDisplayController {
 			return;
 		}
 		launcher.misses = 0;
+		receiver.FlickerColor(type);
 		if(firstLaunch) {
 			firstLaunch = false;
 			sender.DoReaction(CutsceneChar.Reaction.firstStrike, true);

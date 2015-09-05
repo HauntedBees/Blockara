@@ -38,6 +38,12 @@ public class CutsceneChar {
 	public void Hide() { _obj.transform.localPosition = new Vector3(-100f, -100f); }
 	public CutsceneChar SetSortingLayer(string s) { _obj.GetComponent<SpriteRenderer>().sortingLayerName = s; return this; }
 
+	public void FlickerColor(int colortype) {
+		Color c = colortype==0?Color.blue:(colortype==1?Color.red:Color.green);
+		Sequence s = DOTween.Sequence();
+		s.Append(_obj.renderer.material.DOColor(c, 0.15f));
+		s.Append(_obj.renderer.material.DOColor(Color.white, 0.15f));
+	}
 	public CutsceneChar SetSprite(int idx) {
 		if(_obj.GetComponent<SpriteRenderer>().sprite == null) { ChangeSprite(idx); return this; }
 		if(_obj.GetComponent<SpriteRenderer>().sprite == _sheet[idx]) { return this; }
