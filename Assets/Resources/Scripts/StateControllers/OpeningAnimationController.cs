@@ -66,13 +66,13 @@ public class OpeningAnimationController:StateController {
 		else if(curFrame >= maxFrame && !PD.sounds.IsVoicePlaying()) { InitAnimation(); state = 1; }
 	}
 	private void FlickerEyes() {
-		for(int i = 0; i < 21; i++) {
+		for(int i = 0; i < 20; i++) {
 			int d = curFrame++;
 			float ns = 0.1f + 0.03f*(d<90?d:((180 - d)));
 			twinkles[i].transform.localScale = new Vector3(ns, ns);
 		}
 		if(curFrame >= 180) {
-			for(int i = 0; i < 21; i++) { Destroy(twinkles[i]); }
+			for(int i = 0; i < 20; i++) { Destroy(twinkles[i]); }
 			twinkles = null;
 			curFrame = 0;
 			state = 3;
@@ -113,39 +113,38 @@ public class OpeningAnimationController:StateController {
 	}
 	private void InitFlickerEyes() {
 		Sprite twinkleSprite = Resources.Load<Sprite>(SpritePaths.EyeSparkle);
-		twinkles = new GameObject[21];
+		twinkles = new GameObject[20];
 		PD.sounds.SetSoundAndPlay(SoundPaths.S_Ding);
 		curFrame = 0;
 		twinkles[0] = GetTwinkle(twinkleSprite, new Vector3(-3.32f, 0.50f));
 		twinkles[1] = GetTwinkle(twinkleSprite, new Vector3(-3.07f, 0.48f));
-
-		twinkles[2] = GetTwinkle(twinkleSprite, new Vector3(-2.70f, 0.41f));
-		twinkles[3] = GetTwinkle(twinkleSprite, new Vector3(-2.26f, 0.42f));
-
-		twinkles[4] = GetTwinkle(twinkleSprite, new Vector3(-1.92f, 0.35f));
-
-		twinkles[5] = GetTwinkle(twinkleSprite, new Vector3(-1.32f, 0.39f));
+		
+		twinkles[2] = GetTwinkle(twinkleSprite, new Vector3(-2.70f, 0.44f));
+		twinkles[3] = GetTwinkle(twinkleSprite, new Vector3(-2.26f, 0.50f));
+		
+		twinkles[4] = GetTwinkle(twinkleSprite, new Vector3(-1.55f, 0.30f));
+		
+		twinkles[5] = GetTwinkle(twinkleSprite, new Vector3(-1.32f, 0.45f));
 		twinkles[6] = GetTwinkle(twinkleSprite, new Vector3(-1.29f, 0.65f));
-		twinkles[7] = GetTwinkle(twinkleSprite, new Vector3(-0.95f, 0.39f));
+		twinkles[7] = GetTwinkle(twinkleSprite, new Vector3(-0.90f, 0.43f));
 		twinkles[8] = GetTwinkle(twinkleSprite, new Vector3(-0.83f, 0.64f));
-
-		twinkles[9] = GetTwinkle(twinkleSprite, new Vector3(-0.37f, 0.22f));
-
-		twinkles[10] = GetTwinkle(twinkleSprite, new Vector3(0.09f, 0.47f));
-		twinkles[11] = GetTwinkle(twinkleSprite, new Vector3(0.39f, 0.44f));
-
+		
+		twinkles[9] = GetTwinkle(twinkleSprite, new Vector3(-0.36f, 0.40f));
+		
+		twinkles[10] = GetTwinkle(twinkleSprite, new Vector3(0.15f, 0.57f));
+		twinkles[11] = GetTwinkle(twinkleSprite, new Vector3(0.57f, 0.52f));
+		
 		twinkles[12] = GetTwinkle(twinkleSprite, new Vector3(1.00f, 0.42f));
 		twinkles[13] = GetTwinkle(twinkleSprite, new Vector3(1.27f, 0.38f));
-
-		twinkles[14] = GetTwinkle(twinkleSprite, new Vector3(1.60f, 0.41f));
-		twinkles[15] = GetTwinkle(twinkleSprite, new Vector3(1.85f, 0.51f));
-		twinkles[16] = GetTwinkle(twinkleSprite, new Vector3(1.95f, 0.36f));
-
-		twinkles[17] = GetTwinkle(twinkleSprite, new Vector3(2.38f, 0.50f));
-		twinkles[18] = GetTwinkle(twinkleSprite, new Vector3(2.59f, 0.50f));
-
-		twinkles[19] = GetTwinkle(twinkleSprite, new Vector3(2.98f, 0.28f));
-		twinkles[20] = GetTwinkle(twinkleSprite, new Vector3(3.30f, 0.28f));
+		
+		twinkles[14] = GetTwinkle(twinkleSprite, new Vector3(1.55f, 0.31f));
+		twinkles[15] = GetTwinkle(twinkleSprite, new Vector3(1.85f, 0.40f));
+		twinkles[16] = GetTwinkle(twinkleSprite, new Vector3(1.99f, 0.27f));
+		
+		twinkles[17] = GetTwinkle(twinkleSprite, new Vector3(2.72f, 0.58f));
+		
+		twinkles[18] = GetTwinkle(twinkleSprite, new Vector3(3.03f, 0.39f));
+		twinkles[19] = GetTwinkle(twinkleSprite, new Vector3(3.45f, 0.41f));
 	}
 	private GameObject GetTwinkle(Sprite twinkle, Vector3 pos) {
 		GameObject g = GetGameObject(pos, "eyeTwinkle", twinkle, false, "Pause HUD Cursor");
