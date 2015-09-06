@@ -46,7 +46,7 @@ public class BoardCursorActualCore:BoardCursorCore {
 	private void InitializeWhite() {
 		if(!isShown) { return; }
 		white = GetGameObject(Vector3.zero, "White", Resources.Load<Sprite>(SpritePaths.White), false, "HUD");
-		white.transform.localScale = new Vector2(1.0f, 1.6f + ((8 - maxWhiteDepth) * 2.0f));
+		white.transform.localScale = new Vector2(1.0f, 1.62f + ((8 - maxWhiteDepth) * 2.0f));
 		whiteDepth = new GameObject[maxWhiteDepth + 1];
 		for(int i = 0; i < (maxWhiteDepth + 1); i++) {
 			whiteDepth[i] = GetGameObject(Vector3.zero, "White" + i, Resources.Load<Sprite>(SpritePaths.WhiteSingle), false, "HUD");
