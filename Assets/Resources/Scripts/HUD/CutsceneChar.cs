@@ -96,11 +96,13 @@ public class CutsceneChar {
 		if(_PD.gameType == PersistData.GT.Challenge) { return; }
 		int startidx, endidx;
 		string storedPath = _path;
-		if(_path == "MasterAlchemist") {
+		if(_path == "Everyone") {
 			System.Array values = System.Enum.GetValues(typeof(PersistData.C));
 			storedPath = _PD.GetPlayerSpritePath((PersistData.C) values.GetValue(Random.Range(0, values.Length)));
 		}
-		if(storedPath == "White" || _path == "September") {
+		if(storedPath == "MasterAlchemist") {
+			startidx = 0; endidx = 17;
+		} else if(storedPath == "White" || _path == "September") {
 			switch(type) {
 				case SpeechType.doDamage: startidx = 1; endidx = 9; break;
 				case SpeechType.nonDamagePositive: startidx = 3; endidx = 9; break;

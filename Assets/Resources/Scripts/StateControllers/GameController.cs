@@ -526,11 +526,21 @@ public class GameController:CharDisplayController {
 				sender.DoReaction(CutsceneChar.Reaction.miss2, true);
 				receiver.DoReaction(CutsceneChar.Reaction.miss2, false);
 			}
-			if(Random.value > 0.33f) {
-				if(Random.value > 0.5f) {
-					sender.SayThingFromReaction(CutsceneChar.SpeechType.nonDamageNegative);
-				} else {
-					receiver.SayThingFromReaction(CutsceneChar.SpeechType.nonDamagePositive);
+			if(PD.p2Char == PersistData.C.FuckingBalloon) {
+				if(Random.value > 0.65f) {
+					if(Random.value > 0.98f) {
+						actor1.SayThingFromReaction(CutsceneChar.SpeechType.nonDamageNegative);
+					} else {
+						actor2.SayThingFromReaction(CutsceneChar.SpeechType.nonDamagePositive);
+					}
+				}
+			} else {
+				if(Random.value > 0.33f) {
+					if(Random.value > 0.5f) {
+						sender.SayThingFromReaction(CutsceneChar.SpeechType.nonDamageNegative);
+					} else {
+						receiver.SayThingFromReaction(CutsceneChar.SpeechType.nonDamagePositive);
+					}
 				}
 			}
 			return;

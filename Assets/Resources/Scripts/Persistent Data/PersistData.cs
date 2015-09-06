@@ -244,7 +244,7 @@ public class PersistData:MonoBehaviour {
 			case C.September: return "September";
 			case C.White: return "White";
 			case C.FuckingBalloon: return "MasterAlchemist";
-			case C.Everyone: return "MasterAlchemist";
+			case C.Everyone: return "Everyone";
 		}
 		return isBackground?"Default":"George";
 	}
@@ -405,7 +405,7 @@ public class PersistData:MonoBehaviour {
 			ChangeScreen(won?GS.WinnerIsYou:GS.HighScore);
 			return;
 		}
-		int dragonScore = 100 * GetScore(2, 5, 1.0f, initialDifficulty), puhLoonScore = dragonScore * 3;
+		int dragonScore = 100 * GetScore(2, 5, 1.0f, initialDifficulty), puhLoonScore = dragonScore * 2;
 		if(level % 2 == 0) { difficulty++; }
 		if(p1Char == C.White || p1Char == C.September) {
 			if(level == 9) {
