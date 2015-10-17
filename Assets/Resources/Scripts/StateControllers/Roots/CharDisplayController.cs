@@ -15,7 +15,7 @@ using UnityEngine;
 public class CharDisplayController:StateController {
 	protected CutsceneChar CreateActor(string playerPath, Vector3 pos, bool flip = false, bool higherLayer = false) {
 		Sprite[] sheet = Resources.LoadAll<Sprite>(SpritePaths.CharPath + playerPath);
-		GameObject obj = GetGameObject(pos, "Character " + playerPath, null, false, higherLayer?"Cover HUD Actor":"HUDText");
+		GameObject obj = GetGameObject(pos, "Character " + playerPath, null, false, higherLayer?"Cover HUD Actor":"BG1");
 		if(flip) { Vector3 t = obj.transform.localScale; t.x *= -1.0f; obj.transform.localScale = t; } 
 		GetPersistData();
 		if(PD.voicePitch > 1.0f && playerPath == "MasterAlchemist") { 
