@@ -94,6 +94,7 @@ public class CutsceneChar {
 	}
 	public void SayThingFromReaction(SpeechType type) {
 		if(_PD.gameType == PersistData.GT.Challenge) { return; }
+		if(_player == 1 && (_PD.gameType  == PersistData.GT.Campaign || _PD.gameType == PersistData.GT.Training)) { return; }
 		int startidx, endidx;
 		string storedPath = _path;
 		if(_path == "Everyone") {
