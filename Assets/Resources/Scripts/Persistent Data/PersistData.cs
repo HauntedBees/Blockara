@@ -318,6 +318,24 @@ public class PersistData:MonoBehaviour {
 		if(isTransitioning) { return; }
 		if(updateData) { runningTime = time; runningScore = score; }
 		won = !lost;
+		if(p2Char == C.FuckingBalloon) {
+			if(won) { saveInfo.savedOptions["beatafuckingballoon"] = 1; }
+			saveInfo.addPlayTime(gameType, runningTime);
+			if(winType > 0) {
+				won = true;
+				int prevComplet = saveInfo.CalculateGameCompletionPercent();
+				saveInfo.saveArcadeVictory(name, winType);
+				int newComplet = saveInfo.CalculateGameCompletionPercent();
+				if(prevComplet < 50 && newComplet >= 50) {
+					unlockNew = 1;
+				} else if(prevComplet < 100 && newComplet == 100) {
+					unlockNew = 2;
+				}
+			}
+			SaveGeemu();
+			GoToMainMenu();
+			return;
+		}
 		if(rounds > 0) {
 			totalRoundTime += time;
 			bool endGame = false;
@@ -366,24 +384,6 @@ public class PersistData:MonoBehaviour {
 				return;
 			}
 			ChangeScreen(gameType==GT.Challenge?GS.PuzSel:GS.CharSel); 
-			return;
-		}
-		if(p2Char == C.FuckingBalloon) {
-			if(won) { saveInfo.savedOptions["beatafuckingballoon"] = 1; }
-			saveInfo.addPlayTime(gameType, runningTime);
-			if(winType > 0) {
-				won = true;
-				int prevComplet = saveInfo.CalculateGameCompletionPercent();
-				saveInfo.saveArcadeVictory(name, winType);
-				int newComplet = saveInfo.CalculateGameCompletionPercent();
-				if(prevComplet < 50 && newComplet >= 50) {
-					unlockNew = 1;
-				} else if(prevComplet < 100 && newComplet == 100) {
-					unlockNew = 2;
-				}
-			}
-			SaveGeemu();
-			GoToMainMenu();
 			return;
 		}
 		if(lost) {
