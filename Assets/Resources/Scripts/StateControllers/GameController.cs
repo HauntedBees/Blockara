@@ -77,7 +77,7 @@ public class GameController:CharDisplayController {
 	private void SetupCountdown() { cd = ScriptableObject.CreateInstance("Countdown") as Countdown; cd.Setup(PD); }
 	private void SetupActors() {
 		bool is2p = (player2Human || (PD.isDemo && PD.demoPlayers == 2));
-		float posx = is2p?3.1f:2.35f, posy = is2p?-1.2f:-0.75f, scale = is2p?0.22f:0.33f;
+		float posx = is2p?3.0f:2.35f, posy = is2p?-1.2f:-0.8f, scale = is2p?0.22f:0.33f;
 		actor1 = CreateActor(PD.GetPlayerSpritePath(PD.p1Char), new Vector3(-posx, posy));
 		actor1.SetScale(scale); actor1.SetSprite(0);
 		if(PD.gameType == PersistData.GT.Challenge) { actor1.Hide(); }
