@@ -58,8 +58,8 @@ public class CreditsController:StateController {
 		
 		AddHeadingCredit(credits[6], 0.0f, -8.5f); // VOICES
 		AddVoiceCredit(credits[7], -2.0f, -9.5f); // ABNER
-		AddVoiceCredit(credits[8], 2.0f, -9.5f); // CAL
-		AddVoiceCredit(credits[9], 0.0f, -9.5f); // CAROLINA
+		AddVoiceCredit(credits[8], 2.0f, -9.5f); // TANNER
+		AddVoiceCredit(credits[9], 0.0f, -9.5f); // LINA
 		AddVoiceCredit(credits[10], -2.0f, -11f); // MATT
 		AddVoiceCredit(credits[11], 2.0f, -11f); // DYLAN
 		AddVoiceCredit(credits[12], 0.0f, -11f); // SEAN
