@@ -228,18 +228,18 @@ public class SoundTest:All {
 		playlistEntries.Add(new TrackInfo("Alice/Ana's Screech", artist, SoundPaths.M_Title_DerivPath + "AliceAna"));
 		playlistEntries.Add(new TrackInfo("Do You Remember?", artist, SoundPaths.M_Title_DerivPath + "White"));
 		playlistEntries.Add(new TrackInfo("BlockALLra!", artist, SoundPaths.M_Title_DerivPath + "Group"));
-		for(int i = 1; i <= 83; i++) { playlistEntries.Add(new TrackInfo("George " + i.ToString("d2"), "Cal Young", SoundPaths.VoicePath + "George/" + i.ToString("d3"), false)); }
+		for(int i = 1; i <= 83; i++) { playlistEntries.Add(new TrackInfo("George " + i.ToString("d2"), "Tanner Roof", SoundPaths.VoicePath + "George/" + i.ToString("d3"), false)); }
 		for(int i = 1; i <= 83; i++) { playlistEntries.Add(new TrackInfo("Milo " + i.ToString("d2"), "Abner Hauge", SoundPaths.VoicePath + "Milo/" + i.ToString("d3"), false)); }
 		for(int i = 1; i <= 83; i++) { playlistEntries.Add(new TrackInfo("Devin " + i.ToString("d2"), "Abner Hauge", SoundPaths.VoicePath + "Devin/" + i.ToString("d3"), false)); }
 		for(int i = 1; i <= 83; i++) { playlistEntries.Add(new TrackInfo("M.J. " + i.ToString("d2"), "Matt Simpson", SoundPaths.VoicePath + "MJ/" + i.ToString("d3"), false)); }
 		for(int i = 1; i <= 83; i++) { playlistEntries.Add(new TrackInfo("Andrew " + i.ToString("d2"), "Matt Simpson", SoundPaths.VoicePath + "Andrew/" + i.ToString("d3"), false)); }
-		for(int i = 1; i <= 83; i++) { playlistEntries.Add(new TrackInfo("Joan " + i.ToString("d2"), "Carolina Madrid", SoundPaths.VoicePath + "Joan/" + i.ToString("d3"), false)); }
+		for(int i = 1; i <= 83; i++) { playlistEntries.Add(new TrackInfo("Joan " + i.ToString("d2"), "Lina Madrid", SoundPaths.VoicePath + "Joan/" + i.ToString("d3"), false)); }
 		for(int i = 1; i <= 83; i++) { playlistEntries.Add(new TrackInfo("MODE " + i.ToString("d2"), "espeak -ven+f3", SoundPaths.VoicePath + "Depeche/" + i.ToString("d3"), false)); }
 		for(int i = 1; i <= 83; i++) { playlistEntries.Add(new TrackInfo("Lars " + i.ToString("d2"), "Sean Mabry", SoundPaths.VoicePath + "Lars/" + i.ToString("d3"), false)); }
-		for(int i = 1; i <= 83; i++) { playlistEntries.Add(new TrackInfo("Laila " + i.ToString("d2"), "Carolina Madrid", SoundPaths.VoicePath + "Laila/" + i.ToString("d3"), false)); }
-		for(int i = 1; i <= 83; i++) { playlistEntries.Add(new TrackInfo("Alice/Ana " + i.ToString("d2"), "Veronica Christie", SoundPaths.VoicePath + "AliceAna/" + i.ToString("d3"), false)); }
+		for(int i = 1; i <= 83; i++) { playlistEntries.Add(new TrackInfo("Laila " + i.ToString("d2"), "Lina Madrid", SoundPaths.VoicePath + "Laila/" + i.ToString("d3"), false)); }
+		for(int i = 1; i <= 83; i++) { playlistEntries.Add(new TrackInfo("Alice/Ana " + i.ToString("d2"), "Veronica T. Christie", SoundPaths.VoicePath + "AliceAna/" + i.ToString("d3"), false)); }
 		for(int i = 1; i <= 32; i++) { playlistEntries.Add(new TrackInfo("White " + i.ToString("d2"), "Dylan Aiello", SoundPaths.VoicePath + "White/" + i.ToString("d3"), false)); }
-		for(int i = 1; i <= 42; i++) { playlistEntries.Add(new TrackInfo("September " + i.ToString("d2"), "Carolina Madrid", SoundPaths.VoicePath + "September/" + i.ToString("d3"), false)); }
+		for(int i = 1; i <= 42; i++) { playlistEntries.Add(new TrackInfo("September " + i.ToString("d2"), "Lina Madrid", SoundPaths.VoicePath + "September/" + i.ToString("d3"), false)); }
 		for(int i = 1; i <= 46; i++) { playlistEntries.Add(new TrackInfo("Narrator " + i.ToString("d2"), "Sean Mabry", SoundPaths.VoicePath + "Narrator/" + i.ToString("d3"), false)); }
 	}
 }
