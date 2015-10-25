@@ -21,7 +21,7 @@ public class CharSelectController:MenuController {
 	private MenuCursor cursor2;
 	private bool conf1, conf1options, conf2;
 	private Sprite[] chars, beginSheet, cancelSheet, charNames;
-	private int p1_delay, p2_delay;
+	private int p1_delay, p2_delay, p1eggState;
 	private Rect originalRect;
 	private XmlNode top;
 	private List<OptionInfo> options;
@@ -29,7 +29,7 @@ public class CharSelectController:MenuController {
 	public void Start() {
 		StateControllerInit();
 		PD.sounds.SetVoiceAndPlay(SoundPaths.NarratorPath + "022", 0);
-		p1_delay = 0; p2_delay = 0;
+		p1_delay = 0; p2_delay = 0; p1eggState = 0;
 		PD.controller2 = null;
 		conf1 = false; conf1options = false; conf2 = true;
 		int completionPercent = PD.GetSaveData().CalculateGameCompletionPercent();
@@ -295,7 +295,7 @@ public class CharSelectController:MenuController {
 		PD.currentRound = 1;
 		PD.SaveGeemu();
 		if(PD.isTutorial) { PD.rowCount = 6; }
-		PD.SetPlayer1(cursor.getX());
+		PD.SetPlayer1(cursor.getX(), p1eggState == 3);
 		if(cursor2 == null) { PD.SetPlayer2(debugX); } else { PD.SetPlayer2(cursor2.getX()); }
 		SignalSuccess();
 		PD.CharacterSelectConfirmation();
@@ -325,6 +325,10 @@ public class CharSelectController:MenuController {
 			pressed = true;
 			SignalSuccess();
 			SpeakCharacterName(cursor.getX(), 0);
+			if(cursor.getX() == 0 && p1eggState == 0) { p1eggState++; }
+			else if(cursor.getX() == 2 && p1eggState == 1) { p1eggState++; }
+			else if(cursor.getX() == 9 && p1eggState == 2) { p1eggState++; PD.sounds.SetSoundAndPlay(SoundPaths.S_Applause + Random.Range(1, 7).ToString()); }
+			else { p1eggState = 0; }
 			ToggleDisplayOptions(true);
 			AddCancelButton();
 		}

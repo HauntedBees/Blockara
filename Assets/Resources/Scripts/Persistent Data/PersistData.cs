@@ -204,9 +204,14 @@ public class PersistData:MonoBehaviour {
 	#region "Character Select"
 	public void Debug_ForceWin(string name) { saveInfo.saveArcadeVictory(name, 2); }
 	public string GetPlayerSpritePathFromInt(int i, bool isBackground = false) { return GetPlayerSpritePath((C)i, isBackground); }
-	public void SetPlayer1(int i) { 
+	public void SetPlayer1(int i, bool anotherEasterEgg = false) { 
 		p1Char = (C)i;
-		saveInfo.incrementCharacterFrequency(GetPlayerSpritePath(p1Char));
+		if(anotherEasterEgg) {
+			p1Char = C.FuckingBalloon;
+			balloonType = Random.Range(0, 3);
+		} else {
+			saveInfo.incrementCharacterFrequency(GetPlayerSpritePath(p1Char));
+		}
 		SaveGeemu();
 	}
 	public void SetPlayer2(int i) { p2Char = (C)i; }
@@ -406,6 +411,7 @@ public class PersistData:MonoBehaviour {
 			return;
 		}
 		int dragonScore = 100 * GetScore(2, 5, 1.0f, initialDifficulty), puhLoonScore = dragonScore * 2;
+		if(p1Char == C.FuckingBalloon) { dragonScore = 0; puhLoonScore = 0; }
 		if(level % 2 == 0) { difficulty++; }
 		if(p1Char == C.White || p1Char == C.September) {
 			if(level == 9) {

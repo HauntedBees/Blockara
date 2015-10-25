@@ -32,7 +32,7 @@ public class CutsceneController:CharDisplayController {
 		opponentactor = CreateActor(PD.GetPlayerSpritePath(PD.p2Char), new Vector3(5.15f, 1.0f), true);
 		skipMenuIsUp = false;
 
-		XmlNodeList dialogs = GetXMLHead("/" + playeractor.GetPath(), "dialogs").SelectNodes("dialog");
+		XmlNodeList dialogs = GetXMLHead("/" + playeractor.GetPath(PD.p1Char == PersistData.C.FuckingBalloon), "dialogs").SelectNodes("dialog");
 		XmlNode dialog = dialogs[PD.GetPuzzleLevel()];
 		dialogArr = dialog.SelectNodes("line");
 
@@ -126,7 +126,11 @@ public class CutsceneController:CharDisplayController {
 		}
 		playeractor.bobbing = false; opponentactor.bobbing = false;
 		XmlNode line = dialogArr[frame];
-		dialogueBox.StartTextFrame(line.InnerText);
+		string textToSay = line.InnerText;
+		if(line.Attributes["speaker"].Value == "1" && PD.p1Char == PersistData.C.FuckingBalloon) {
+			textToSay = "p" + new string('f', Random.Range(4, 10)) + "th" + new string('e', Random.Range(4, 10)) + "nk";
+		}
+		dialogueBox.StartTextFrame(textToSay);
 		if(line.Attributes["speaker"].Value == "1") { 
 			UpdateActorPoseAndTextBoxName(playeractor, line.Attributes["pose"].Value);
 			if(line.Attributes["voice"] != null) { playeractor.SayThingFromXML(line.Attributes["voice"].Value); }

@@ -20,11 +20,11 @@ public class BlockHandler {
 	private List<int> valsBot;
 	private int[] playerInts;
 	private PersistData.GT gameType;
-	private bool isTutorial, isBalloon;
-	private int balloonType;
+	private bool isTutorial;
+	private int balloonType, balloonNum;
 	public BlockHandler(PersistData PD, int lv) {
 		gameType = PD.gameType;
-		isBalloon = PD.p2Char == PersistData.C.FuckingBalloon;
+		balloonNum = (PD.p2Char == PersistData.C.FuckingBalloon)?2:(PD.p1Char == PersistData.C.FuckingBalloon)?1:-1;
 		balloonType = PD.balloonType;
 		isTutorial = PD.isTutorial;
 		if(gameType == PersistData.GT.Challenge) {
@@ -47,7 +47,7 @@ public class BlockHandler {
 		playerInts[1] = 0;
 	}
 	public int GetPlayerColor(int player) {
-		if(isBalloon && player == 2) { return balloonType; }
+		if(balloonNum == player) { return balloonType; }
 		if(gameType == PersistData.GT.Campaign && player == 2) { return Random.Range(0, 3); }
 		if(gameType == PersistData.GT.Challenge) { return getTileForPlayerPuzzle(player); }
 		if(gameType == PersistData.GT.Training && isTutorial) { return getTileForPlayerPuzzle(player); }

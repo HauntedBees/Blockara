@@ -48,14 +48,18 @@ public class EndArcadeMatchOverlay:CharDisplayController {
 			return;
 		}
 		XmlDocument doc = new XmlDocument();
-		TextAsset ta = Resources.Load<TextAsset>("XML/" + PD.culture + "/" + playeractor.GetPath());
+		TextAsset ta = Resources.Load<TextAsset>("XML/" + PD.culture + "/" + playeractor.GetPath(PD.p1Char == PersistData.C.FuckingBalloon));
 		doc.LoadXml(ta.text);
 		XmlNode An = doc.SelectSingleNode("dialogs");
 		XmlNodeList nl = An.SelectNodes("dialog");
 		XmlNode dialog = nl[PD.GetPuzzleLevel()];
 		XmlNodeList allLines = dialog.SelectNodes("line");
 		XmlNode textNode = allLines[didP1Win?1:0];
-		tbox.StartTextFrame(textNode.InnerText);
+		string textToSay = textNode.InnerText;
+		if(textNode.Attributes["speaker"].Value == "1" && PD.p1Char == PersistData.C.FuckingBalloon) {
+			textToSay = "p" + new string('f', Random.Range(4, 10)) + "th" + new string('e', Random.Range(4, 10)) + "nk";
+		}
+		tbox.StartTextFrame(textToSay);
 		if(textNode.Attributes["speed"] == null) { tbox.UpdateFrameRate(1.0f); }
 		else { tbox.UpdateFrameRate(float.Parse(textNode.Attributes["speed"].Value)); }
 		if(textNode.Attributes["speaker"].Value == "1") { 

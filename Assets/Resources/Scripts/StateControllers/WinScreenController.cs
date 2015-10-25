@@ -18,6 +18,7 @@ public class WinScreenController:StateController {
 	private GameObject winTextGO, pose;
 	public void Start() {
 		StateControllerInit(false);
+		if(PD.p1Char == PersistData.C.FuckingBalloon) { PD.MoveFromWinScreen(); return; }
 		if(PD.gameType == PersistData.GT.Challenge) {
 			SetUpUnlock(true);
 			return;
@@ -46,6 +47,7 @@ public class WinScreenController:StateController {
 		winTextGO = GetGameObject(new Vector3(0.0f, 1.0f), "win2", winText, false, "HUDText");
 	}
 	public void Update() {
+		if(PD.p1Char == PersistData.C.FuckingBalloon) { return; }
 		UpdateMouseInput();
 		if(isUnlock) {
 			if(unlockTimer-- > 0) { return; }

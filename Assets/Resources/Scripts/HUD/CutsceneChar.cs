@@ -37,8 +37,8 @@ public class CutsceneChar {
 		bobbing = false;
 		localy = o.transform.localPosition.y;
 	}
-	public string GetPath() { return _path; }
-	public string GetName() { return _name; }
+	public string GetPath(bool isBalloonCutscene = false) { return isBalloonCutscene?"White":_path; }
+	public string GetName() { return _name=="MasterAlchemist"?"The Master":_name; }
 	public void Hide() { _obj.transform.localPosition = new Vector3(-100f, -100f); }
 	public CutsceneChar SetSortingLayer(string s) { _obj.GetComponent<SpriteRenderer>().sortingLayerName = s; return this; }
 
@@ -166,6 +166,7 @@ public class CutsceneChar {
 	public void SayThingFromXML(string path, bool forcePlayer1 = false, string newPath = "") {
 		string sayPath = newPath;
 		if(string.IsNullOrEmpty(sayPath)) { sayPath = _path; }
+		if(sayPath == "MasterAlchemist") { path = Random.Range(0, 17).ToString("D3"); }
 		if(sayPath == "September" && path == "017" && Random.value < 0.05f) { path = "018"; }
 		_PD.sounds.SetVoiceAndPlay(SoundPaths.VoicePath + sayPath + "/" + path, forcePlayer1?0:_player);
 	}
