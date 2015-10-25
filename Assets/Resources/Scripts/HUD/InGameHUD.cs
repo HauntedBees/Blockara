@@ -71,7 +71,7 @@ public class InGameHUD:All {
 		else if(additionalInfo == 1) { SetupTutorial(offset); }
 	}
 	private void AddDamageReferenceKey(int numPlayers) {
-		Vector2 pos = (numPlayers == 2)?new Vector2(0.0f, 0.4f):new Vector2(PD.IsLeftAlignedHUD()?-0.9f:0.9f, 0.7f);
+		Vector2 pos = (numPlayers == 2)?new Vector2(0.0f, 0.35f):new Vector2(PD.IsLeftAlignedHUD()?-0.9f:0.9f, 0.7f);
 		GameObject helper = GetGameObject(pos, "Damage Reference", Resources.Load<Sprite>(SpritePaths.GuideCircle + (PD.IsColorBlind()?SpritePaths.ColorblindSuffix:"")), false, "Reference");
 		if(numPlayers == 2) { helper.transform.localScale = new Vector2(0.75f, 0.75f); }
 	}
@@ -84,9 +84,9 @@ public class InGameHUD:All {
 		tutorialAssist.Init(t, tootoriel_candyslaws);
 	}
 	private void Setup2Player(Sprite infoBoxSprite, XmlNode top) {
-		p2ScoreText = GetMeshText(new Vector3(0.3f, 0.8f), "0", new FontData(TextAnchor.MiddleRight, TextAlignment.Right, 0.045f));
+		p2ScoreText = GetMeshText(new Vector3(0.3f, 0.75f), "0", new FontData(TextAnchor.MiddleRight, TextAlignment.Right, 0.045f));
 		p2Score_val = 0;
-		GetMeshText(new Vector3(-0.3f, 1.0f), GetXmlValue(top, "p2score"), new FontData(TextAnchor.MiddleLeft, TextAlignment.Left, 0.03f));
+		GetMeshText(new Vector3(-0.3f, 0.95f), GetXmlValue(top, "p2score"), new FontData(TextAnchor.MiddleLeft, TextAlignment.Left, 0.03f));
 	}
 	
 	public virtual void DoUpdate(bool paused, int p1val, int p2val, bool hiddenPause = false) {
