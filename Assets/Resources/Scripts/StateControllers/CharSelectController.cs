@@ -298,7 +298,7 @@ public class CharSelectController:MenuController {
 		PD.SetPlayer1(cursor.getX(), p1eggState == 3);
 		if(cursor2 == null) { PD.SetPlayer2(debugX); } else { PD.SetPlayer2(cursor2.getX()); }
 		SignalSuccess();
-		PD.CharacterSelectConfirmation();
+		PD.CharacterSelectConfirmation(p1eggState == -3);
 	}
 	private void HandlePlayer1Input() {
 		if(--p1_delay <= 0) {
@@ -328,6 +328,9 @@ public class CharSelectController:MenuController {
 			if(cursor.getX() == 0 && p1eggState == 0) { p1eggState++; }
 			else if(cursor.getX() == 2 && p1eggState == 1) { p1eggState++; }
 			else if(cursor.getX() == 9 && p1eggState == 2) { p1eggState++; PD.sounds.SetSoundAndPlay(SoundPaths.S_Applause + Random.Range(1, 7).ToString()); }
+			else if(cursor.getX() == 3 && p1eggState == 0) { p1eggState--; }
+			else if(cursor.getX() == 5 && p1eggState == -1) { p1eggState--; }
+			else if(cursor.getX() == 7 && p1eggState == -2) { p1eggState--; PD.sounds.SetSoundAndPlay(SoundPaths.S_Applause + Random.Range(1, 7).ToString()); }
 			else { p1eggState = 0; }
 			ToggleDisplayOptions(true);
 			AddCancelButton();
