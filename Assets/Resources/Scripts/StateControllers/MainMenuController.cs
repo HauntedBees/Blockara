@@ -95,7 +95,15 @@ public class MainMenuController:MenuController {
 		SetupMenu();
 	}
 	private void SetupMenu() {
-		cursor = GetMenuCursor(2, 5, null, -0.5f, -1.32f, 0.2f, 0.2f, PD.prevMainMenuLocationX, PD.prevMainMenuLocationY);
+		int cursx = PD.prevMainMenuLocationX, cursy = PD.prevMainMenuLocationY;
+		if(cursx < 0) {
+			if(PD.IsFirstTime()) {
+				cursx = 1; cursy = 2;
+			} else {
+				cursx = 0;
+			}
+		}
+		cursor = GetMenuCursor(2, 5, null, -0.5f, -1.32f, 0.2f, 0.2f, cursx, cursy);
 		cursor.SetVisibility(false);
 		float menuX = 0.0f, topy = 0.35f, dx = 0.8f, bottomdy = 1.2f;
 		if(PD.p2Char == PersistData.C.Everyone) { dx = 3.0f; bottomdy = 2.1f; }
@@ -106,7 +114,7 @@ public class MainMenuController:MenuController {
 		AddButton(2, menuX - dx, topy - 0.3f, GetXmlValue(top, "arcade"));
 		AddButton(3, menuX + dx, topy - 0.3f, GetXmlValue(top, "campaign"));
 		AddButton(4, menuX - dx, topy - 0.6f, GetXmlValue(top, "challenge"));
-		AddButton(5, menuX + dx, topy - 0.6f, GetXmlValue(top, "training"));
+		AddButton(5, menuX + dx, topy - 0.6f, GetXmlValue(top, PD.IsFirstTime()?"t_tutorial":"training"));
 		AddButton(6, menuX - dx, topy - 0.9f, GetXmlValue(top, "playerdata"));
 		AddButton(7, menuX + dx, topy - 0.9f, GetXmlValue(top, "options"));
 		AddButton(8, menuX, topy - bottomdy, GetXmlValue(top, "quit"));
@@ -169,7 +177,7 @@ public class MainMenuController:MenuController {
 		}
 	}
 	private void KonamiCodeCheck() {
-		delay -= Time.deltaTime * 60.0f;
+		delay -= Time.deltaTime * 20.0f;
 		if(delay > 0) { return; }
 		if(PD.controller.Nav_Up() && konamiCodeState < 2) { delay = PD.KEY_DELAY; konamiCodeState++; return; }
 		if(PD.controller.Nav_Down() && konamiCodeState < 4) { delay = PD.KEY_DELAY; konamiCodeState++; return; }

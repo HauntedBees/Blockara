@@ -22,7 +22,7 @@ public class PersistData:MonoBehaviour {
 	private GS currentScreen;
 	public GT gameType;
 	public int unlockNew, demoPlayers, level, puzzleType, initialDifficulty, difficulty, rounds, currentRound, rowCount, rowCount2, totalRoundTime, totalP1RoundScore, totalP2RoundScore, winType, runningScore, runningTime, prevMainMenuLocationX, prevMainMenuLocationY, balloonType;
-	public bool won, useSpecial, firstTime, firstTimeCampaign, isTutorial, isDemo, override2P, isTransitioning, aboutToFightAFuckingBalloon, usingMouse;
+	public bool won, useSpecial, isTutorial, isDemo, override2P, isTransitioning, aboutToFightAFuckingBalloon, usingMouse;
 	public List<bool> playerOneWonRound;
 	public List<int> playerRoundScores, playerRoundTimes;
 	public InputMethod controller, controller2;
@@ -38,7 +38,7 @@ public class PersistData:MonoBehaviour {
 		Object.DontDestroyOnLoad(universalPrefab);
 		Texture2D t = Resources.Load<Texture2D>(SpritePaths.MouseCursor);
 		Cursor.SetCursor(t, Vector2.zero, CursorMode.ForceSoftware);
-		prevMainMenuLocationX = 0;
+		prevMainMenuLocationX = -1;
 		prevMainMenuLocationY = 4;
 		p1Char = C.Null;
 		p2Char = C.Null;
@@ -432,6 +432,7 @@ public class PersistData:MonoBehaviour {
 	}
 	#endregion
 	#region "Saving/Loading/Options"
+	public bool IsFirstTime() { return saveInfo.firstTime; }
 	public void SaveGeemu() { saveInfo.Save(); }
 	public void LoadGeemu() { 
 		if(saveInfo == null) {

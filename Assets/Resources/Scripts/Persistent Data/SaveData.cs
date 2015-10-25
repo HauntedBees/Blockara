@@ -18,6 +18,7 @@ using System.Xml;
 public class SaveData {
 	private const int currentVersion = -1;
 	private const string saveFilePath = "/blockara.sav";
+	public bool firstTime = false;
 	private int version;
 	public List<KeyValuePair<string, int>> highScoresQuickPlay, highScoresArcade, highScoresCampaign;
 	public List<KeyValuePair<string, int>> shortestTimesQuickPlay, shortestTimesArcade, longestTimesCampaign;
@@ -197,7 +198,7 @@ public class SaveData {
 		} catch(System.Exception e) {
 			Debug.Log("WIPE THAT SMILDER OFF YOUR DILDER: " + e.Message);
 		}
-		if(res == null) { FirstLoad(); }
+		if(res == null) { FirstLoad(); } else { res.firstTime = false; }
 		return res;
 	}
 	public void ApplyPatch() {
@@ -207,6 +208,7 @@ public class SaveData {
 	}
 	public void EraseSaveData() { FirstLoad(); }
 	private void FirstLoad() {
+		firstTime = true;
 		setupSavedOptions();
 		setupDefaultControls();
 		setupGameOptionDefaults();
