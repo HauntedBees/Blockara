@@ -124,6 +124,7 @@ public class CutsceneController:CharDisplayController {
 			AdvanceToGameOrCredits();
 			return;
 		}
+		playeractor.bobbing = false; opponentactor.bobbing = false;
 		XmlNode line = dialogArr[frame];
 		dialogueBox.StartTextFrame(line.InnerText);
 		if(line.Attributes["speaker"].Value == "1") { 
@@ -140,5 +141,7 @@ public class CutsceneController:CharDisplayController {
 		int poseInt = int.Parse(pose);
 		dialogueBox.SetName(fucker.GetName(), fucker == playeractor);
 		fucker.SetSprite(poseInt);
+		fucker.bobbing = true;
+		fucker.Bob();
 	}
 }

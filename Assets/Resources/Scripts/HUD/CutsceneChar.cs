@@ -23,6 +23,7 @@ public class CutsceneChar {
 	private int _player;
 	private PersistData _PD;
 	public int loseFrame;
+	public bool bobbing;
 	public CutsceneChar (string n, GameObject o, Sprite[] s, int p, PersistData PD) {
 		_name = PD.GetPlayerDisplayName(n);
 		_path = n;
@@ -38,6 +39,25 @@ public class CutsceneChar {
 	public void Hide() { _obj.transform.localPosition = new Vector3(-100f, -100f); }
 	public CutsceneChar SetSortingLayer(string s) { _obj.GetComponent<SpriteRenderer>().sortingLayerName = s; return this; }
 
+	private float tweenHeight = 0.3f, tweenLength = 0.2f; // debug 
+	public void Bob() {
+		if(!bobbing) { return; }
+		Sequence bobSequence = DOTween.Sequence();
+		// debug for experimenting with speeds
+		if(Input.GetKey(KeyCode.Alpha0)) { if(Input.GetKey(KeyCode.LeftShift)) { tweenHeight = 1.0f; } else { tweenLength = 1.0f; } }
+		if(Input.GetKey(KeyCode.Alpha1)) { if(Input.GetKey(KeyCode.LeftShift)) { tweenHeight = 0.1f; } else { tweenLength = 0.1f; } }
+		if(Input.GetKey(KeyCode.Alpha2)) { if(Input.GetKey(KeyCode.LeftShift)) { tweenHeight = 0.2f; } else { tweenLength = 0.2f; } }
+		if(Input.GetKey(KeyCode.Alpha3)) { if(Input.GetKey(KeyCode.LeftShift)) { tweenHeight = 0.3f; } else { tweenLength = 0.3f; } }
+		if(Input.GetKey(KeyCode.Alpha4)) { if(Input.GetKey(KeyCode.LeftShift)) { tweenHeight = 0.4f; } else { tweenLength = 0.4f; } }
+		if(Input.GetKey(KeyCode.Alpha5)) { if(Input.GetKey(KeyCode.LeftShift)) { tweenHeight = 0.5f; } else { tweenLength = 0.5f; } }
+		if(Input.GetKey(KeyCode.Alpha6)) { if(Input.GetKey(KeyCode.LeftShift)) { tweenHeight = 0.6f; } else { tweenLength = 0.6f; } }
+		if(Input.GetKey(KeyCode.Alpha7)) { if(Input.GetKey(KeyCode.LeftShift)) { tweenHeight = 0.7f; } else { tweenLength = 0.7f; } }
+		if(Input.GetKey(KeyCode.Alpha8)) { if(Input.GetKey(KeyCode.LeftShift)) { tweenHeight = 0.8f; } else { tweenLength = 0.8f; } }
+		if(Input.GetKey(KeyCode.Alpha9)) { if(Input.GetKey(KeyCode.LeftShift)) { tweenHeight = 0.9f; } else { tweenLength = 0.9f; } }
+		bobSequence.Append(_obj.transform.DOLocalMoveY(tweenHeight, tweenLength));
+		bobSequence.Append(_obj.transform.DOLocalMoveY(0.0f, tweenLength));
+		bobSequence.OnComplete(Bob);
+	}
 	public void FlickerColor(int colortype) {
 		Color c = colortype==0?Color.blue:(colortype==1?Color.red:Color.green);
 		Sequence s = DOTween.Sequence();
