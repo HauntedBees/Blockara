@@ -44,8 +44,8 @@ public class Countdown:ScriptableObject {
 				goDisplayed = true;
 				if(PD.gameType == PersistData.GT.Versus) {
 					switch(Random.Range (0, 3)) {
-						case 0: PD.sounds.SetMusicAndPlay(SoundPaths.M_Title_DerivPath + PD.GetPlayerSpritePath(PD.p1Char)); break;
-						case 1: PD.sounds.SetMusicAndPlay(SoundPaths.M_Title_DerivPath + PD.GetPlayerSpritePath(PD.p2Char)); break;
+						case 0: PD.sounds.SetMusicAndPlay(SoundPaths.M_Title_DerivPath + PD.GetPlayerSpritePath(PD.p1Char, false, true)); break;
+						case 1: PD.sounds.SetMusicAndPlay(SoundPaths.M_Title_DerivPath + PD.GetPlayerSpritePath(PD.p2Char, false, true)); break;
 						default: PD.sounds.SetMusicAndPlay(SoundPaths.M_InGame); break;
 					}
 				} else if(PD.gameType == PersistData.GT.Arcade && PD.level == 4) {

@@ -229,7 +229,7 @@ public class PersistData:MonoBehaviour {
 		}
 		return 1;
 	}
-	public string GetPlayerSpritePath(C p, bool isBackground = false) { 
+	public string GetPlayerSpritePath(C p, bool isBackground = false, bool isMusic = false) { 
 		switch(p) {
 			case C.AliceAna: return "AliceAna";
 			case C.Andrew: return "Andrew"; 
@@ -241,7 +241,7 @@ public class PersistData:MonoBehaviour {
 			case C.Lars: return "Lars";
 			case C.Milo: return "Milo";
 			case C.MJ: return "MJ";
-			case C.September: return "September";
+			case C.September: return isMusic?"White":"September";
 			case C.White: return "White";
 			case C.FuckingBalloon: return "MasterAlchemist";
 			case C.Everyone: return "Everyone";
