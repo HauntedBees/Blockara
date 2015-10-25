@@ -24,6 +24,7 @@ public class CutsceneChar {
 	private PersistData _PD;
 	public int loseFrame;
 	public bool bobbing;
+	private float localy;
 	public CutsceneChar (string n, GameObject o, Sprite[] s, int p, PersistData PD) {
 		_name = PD.GetPlayerDisplayName(n);
 		_path = n;
@@ -33,6 +34,8 @@ public class CutsceneChar {
 		_PD = PD;
 		sheetScale = new Vector3(_obj.transform.localScale.x, _obj.transform.localScale.y);
 		loseFrame = 5;
+		bobbing = false;
+		localy = o.transform.localPosition.y;
 	}
 	public string GetPath() { return _path; }
 	public string GetName() { return _name; }
@@ -54,9 +57,18 @@ public class CutsceneChar {
 		if(Input.GetKey(KeyCode.Alpha7)) { if(Input.GetKey(KeyCode.LeftShift)) { tweenHeight = 0.7f; } else { tweenLength = 0.7f; } }
 		if(Input.GetKey(KeyCode.Alpha8)) { if(Input.GetKey(KeyCode.LeftShift)) { tweenHeight = 0.8f; } else { tweenLength = 0.8f; } }
 		if(Input.GetKey(KeyCode.Alpha9)) { if(Input.GetKey(KeyCode.LeftShift)) { tweenHeight = 0.9f; } else { tweenLength = 0.9f; } }
-		bobSequence.Append(_obj.transform.DOLocalMoveY(tweenHeight, tweenLength));
-		bobSequence.Append(_obj.transform.DOLocalMoveY(0.0f, tweenLength));
+		bobSequence.Append(_obj.transform.DOLocalMoveY(localy + tweenHeight, tweenLength));
+		bobSequence.Append(_obj.transform.DOLocalMoveY(localy, tweenLength));
 		bobSequence.OnComplete(Bob);
+	}
+	private float inGameTweenSpeed = 0.7f;
+	private void LowerTweenSpeed() { inGameTweenSpeed = Mathf.Max(inGameTweenSpeed - 0.035f, 0.1f); }
+	public void InGameBob() {
+		if(!bobbing) { return; }
+		Sequence bobSequence = DOTween.Sequence();
+		bobSequence.Append(_obj.transform.DOLocalMoveY(localy - 0.05f, inGameTweenSpeed));
+		bobSequence.Append(_obj.transform.DOLocalMoveY(localy, inGameTweenSpeed));
+		bobSequence.OnComplete(InGameBob);
 	}
 	public void FlickerColor(int colortype) {
 		Color c = colortype==0?Color.blue:(colortype==1?Color.red:Color.green);
@@ -65,14 +77,18 @@ public class CutsceneChar {
 		s.Append(_obj.renderer.material.DOColor(Color.white, 0.15f));
 	}
 	public CutsceneChar SetSprite(int idx) {
+		bobbing = false;
 		if(_obj.GetComponent<SpriteRenderer>().sprite == null) { ChangeSprite(idx); return this; }
 		if(_obj.GetComponent<SpriteRenderer>().sprite == _sheet[idx]) { return this; }
 		Vector3 newScale = new Vector3(sheetScale.x * 0.8f, sheetScale.y * 1.2f);
 		Sequence s = DOTween.Sequence();
 		s.Append(_obj.transform.DOScale(newScale, 0.05f).OnComplete(()=>ChangeSprite(idx)));
 		s.Append(_obj.transform.DOScale(sheetScale, 0.05f));
+		s.Append(_obj.transform.DOScale(sheetScale, Random.Range(0.1f, 0.25f)));
+		s.OnComplete(ReturnBob);
 		return this;
 	}
+	private void ReturnBob() { bobbing = true; InGameBob(); }
 	private void ChangeSprite(int idx) { _obj.GetComponent<SpriteRenderer>().sprite = _sheet[idx]; }
 
 	public CutsceneChar SetScale(float f) {
@@ -84,25 +100,25 @@ public class CutsceneChar {
 	virtual public void DoReaction(Reaction r, bool sender) {
 		switch(r) {
 		case Reaction.firstStrike:
-			if(sender) { SetSprite(1); } else { SetSprite(7); }
+			if(sender) { SetSprite(1); } else { SetSprite(7); LowerTweenSpeed(); }
 			break;
 		case Reaction.block:
 			if(sender) { SetSprite(4); } else { SetSprite(1); }
 			break;
 		case Reaction.combo2:
-			if(sender) { SetSprite(2); } else { SetSprite(7); }
+			if(sender) { SetSprite(2); } else { SetSprite(7); LowerTweenSpeed(); }
 			break;
 		case Reaction.combo3:
-			if(sender) { SetSprite(2); } else { SetSprite(6); }
+			if(sender) { SetSprite(2); } else { SetSprite(6); LowerTweenSpeed(); }
 			break;
 		case Reaction.hit: 
-			if(sender) { SetSprite(1); } else { SetSprite(4); }
+			if(sender) { SetSprite(1); } else { SetSprite(4); LowerTweenSpeed(); }
 			break;
 		case Reaction.hit2:
-			if(sender) { SetSprite(2); } else { SetSprite(5); }
+			if(sender) { SetSprite(2); } else { SetSprite(5); LowerTweenSpeed(); }
 			break;
 		case Reaction.hit3:
-			if(sender) { SetSprite(2); } else { SetSprite(6); }
+			if(sender) { SetSprite(2); } else { SetSprite(6); LowerTweenSpeed(); }
 			break;
 		case Reaction.miss2:
 			if(sender) { SetSprite(3); } else { SetSprite(1); } 
