@@ -411,7 +411,7 @@ public class PersistData:MonoBehaviour {
 			return;
 		}
 		int dragonScore = 100 * GetScore(2, 5, 1.0f, initialDifficulty), puhLoonScore = dragonScore * 2;
-		if(p1Char == C.FuckingBalloon) { dragonScore = 0; puhLoonScore = 0; }
+		if(p1Char == C.FuckingBalloon) { dragonScore = runningScore + 100; puhLoonScore = runningScore + 100; }
 		if(level % 2 == 0) { difficulty++; }
 		if(p1Char == C.White || p1Char == C.September) {
 			if(level == 9) {
