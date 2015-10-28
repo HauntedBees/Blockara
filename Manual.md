@@ -121,6 +121,7 @@ Below are the Mode Options that appear on the Character Select Screen.
 
 ## Special Tiles
 These are special tiles that can be seen when Special Tiles are enabled in Mode Options, or in Endless and Puzzle Modes.
+
 |Name           |Effect                                                                                                         |
 |---------------|---------------------------------------------------------------------------------------------------------------|
 |Pause Sign     |Temporarily prevents the opponent from moving their cursor, shifting, launching, or being happy.               |
