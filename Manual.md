@@ -39,7 +39,7 @@ The following controls apply to the default configuration. You can customize the
 |Return to Game   |Return    |
 
 ### Mouse Controls
-You may navigate menus and play the game with the mouse (In-Game Mouse Controls must be turned on in the Options Menu). You can shift a row by click a tile in it and dragging left or right. Clicking and dragging above your tiles will shift everything. Click a tile and drag up to launch that column.
+You may navigate menus and play the game with the mouse (In-Game Mouse Controls must be turned on in the Options Menu). You can shift a row by clicking a tile in it and dragging left or right. Clicking and dragging above your tiles will shift everything. Click a tile and drag up to launch that column.
 
 # Playing the Game
 
