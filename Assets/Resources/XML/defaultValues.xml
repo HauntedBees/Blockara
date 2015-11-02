@@ -1,76 +1,76 @@
 <?xml version = "1.0"?>
 <initVals>
 	<highScoresQuickPlay>
-		<score name = "SMF">5555</score>
-		<score name = "BMW">5050</score>
-		<score name = "EDY">4080</score>
-		<score name = "EDX">4079</score>
-		<score name = "BUM">3724</score>
-		<score name = "LOL">1112</score>
-		<score name = "LOS">1001</score>
-		<score name = "S.J">985</score>
-		<score name = "PEG">344</score>
-		<score name = "SUX">12</score>
+		<score name = "SMF">50000</score>
+		<score name = "BMW">40000</score>
+		<score name = "POP">30000</score>
+		<score name = "JEN">20000</score>
+		<score name = "ABN">10000</score>
+		<score name = "DAG">7500</score>
+		<score name = "LNA">5000</score>
+		<score name = "BRT">2500</score>
+		<score name = "MAB">1000</score>
+		<score name = "VTC">500</score>
 	</highScoresQuickPlay>
 	<highScoresArcade>
-		<score name = "GRG">10000</score>
-		<score name = "A/A">9696</score>
-		<score name = "DEV">9598</score>
-		<score name = "LAR">9182</score>
-		<score name = "NTY">8500</score>
-		<score name = "JOA">6789</score>
-		<score name = "dpe">5555</score>
-		<score name = "MLO">5000</score>
-		<score name = "LAI">3000</score>
-		<score name = "M.J">1000</score>
+		<score name = "GRG">250000</score>
+		<score name = "A/A">200000</score>
+		<score name = "DEV">150000</score>
+		<score name = "LAR">100000</score>
+		<score name = "ANT">75000</score>
+		<score name = "JOA">50000</score>
+		<score name = "mod">25000</score>
+		<score name = "MLO">10000</score>
+		<score name = "LAI">7500</score>
+		<score name = "M.J">5000</score>
 	</highScoresArcade>
 	<highScoresCampaign>
-		<score name = "ON ">100000</score>
-		<score name = "AND">80000</score>
-		<score name = "ON ">50000</score>
-		<score name = "SAY">30000</score>
-		<score name = "DO ">9000</score>
-		<score name = "YOU">5000</score>
-		<score name = "REM">3000</score>
-		<score name = "EMB">2000</score>
-		<score name = "ER?">1000</score>
-		<score name = "EWF">100</score>
+		<score name = "AAA">1000000</score>
+		<score name = "DYL">750000</score>
+		<score name = "THI">500000</score>
+		<score name = "S I">250000</score>
+		<score name = "S A">100000</score>
+		<score name = " HI">75000</score>
+		<score name = "DDE">50000</score>
+		<score name = "N M">25000</score>
+		<score name = "ESS">10000</score>
+		<score name = "AGE">5000</score>
 	</highScoresCampaign>
 	<shortestTimesQuickPlay>
-		<score name = "TAM">30</score>
-		<score name = "TEM">66</score>
-		<score name = "TIM">82</score>
-		<score name = "TOM">103</score>
-		<score name = "TUM">125</score>
-		<score name = "TYM">155</score>
-		<score name = "OXN">179</score>
-		<score name = "BRE">222</score>
-		<score name = "BRO">283</score>
-		<score name = "XYZ">301</score>
+		<score name = "TAM">10</score>
+		<score name = "TEM">20</score>
+		<score name = "TIM">30</score>
+		<score name = "TOM">40</score>
+		<score name = "TUM">50</score>
+		<score name = "TYM">60</score>
+		<score name = "FEE">90</score>
+		<score name = "FII">120</score>
+		<score name = "FOO">240</score>
+		<score name = "FUM">300</score>
 	</shortestTimesQuickPlay>
 	<shortestTimesArcade>
 		<score name = "SON">180</score>
-		<score name = "TAI">230</score>
-		<score name = "KNX">250</score>
-		<score name = "RBT">302</score>
-		<score name = "SHD">505</score>
-		<score name = "AMY">608</score>
-		<score name = "EGG">717</score>
-		<score name = "SCR">890</score>
-		<score name = "GRN">925</score>
-		<score name = "BIG">999</score>
+		<score name = "TAI">240</score>
+		<score name = "KNX">300</score>
+		<score name = "RBT">360</score>
+		<score name = "SHD">421</score>
+		<score name = "AMY">480</score>
+		<score name = "EGG">540</score>
+		<score name = "SCR">600</score>
+		<score name = "GRN">660</score>
+		<score name = "BIG">900</score>
 	</shortestTimesArcade>
 	<longestTimesCampaign>
-		<score name = "MAR">616</score>
-		<score name = "LUI">600</score>
-		<score name = "PCH">550</score>
-		<score name = "WAR">500</score>
-		<score name = "BWS">450</score>
-		<score name = "SHY">400</score>
-		<score name = "PTY">350</score>
-		<score name = "RSL">300</score>
-		<score name = "DSY">250</score>
-		<score name = "BRF">200</score>
+		<score name = "BOB">3600</score>
+		<score name = "WIL">1800</score>
+		<score name = "YOU">1200</score>
+		<score name = "BEE">900</score>
+		<score name = "MAI">720</score>
+		<score name = "HUS">600</score>
+		<score name = "BND">480</score>
+		<score name = "PLZ">300</score>
+		<score name = "RES">240</score>
+		<score name = "PND">180</score>
 	</longestTimesCampaign>
 	<characterFreqs>
 		<score name = "George">0</score>
