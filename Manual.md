@@ -60,6 +60,7 @@ To conquer your foes, you will have three basic moves at your disposal: moving y
 ### How to Win (or Lose)
 By lining up two tiles of the same element in a column, you can knock out a tile on your opponent's field. But wait! After you've dug halfway through their field, you'll need THREE or more tiles of the same element in a column to go any further! Once you've cleared an entire column, launch one more column of ANY element through the empty column to win! But of course, if you have an empty column, you'll lose the match.
 * If you line up five tiles of the same element in a column, you can take out up to two of your opponent's tiles in one move! And with six tiles, you can take out three! Now THAT'S video games!
+* If only your bottom two rows of tiles remain, you will automatically lose, too, since it won't be possible for you to win!
 
 ### Advanced Tips and Techniques
 
