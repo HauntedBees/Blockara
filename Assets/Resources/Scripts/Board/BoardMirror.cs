@@ -28,6 +28,7 @@ public class BoardMirror:BoardWarCore {
 		this.th = th;
 		tileSheet = GetTileSheet();
 		shapeSheet = GetShapeSheet();
+		overlaySprite = GetOverlaySprite();
 
 		isShown = show;
 		parent.SetMirror(this);
