@@ -63,6 +63,7 @@ public class BoardWarSpecial:BoardWar {
 		int tval = Random.Range(0, 3);
 		int pos = GetListPosFromXY(x, y);
 		tiles[pos] = CreateTile(x, y, tval);
+		UpdateHighestRowWithTiles();
 	}
 	override public int TakeDamage(int x, int length, int type) {
 		int initHeight = GetHighestYAtX(x);

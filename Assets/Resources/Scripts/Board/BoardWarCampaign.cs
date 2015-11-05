@@ -24,5 +24,6 @@ public class BoardWarCampaign:BoardWarSpecialFull {
 			LaunchTiles(length, topy, x, mirror);
 			changes.Add(new MirrorChangeLaunch(length, topy, x));
 		}
+		UpdateHighestRowWithTiles();
 	}
 }
