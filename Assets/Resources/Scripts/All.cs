@@ -20,11 +20,20 @@ public class All:MonoBehaviour {
 		PD = Persist.GetComponent<PersistData>();
 	}
 	#region "GameObject Getters"
-	protected TextMesh GetMeshText(Vector3 pos, string text, FontData f, string prefabPath = "Prefabs/Text/Size48") {
+	protected TextMesh GetMeshText(Vector3 pos, string text, FontData f, string prefabPath = "default") {
+		float fscale = f.scale;
+		if(prefabPath == "default") {
+			if(fscale > 0.055f) {
+				fscale /= 2;
+				prefabPath = "Prefabs/Text/Size96";
+			} else {
+				prefabPath = "Prefabs/Text/Size48";
+			}
+		}
 		GameObject meshText = Instantiate(Resources.Load<GameObject>(prefabPath), pos, Quaternion.identity) as GameObject;
 		meshText.GetComponent<TextMesh>().text = text;
 		meshText.name = "t_" + text;
-		meshText.transform.localScale = new Vector3(f.scale, f.scale);
+		meshText.transform.localScale = new Vector3(fscale, fscale);
 		meshText.GetComponent<MeshRenderer>().sortingLayerName = f.layerName;
 		meshText.GetComponent<TextMesh>().alignment = f.align;
 		meshText.GetComponent<TextMesh>().anchor = f.anchor;
