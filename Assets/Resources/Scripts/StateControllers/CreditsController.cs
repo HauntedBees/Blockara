@@ -16,7 +16,7 @@ using System.Xml;
 using UnityEngine;
 public class CreditsController:StateController {
 	private List<GameObject> objects;
-	private GameObject end;
+	private GameObject lastun, end;
 	private Sprite[] borbs;
 	private int finalTimeout;
 	public void Update() {
@@ -35,8 +35,13 @@ public class CreditsController:StateController {
 				}
 				g.transform.position = p;
 			}
-		} else if(finalTimeout-- < 0 && !PD.sounds.IsMusicPlaying()) {
-			PD.DoWin(0, 0, true, false);
+		} else {
+			if(finalTimeout-- < 0 && !PD.sounds.IsMusicPlaying()) { PD.DoWin(0, 0, true, false); }
+			if(lastun.transform.position.y < 3.0f) {
+				Vector3 p = lastun.transform.position;
+				p.y += Time.deltaTime * 0.475f;
+				lastun.transform.position = p;
+			}
 		}
 		UpdateMouseInput();
 		if(clicker.isDown() || PD.controller.Pause() || PD.controller.G_Launch() || PD.controller.M_Confirm()) { PD.DoWin(0, 0, true, false); }
@@ -112,7 +117,8 @@ public class CreditsController:StateController {
 		
 		AddHeadingCredit(credits[52], 0.0f, -21.5f); // SPECIAL THANKS
 		AddHeadingCredit(credits[53], 0.0f, -22.0f, 0.06f); // Andrew W.K.
-		AddHeadingCredit(credits[55], 0.0f, -22.5f, 0.06f); // AND YOU
+		AddHeadingCredit(credits[55], 0.0f, -22.5f, 0.06f); // Woldhuis
+		lastun = AddHeadingCredit(credits[56], 0.0f, -23.0f, 0.06f); // AND YOU
 
 		end = GetGameObject(new Vector3(0.0f, -25.0f), "thanks", Resources.Load<Sprite>(SpritePaths.CreditsPath + "11"));
 		objects.Add(end);
@@ -165,10 +171,12 @@ public class CreditsController:StateController {
 		f.scale = 0.03f;
 		objects.Add(GetMeshText(new Vector3(x, y - 0.4f), credit.SelectSingleNode("name").InnerText, f).gameObject);
 	}
-	private void AddHeadingCredit(XmlNode credit, float x, float y, float fontSize = 0.07f) {
+	private GameObject AddHeadingCredit(XmlNode credit, float x, float y, float fontSize = 0.07f) {
 		FontData f = new FontData(TextAnchor.UpperCenter, TextAlignment.Center, fontSize);
 		f.color = Color.white;
-		objects.Add(GetMeshText(new Vector3(x, y), credit.SelectSingleNode("text").InnerText, f).gameObject);
+		GameObject g = GetMeshText(new Vector3(x, y), credit.SelectSingleNode("text").InnerText, f).gameObject;
+		objects.Add(g);
+		return g;
 	}
 	private Vector3 GetVectorShiftedByX(GameObject g, float x) { Vector3 pos = g.transform.position; pos.x += x; return pos; }
 }

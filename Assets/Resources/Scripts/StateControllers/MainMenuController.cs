@@ -227,6 +227,7 @@ public class MainMenuController:MenuController {
 	}
 	
 	private void DebugShit() {
+		if(Input.GetKeyDown(KeyCode.E) && Input.GetKey(KeyCode.R) && Input.GetKey(KeyCode.C)) { PD.ChangeScreen(PersistData.GS.Credits); }
 		if(PD.controller.EnableCheat1()) {  
 			Debug.Log("CHECK!"); 
 			PD.override2P = !PD.override2P;
