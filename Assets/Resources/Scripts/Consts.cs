@@ -138,6 +138,7 @@ public static class SpritePaths {
 	public const string LockedRow 				= TilePath + "LockedRow";
 	public const string TileShape 				= TilePath + "AllTileLarge_Shapes";
 	public const string TileBlock 				= TilePath + "AllTileLarge_Tiles";
+	public const string TileOverlay 			= TilePath + "AllTileLarge_Overlays";
 	public const string Glows	 				= TilePath + "glows";
 	public const string Shield 					= TilePath + "shield";
 	public const string TileCover				= TilePath + "tileCover";

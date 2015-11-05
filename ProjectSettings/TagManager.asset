@@ -53,6 +53,10 @@ TagManager:
     userID: 11
     uniqueID: 2375236445
     locked: 0
+  - name: TileOverlay
+    userID: 16
+    uniqueID: 3323636047
+    locked: 0
   - name: Shape
     userID: 12
     uniqueID: 1704022973
@@ -72,6 +76,10 @@ TagManager:
   - name: HUDText
     userID: 5
     uniqueID: 2178703593
+    locked: 0
+  - name: HUDTextPlusOne
+    userID: 15
+    uniqueID: 1400239981
     locked: 0
   - name: Reference
     userID: 6

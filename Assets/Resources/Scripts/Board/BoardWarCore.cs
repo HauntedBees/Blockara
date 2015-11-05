@@ -18,8 +18,9 @@ public class BoardWarCore:ObjCore {
 	public float xOffset;
 	protected List<Tile> tiles;
 	public Sprite[] tileSheet, shapeSheet;
+	public Sprite overlaySprite;
 	public int deathTile, chain, topoffset;
-	protected bool ignoreDamageSound;
+	protected bool ignoreDamageSound, isMirror;
 	protected void SetupTilesList() {
 		tiles = new List<Tile>();
 		for (int y = 0; y < height; y++) { for (int x = 0; x < width; x++) { int pos = GetListPosFromXY(x, y); tiles.Add(CreateTile(x, y, GetTileColor(pos), GetTileSpecialVal(pos))); } }
@@ -35,7 +36,7 @@ public class BoardWarCore:ObjCore {
 			PD.TileBank.RemoveAt(0);
 			t.gameObject.SetActive(true);
 		}
-		t.SetupTile(PD, GetScreenPosFromXY(x, y), tileSheet, shapeSheet, tval, sreal, isShown);
+		t.SetupTile(PD, GetScreenPosFromXY(x, y), tileSheet, overlaySprite, shapeSheet, tval, sreal, isShown);
 		return t;
 	}
 	virtual public int GetSpecial() { return 0; }
@@ -119,24 +120,25 @@ public class BoardWarCore:ObjCore {
 	public Tile GetValueAtXY(int x, int y) { return GetValueAtListPos(GetListPosFromXY(x, y)); }
 	public Tile GetValueAtListPos(int pos) { return tiles[pos]; }
 	virtual public Vector3 GetScreenPosFromXY(int x, int y) { return Vector3.zero; }
-
-	protected Sprite[] GetShapeSheet() {
-		Sprite[] sheet = Resources.LoadAll<Sprite>(SpritePaths.TileShape + (PD.IsColorBlind()?SpritePaths.ColorblindSuffix:""));
-		return sheet;
+	
+	protected Sprite[] GetShapeSheet() { return Resources.LoadAll<Sprite>(SpritePaths.TileShape + (PD.IsColorBlind()?SpritePaths.ColorblindSuffix:"")); }
+	protected Sprite GetOverlaySprite() { return Resources.LoadAll<Sprite>(SpritePaths.TileOverlay)[PD.GetPlayerSpriteStartIdx(player==1?PD.p1Char:PD.p2Char)]; }
+	protected Sprite[] GetTileSheet() { return Resources.LoadAll<Sprite>(SpritePaths.TileBlock + (PD.IsColorBlind()?SpritePaths.ColorblindSuffix:"")); }
+	public void RefreshGraphics() {
+		if(!isShown) { return; }
+		for(int y = height - 1; y >= 0; y--) {
+			for(int x = 0; x < width; x++) {
+				int idx = GetListPosFromXY(x, y);
+				Tile t = tiles[idx];
+				if(t.IsIrrelevantForSpriteUpdate()) { continue; }
+				int previdx = idx - width, nextidx = idx + width;
+				bool hasTop = true, hasBottom = true;
+				if(previdx >= 0 && !tiles[previdx].IsIrrelevantForSpriteUpdate() && tiles[previdx].GetColorVal() == t.GetColorVal()) { hasBottom = false; }
+				if(nextidx < tiles.Count && !tiles[nextidx].IsIrrelevantForSpriteUpdate() && tiles[nextidx].GetColorVal() == t.GetColorVal()) { hasTop = false; }
+				t.UpdateSprite(isMirror?hasBottom:hasTop, isMirror?hasTop:hasBottom);
+			}
+		}
 	}
-	protected Sprite[] GetTileSheet() {
-		Sprite[] sheet = Resources.LoadAll<Sprite>(SpritePaths.TileBlock + (PD.IsColorBlind()?SpritePaths.ColorblindSuffix:""));
-		Sprite[] actualSheet = new Sprite[4];
-		int idx = PD.GetPlayerSpriteStartIdx(player==1?PD.p1Char:PD.p2Char);
-		actualSheet[0] = sheet[idx];
-		actualSheet[1] = sheet[idx + 17];
-		actualSheet[2] = sheet[idx + 34];
-		actualSheet[3] = sheet[51];
-		return actualSheet;
-	}
-	
-	
-	
 	
 	public void Debug_JustListFuckingEverything() {
 		string s = "";

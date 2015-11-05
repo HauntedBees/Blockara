@@ -230,9 +230,8 @@ public class PersistData:MonoBehaviour {
 			case C.MJ: return 3;
 			case C.September: return 11;
 			case C.White: return 10;
-			case C.FuckingBalloon: return 12;
 		}
-		return 1;
+		return Random.Range(0, 12);
 	}
 	public string GetPlayerSpritePath(C p, bool isBackground = false, bool isMusic = false) { 
 		switch(p) {

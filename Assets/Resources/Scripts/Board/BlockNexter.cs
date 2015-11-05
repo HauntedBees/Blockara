@@ -25,10 +25,10 @@ public class BlockNexter:ScriptableObject {
 	private List<GameObject> tileSprites;
 	private GameObject universalPrefabReference;
 	private Sprite[] tileSheet;
-	private Sprite addSprite;
+	private Sprite addSprite, overlaySprite;
 	private int nextSelectLength;
 	private List<GameObject> nextSelectedTiles;
-	public void SetupUniversalPrefabAndSheet(GameObject p, Sprite[] s) { universalPrefabReference = p; tileSheet = s; }
+	public void SetupUniversalPrefabAndSheet(GameObject p, Sprite[] s, Sprite o) { universalPrefabReference = p; tileSheet = s; overlaySprite = o; }
 	public void Initialize(BlockHandler b, float x, float y, int p, bool s, bool small, int d) {
 		bh = b;
 		player = p; dir = d;
@@ -146,6 +146,10 @@ public class BlockNexter:ScriptableObject {
 		GameObject g = Instantiate(universalPrefabReference, GetDisplayPos(x, y), Quaternion.identity) as GameObject;
 		g.renderer.sortingLayerName = "HUDText";
 		g.GetComponent<SpriteRenderer>().sprite = tileSheet[tileVals[idx]];
+		GameObject g_minor = Instantiate(universalPrefabReference, GetDisplayPos(x, y), Quaternion.identity) as GameObject;
+		g_minor.renderer.sortingLayerName = "HUDTextPlusOne";
+		g_minor.GetComponent<SpriteRenderer>().sprite = overlaySprite;
+		g_minor.transform.parent = g.transform;
 		g.renderer.transform.localScale = isSmall?new Vector2(sizeMultSmall, sizeMultSmall):new Vector2(sizeMult, sizeMult);
 		return g;
 	}

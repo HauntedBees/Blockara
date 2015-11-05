@@ -22,6 +22,7 @@ public class BoardMirror:BoardWarCore {
 	#endregion
 	#region "Setup"
 	virtual public void Setup(TweenHandler th, bool show = true) {
+		isMirror = true;
 		deathTile = parent.deathTile;
 		GetPersistData();
 		this.th = th;

@@ -331,8 +331,6 @@ MonoBehaviour:
   balloonType: 0
   won: 0
   useSpecial: 0
-  firstTime: 0
-  firstTimeCampaign: 0
   isTutorial: 0
   isDemo: 0
   override2P: 0

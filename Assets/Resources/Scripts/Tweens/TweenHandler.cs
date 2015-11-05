@@ -19,31 +19,27 @@ public class TweenHandler:ScriptableObject {
 	private const float TWEEN_LENGTH = 0.1f;
 	public void DoTween(GameObject o, Vector3 destination) { o.transform.DOMove(destination, TWEEN_LENGTH); }
 	public void DoTileTween(Tile t, Vector3 destination, bool destroyWhenComplete = false, bool crop = false, bool initialVisible = false, int cropDir = 0, bool mirror = false) {
+		t.isAnimating = true;
 		if(!crop) {
-			t.shape.transform.DOMove(destination, TWEEN_LENGTH).OnComplete(()=>FinishTileTween(t, destroyWhenComplete));
-			t.block.transform.DOMove(destination, TWEEN_LENGTH);
+			t.block.transform.DOMove(destination, TWEEN_LENGTH).OnComplete(()=>FinishTileTween(t, destroyWhenComplete));
 			return;
 		}
 		if(initialVisible) {
 			Vector3 p = t.block.transform.position;
 			p.x += (mirror?-1:1) * cropDir * t.block.renderer.bounds.size.x / 2;
 			t.block.transform.position = p;
-			t.shape.transform.position = p;
-			t.shape.transform.localScale = new Vector3(0.0f, 1.0f);
 			t.block.transform.localScale = new Vector3(0.0f, 1.0f);
-			t.shape.transform.DOScaleX(1.0f, TWEEN_LENGTH);
 			t.block.transform.DOScaleX(1.0f, TWEEN_LENGTH);
-			t.shape.transform.DOMove(destination, TWEEN_LENGTH).OnComplete(()=>FinishTileTween(t, destroyWhenComplete));
-			t.block.transform.DOMove(destination, TWEEN_LENGTH);
+			t.block.transform.DOMove(destination, TWEEN_LENGTH).OnComplete(()=>FinishTileTween(t, destroyWhenComplete));
 		} else {
 			Vector3 p = destination;
 			p.x += (mirror?-1:1) * cropDir * t.block.renderer.bounds.size.x / 2;
-			t.shape.transform.DOScaleX(0.0f, TWEEN_LENGTH);
 			t.block.transform.DOScaleX(0.0f, TWEEN_LENGTH);
-			t.shape.transform.DOMove(p, TWEEN_LENGTH).OnComplete(()=>FinishTileTween(t, destroyWhenComplete));
-			t.block.transform.DOMove(p, TWEEN_LENGTH);
+			t.block.transform.DOMove(p, TWEEN_LENGTH).OnComplete(()=>FinishTileTween(t, destroyWhenComplete));
 		}
 	}
-	private void FinishTileTween(Tile t, bool destroyWhenComplete) { if(destroyWhenComplete) { t.CleanGameObjects(); } }
-
+	private void FinishTileTween(Tile t, bool destroyWhenComplete) {
+		t.isAnimating = false;
+		if(destroyWhenComplete) { t.CleanGameObjects(); }
+	}
 }

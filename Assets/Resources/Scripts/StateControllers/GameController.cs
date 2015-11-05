@@ -54,7 +54,11 @@ public class GameController:CharDisplayController {
 		cursor2 = CreatePlayerCursor(player2Human || PD.override2P, p2Xoffset, 2, board2, board1, PD.override2P);
 		board1.Setup(cursor1, th, bh, (player2Human || (PD.isDemo && PD.demoPlayers == 2)) ? new Vector2(-0.2f, -0.6f) : new Vector2(PD.IsLeftAlignedHUD()?-0.725f:0.75f, -0.6f), player2Human || (PD.isDemo && PD.demoPlayers == 2), true, player1Human && usingTouchControls);
 		board2.Setup(cursor2, th, bh, new Vector2(0.2f, -0.6f), true, player2Human || (PD.isDemo && PD.demoPlayers == 2));
+		board1.RefreshGraphics();
+		board2.RefreshGraphics();
 		CreateMirrors(p1Xoffset, p2Xoffset);
+		mirror1.RefreshGraphics();
+		mirror2.RefreshGraphics();
 		SetupMouseControls(p1Xoffset);
 
 		if(!PD.isDemo) {
@@ -438,6 +442,7 @@ public class GameController:CharDisplayController {
 				(board1 as BoardWarSpecial).AddShield();
 			}
 		}
+		board1.RefreshGraphics(); board2.RefreshGraphics();
 	}
 	private int GetLaunchConflictWinner(BoardWar.LaunchInfo l1, BoardWar.LaunchInfo l2) {
 		if(l1.x != width - l2.x - 1) { return 0; }
@@ -450,6 +455,7 @@ public class GameController:CharDisplayController {
 	}
 	private void UpdateMirrors() {
 		mirror1.DoUpdate(); mirror2.DoUpdate();
+		mirror1.RefreshGraphics(); mirror2.RefreshGraphics();
 		cursormirror1.DoUpdate(); cursormirror2.DoUpdate();
 	}
 	private void ImUsingTouchControls() {

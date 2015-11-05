@@ -42,8 +42,9 @@ public class BoardWar:BoardWarCore {
 		keyStates = new int[4] {-1, -1, -1, -1};
 		tileSheet = GetTileSheet();
 		shapeSheet = GetShapeSheet();
+		overlaySprite = GetOverlaySprite();
 		bn = ScriptableObject.CreateInstance<BlockNexter>();
-		if(isShown) { bn.SetupUniversalPrefabAndSheet(PD.universalPrefab, tileSheet); }
+		if(isShown) { bn.SetupUniversalPrefabAndSheet(PD.universalPrefab, tileSheet, overlaySprite); }
 		bn.Initialize(bh, nexterPos.x, nexterPos.y, player, isShown, smallNext, ((smallNext || !PD.IsLeftAlignedHUD()) && player == 1) ? 1 : -1);
 		SetupTilesList();
 		bn.SetupTileGraphics();

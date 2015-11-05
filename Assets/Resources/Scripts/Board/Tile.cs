@@ -12,15 +12,17 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.*/
 using DG.Tweening;
+using System.Collections.Generic;
 using UnityEngine;
 public class Tile:ObjCore {
-	public GameObject block, shape, overlay, glow;
+	public GameObject block, wholeoverlay, glow;
+	private GameObject charoverlay, shape;
 	protected int colorVal, specialVal, flashState;
 	private bool isEmpty;
 	private int emptySpriteTile;
 	private Sprite[] tileSheet, glowSheet;
-	public bool isShield, clearBackOnOverlayWipe, isConcrete;
-	public void SetupTile(PersistData P, Vector3 pos, Sprite[] ts, Sprite[] ss, int tVal, int sVal, bool show) {
+	public bool isShield, clearBackOnOverlayWipe, isConcrete, isAnimating;
+	public void SetupTile(PersistData P, Vector3 pos, Sprite[] ts, Sprite os, Sprite[] ss, int tVal, int sVal, bool show) {
 		PD = P;
 		tileSheet = ts;
 		glowSheet = Resources.LoadAll<Sprite>(SpritePaths.Glows);
@@ -41,12 +43,13 @@ public class Tile:ObjCore {
 				block.transform.position = pos;
 				block.GetComponent<SpriteRenderer>().sprite = ts[tValAct];
 			}
+			if(charoverlay == null) {
+				charoverlay = GetTileObject(pos, "tile", os, "TileOverlay");
+				charoverlay.transform.parent = block.transform;
+			}
 			if(shape == null) {
 				shape = GetTileObject(pos, "tile", ss[GetShapeIdx(tValAct, sVal)], "Shape");
-			} else {
-				shape.SetActive(true);
-				shape.transform.position = pos;
-				shape.GetComponent<SpriteRenderer>().sprite = ss[GetShapeIdx(tValAct, sVal)];
+				shape.transform.parent = block.transform;
 			}
 			Color c = block.renderer.material.color;
 			c.a = 1.0f;
@@ -91,7 +94,7 @@ public class Tile:ObjCore {
 	public void SetTilePosition(Vector3 v) {
 		block.transform.position = v;
 		shape.transform.position = v;
-		if(overlay != null) { overlay.transform.position = v; }
+		if(wholeoverlay != null) { wholeoverlay.transform.position = v; }
 	}
 	public void MakeRecoveryTile(int type) {
 		Color c = block.renderer.material.color;
@@ -100,13 +103,13 @@ public class Tile:ObjCore {
 		block.GetComponent<SpriteRenderer>().sprite = tileSheet[type];
 		block.renderer.material.color = c;
 		shape.renderer.material.color = c;
-		if(overlay == null) {
-			overlay = GetTileObject(block.transform.position, "plus", Resources.Load<Sprite>(SpritePaths.RecoveryTile), "ShapeOverlay");
+		if(wholeoverlay == null) {
+			wholeoverlay = GetTileObject(block.transform.position, "plus", Resources.Load<Sprite>(SpritePaths.RecoveryTile), "ShapeOverlay");
 		} else {
-			overlay.SetActive(true);
-			overlay.transform.position = block.transform.position;
-			overlay.name = "plus";
-			overlay.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(SpritePaths.RecoveryTile);
+			wholeoverlay.SetActive(true);
+			wholeoverlay.transform.position = block.transform.position;
+			wholeoverlay.name = "plus";
+			wholeoverlay.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(SpritePaths.RecoveryTile);
 		}
 	}
 	public void MakeDestroyTile() {
@@ -114,13 +117,13 @@ public class Tile:ObjCore {
 		c.a = 1.0f;
 		block.renderer.material.color = c;
 		shape.renderer.material.color = c;
-		if(overlay == null) {
-			overlay = GetTileObject(block.transform.position, "destroy", Resources.Load<Sprite>(SpritePaths.DestroyTile), "ShapeOverlay");
+		if(wholeoverlay == null) {
+			wholeoverlay = GetTileObject(block.transform.position, "destroy", Resources.Load<Sprite>(SpritePaths.DestroyTile), "ShapeOverlay");
 		} else {
-			overlay.SetActive(true);
-			overlay.transform.position = block.transform.position;
-			overlay.name = "destroy";
-			overlay.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(SpritePaths.DestroyTile);
+			wholeoverlay.SetActive(true);
+			wholeoverlay.transform.position = block.transform.position;
+			wholeoverlay.name = "destroy";
+			wholeoverlay.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(SpritePaths.DestroyTile);
 		}
 	}
 	public void MakeShieldTile(Sprite spr) {
@@ -128,6 +131,8 @@ public class Tile:ObjCore {
 			Color c = block.renderer.material.color;
 			c.a = 0.0f;
 			block.renderer.material.color = c;
+			block.SetActive(true);
+			charoverlay.SetActive(false);
 			shape.SetActive(true);
 			c.a = 1.0f;
 			shape.renderer.material.color = c;
@@ -139,20 +144,20 @@ public class Tile:ObjCore {
 	public void CleanGameObjects(bool forceErase = true) {
 		if(!isShown) { return; }
 		if(forceErase) {
+			Destroy(charoverlay);
 			Destroy(block);
 			Destroy(shape);
-			if(overlay != null) { Destroy(overlay); }
+			if(wholeoverlay != null) { Destroy(wholeoverlay); }
 			Destroy(this.gameObject);
 		} else {
 			block.SetActive(false);
-			shape.SetActive(false);
-			if(overlay != null) { overlay.SetActive(false); }
+			if(wholeoverlay != null) { wholeoverlay.SetActive(false); }
 			PD.TileBank.Add(this);
 			this.gameObject.SetActive(false);
 		}
 	}
 	public void WipeOverlay(bool forceErase = false) {
-		if(overlay == null) { return; }
+		if(wholeoverlay == null) { return; }
 		if(clearBackOnOverlayWipe) {
 			clearBackOnOverlayWipe = false;
 			Color c = block.renderer.material.color;
@@ -161,9 +166,21 @@ public class Tile:ObjCore {
 			shape.renderer.material.color = c;
 		}
 		if(forceErase) {
-			Destroy(overlay);
+			Destroy(wholeoverlay);
 		} else {
-			overlay.SetActive(false);
+			wholeoverlay.SetActive(false);
+		}
+	}
+	public bool IsIrrelevantForSpriteUpdate() { return isConcrete || isAnimating || isEmpty || isShield || !isShown; }
+	public void UpdateSprite(bool hasTop, bool hasBottom) {
+		if(hasTop && hasBottom) {
+			block.GetComponent<SpriteRenderer>().sprite = tileSheet[colorVal];
+		} else if(hasTop) {
+			block.GetComponent<SpriteRenderer>().sprite = tileSheet[colorVal + 3];
+		} else if(hasBottom) {
+			block.GetComponent<SpriteRenderer>().sprite = tileSheet[colorVal + 9];
+		} else {
+			block.GetComponent<SpriteRenderer>().sprite = tileSheet[colorVal + 6];
 		}
 	}
 	public int GetColorVal() { return colorVal; }
@@ -176,13 +193,13 @@ public class Tile:ObjCore {
 		if(!isShown) { return; }
 		if(forceErase) {
 			Destroy(shape);
-			if(overlay != null) { Destroy(overlay); }
+			if(wholeoverlay != null) { Destroy(wholeoverlay); }
 		} else {
 			Color c = block.renderer.material.color;
 			c.a = 1.0f;
 			shape.renderer.material.color = c;
 			shape.SetActive(false);
-			if(overlay != null) { overlay.SetActive(false); }
+			if(wholeoverlay != null) { wholeoverlay.SetActive(false); }
 		}
 		block.SetActive(false);
 		block.GetComponent<SpriteRenderer>().sprite = tileSheet[emptySpriteTile];
