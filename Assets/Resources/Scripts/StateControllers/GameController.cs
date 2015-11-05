@@ -410,8 +410,8 @@ public class GameController:CharDisplayController {
 		cursor1.SetDepthAndKillForDisplay(t1.depth, t1.penetrate, t1.penetratedepth, t1.kill);
 		depthPenetrateKill t2 = GetDepthAndKillForDisplay(cursor2, board2, board1);
 		cursor2.SetDepthAndKillForDisplay(t2.depth, t2.penetrate, t2.penetratedepth, t2.kill);
-		cursor1.DoUpdate();
-		cursor2.DoUpdate();
+		cursor1.DoUpdate(board1.GetHighestRowWithTiles());
+		cursor2.DoUpdate(board2.GetHighestRowWithTiles());
 	}
 	private void UpdateBoards() {
 		board1.DoUpdate(); board2.DoUpdate();

@@ -26,14 +26,15 @@ public class BoardCursorWar:BoardCursorActualCore {
 	}
 	#endregion
 	#region "Updating"
-	public override void DoUpdate() {
-		if(!usingTouchControls) { HandleControls(); }
+	public override void DoUpdate(int max = -1) {
+		if(!usingTouchControls) { HandleControls(max); }
 		MainUpdate();
 	}
 	#endregion
 	#region "Control Execution"
 	private void ClearKeyStates() { for(int i = 0; i < 4; i++) { keyStates[i] = -1; } }
-	protected void HandleControls() {
+	protected void HandleControls(int heightToUse = -1) {
+		if(heightToUse < 0) { heightToUse = boardheight - 1; }
 		moveDelay -= Time.deltaTime * 60.0f;
 		if(moveDelay > 0) { return; }
 		int dx = 0;
@@ -63,7 +64,7 @@ public class BoardCursorWar:BoardCursorActualCore {
 		controller.refresh();
 		if(!keysPressed) { ClearKeyStates(); } else { PD.usingMouse = false; }
 		if(x < 0) { x = boardwidth - 1; } else if(x >= boardwidth) { x = 0; }
-		if(y < 0) { y = 0; } else if(y >= boardheight) { y = boardheight - 1; }
+		if(y < 0) { y = 0; } else if(y >= heightToUse) { y = heightToUse; }
 		if(dx != 0 || dy != 0) { moveDelay = PD.KEY_DELAY; }
 	}
 	#endregion

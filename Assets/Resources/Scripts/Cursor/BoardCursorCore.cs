@@ -51,7 +51,7 @@ public class BoardCursorCore:InputCore {
 	}
 	virtual protected void ExtraInit() { } 
 	public void SetInitXAndID(int x) { this.x = x; this.id = x; }
-	virtual public void DoUpdate() {}
+	virtual public void DoUpdate(int max = -1) {}
 	protected void UpdateCursorPos(bool skipTween = false) {
 		if(!isShown) { return; }
 		if(prevx == x && prevy == y) { moved = false; return; }

@@ -28,7 +28,7 @@ public class BoardCursorMirror:BoardCursorCore {
 		UpdateMirrorCursorPos(true);
 		FinishUpdate();
 	}
-	public override void DoUpdate() {
+	public override void DoUpdate(int max = -1) {
 		cursor.GetComponent<SpriteRenderer>().sprite = sheet[parent.frozen?2:(parent.penetr?1:0)];
 		x = boardwidth - 1 - parent.getX();
 		y = boardheight - 1 - parent.getY();

@@ -32,7 +32,7 @@ public class BoardCursorBot:BoardCursorActualCore {
 	public void Blind(int length) { AI.confused = length; }
 	#endregion
 	#region "Updating"
-	public override void DoUpdate() {
+	public override void DoUpdate(int max = -1) {
 		AIAction action = null;
 		if(--AI.confused > 0) { AI.forceState(999); }
 		if(--AI.delay <= 0) { action = AI.TakeAction(); }

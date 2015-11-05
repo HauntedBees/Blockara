@@ -51,7 +51,7 @@ public class OptionsCursor:BoardCursorWar {
 	}
 	#endregion
 	#region "Updating"
-	public override void DoUpdate() {
+	public override void DoUpdate(int max = -1) {
 		HandleControls();
 		MainUpdate();
 		if(HasMoved()) { PD.sounds.SetSoundAndPlay(SoundPaths.S_Menu_Select); }

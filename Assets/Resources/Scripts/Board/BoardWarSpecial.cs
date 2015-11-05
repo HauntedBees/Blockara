@@ -71,6 +71,7 @@ public class BoardWarSpecial:BoardWar {
 			int pos = GetListPosFromXY(x, height - 1);
 			bool isShieldDestroyed = SetHPAndReturnIfDestroyed(pos, -damage);
 			if(isShieldDestroyed) {
+				UpdateHighestRowWithTiles();
 				tiles[GetListPosFromXY(x, height - 1)].Kill();
 				DestroyShieldAtPos(pos);
 			}
@@ -106,6 +107,7 @@ public class BoardWarSpecial:BoardWar {
 			tiles[shieldPos].MakeShieldTile(shieldSheet[0]);
 			shields.Add(new Shield(shieldPos, tiles[shieldPos], shieldSheet));
 			changes.Add(new MirrorChangeShield((int)GetXYFromListPos(shieldPos).x, 0));
+			UpdateHighestRowWithTiles();
 		}
 	}
 	public int GetShieldHP(int pos) {

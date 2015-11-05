@@ -37,7 +37,7 @@ public class MenuCursor:BoardCursorWar {
 			cursor = GetGameObject(Vector3.zero, "", cursors[spriteSheetPos], false, "HUDText");
 		}
 	}
-	public override void DoUpdate() {
+	public override void DoUpdate(int max = -1) {
 		int lastX = x;
 		HandleControls();
 		if(loopAround) {

@@ -185,7 +185,7 @@ public class Tile:ObjCore {
 	}
 	public int GetColorVal() { return colorVal; }
 	public int GetSpecialVal() { return specialVal; }
-	public bool IsDead() { return isEmpty; }
+	public bool IsDead() { return isEmpty && !isShield; }
 	public void MakeConcrete() { isConcrete = true; }
 	public void Kill(bool forceErase = false) {
 		isEmpty = true;

@@ -24,6 +24,7 @@ public class BoardWar:BoardWarCore {
 	private BoardMirror mirror;
 	protected List<MirrorChange> changes;
 	private int[] keyStates;
+	private int highestRowWithTiles;
 	protected BlockNexter bn;
 	public struct LaunchInfo {
 		public int x, len, type, topy;
@@ -155,7 +156,28 @@ public class BoardWar:BoardWarCore {
 		if(CheckIfCantWin()) { BeDefeated(); return 10; }
 		int depth = initHeight - amount;
 		if(depth > 0 && !ignoreDamageSound) { PD.sounds.SetSoundAndPlay(SoundPaths.S_Damage); }
+		UpdateHighestRowWithTiles();
 		return depth;
+	}
+	
+	public int GetHighestRowWithTiles() {
+		if(highestRowWithTiles == 0) { UpdateHighestRowWithTiles(); }
+		return highestRowWithTiles;
+	}
+	protected void UpdateHighestRowWithTiles() {
+		for(int y = 0; y < height; y++) {
+			bool allEmpty = true;
+			for(int x = 0; x < width; x++) {
+				int idx = GetListPosFromXY(x, y);
+				Tile t = tiles[idx];
+				if(!t.IsDead()) { 
+					allEmpty = false; 
+					break;
+				}
+			}
+			if(!allEmpty) { highestRowWithTiles = y; }
+		}
+		Debug.Log(highestRowWithTiles);
 	}
 	protected bool CheckIfCantWin() {
 		for(int x = 0; x < width; x++) { if(GetHighestYAtX(x) > 1) { return false; } }
