@@ -177,7 +177,6 @@ public class BoardWar:BoardWarCore {
 			}
 			if(!allEmpty) { highestRowWithTiles = y; }
 		}
-		Debug.Log(highestRowWithTiles);
 	}
 	protected bool CheckIfCantWin() {
 		for(int x = 0; x < width; x++) { if(GetHighestYAtX(x) > 1) { return false; } }
