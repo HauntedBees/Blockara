@@ -43,6 +43,7 @@ public class InputVal_Key:InputVal {
 	override public bool KeyPress() { return Input.GetKey(keyVal); }
 	override public string GetName() {
 		int intCode = int.Parse(rawVal);
+		string cleanName = keyVal.ToString();
 		if(intCode >= 350) {
 			int newVal = (intCode - 350) % 20;
 			switch(newVal) {
@@ -63,8 +64,13 @@ public class InputVal_Key:InputVal {
 					#endif
 				case 10: return "R3";
 			}
+		} else {
+			cleanName = cleanName.Replace("Left", "L").Replace("Right", "R").Replace("Control", "Ctrl")
+				.Replace("BackQuote", "`").Replace("Minus", "-").Replace("Equals", "=").Replace("Backslash", "\\").Replace("Slash", "/")
+				.Replace("Comma", ",").Replace("Period", ".").Replace("Semicolon", ";").Replace("Quote", "'").Replace("LBracket", "{")
+				.Replace("RBracket", "}");
 		}
-		return keyVal.ToString();
+		return cleanName;
 	}
 }
 public class InputVal_Axis:InputVal {
