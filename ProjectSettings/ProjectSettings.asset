@@ -110,15 +110,15 @@ PlayerSettings:
     m_Icons:
     - m_Icon: {fileID: 0}
       m_Size: 1024
-    - m_Icon: {fileID: 0}
+    - m_Icon: {fileID: 2800000, guid: 32ff43f78db611f488bb46f0667c6ca5, type: 3}
       m_Size: 512
-    - m_Icon: {fileID: 2800000, guid: aec9adb5d3823fe499d792f5615eb9ac, type: 3}
-      m_Size: 256
     - m_Icon: {fileID: 0}
+      m_Size: 256
+    - m_Icon: {fileID: 2800000, guid: 1d309e497076ae542a6bd73aa9262113, type: 3}
       m_Size: 128
     - m_Icon: {fileID: 0}
       m_Size: 48
-    - m_Icon: {fileID: 2800000, guid: c25c4e6b15d9e2d46bc5cbc2233ab2f8, type: 3}
+    - m_Icon: {fileID: 2800000, guid: b9dbb151cec114b4987b5b277e0f11b1, type: 3}
       m_Size: 32
     - m_Icon: {fileID: 0}
       m_Size: 16
