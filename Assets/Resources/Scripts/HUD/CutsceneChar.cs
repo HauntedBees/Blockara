@@ -62,7 +62,7 @@ public class CutsceneChar {
 		bobSequence.OnComplete(Bob);
 	}
 	private float inGameTweenSpeed = 0.7f;
-	private void LowerTweenSpeed() { inGameTweenSpeed = Mathf.Max(inGameTweenSpeed - 0.035f, 0.1f); }
+	private void LowerTweenSpeed() { inGameTweenSpeed = Mathf.Max(inGameTweenSpeed - 0.025f, 0.2f); }
 	public void InGameBob() {
 		if(!bobbing) { return; }
 		Sequence bobSequence = DOTween.Sequence();
