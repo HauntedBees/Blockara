@@ -32,7 +32,7 @@ public class AICore {
 	public void ToggleInactive() { inactive = !inactive; }
 	public void boostDifficulty(int d) {
 		setUpDifficulty(difficulty + d);
-		if(easyMode) { delayLowerbound *= 3; delayUpperbound *= 3; }
+		if(easyMode) { delayLowerbound *= 6; delayUpperbound *= 6; }
 	}
 	virtual protected void setUpDifficulty(int d) {
 		difficulty = d;
