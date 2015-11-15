@@ -323,11 +323,6 @@ public class GameController:CharDisplayController {
 			if(cursor1.pause() || mouseClick) { hud.pausePresser = 1; paused = true; PD.sounds.SetSoundAndPlay(SoundPaths.S_Menu_Pause); }
 			else if(cursor2.pause()) { hud.pausePresser = 2; paused = true; PD.sounds.SetSoundAndPlay(SoundPaths.S_Menu_Pause); }
 		} else {
-			if((cursor1.pause() && hud.pausePresser == 1) || (cursor2.pause() && hud.pausePresser == 2)) {
-				paused = false;
-				PD.sounds.SetSoundAndPlay(SoundPaths.S_Menu_Unpause);
-				return paused;
-			}
 			if(hud.pauseMenu == null) { return paused; }
 			switch(hud.pauseMenu.state) {
 				case 1: PD.sounds.SetSoundAndPlay(SoundPaths.S_Menu_Confirm); isTransitioning = true; PD.SaveAndQuit(hud.GetTimeInSeconds()); break;

@@ -21,7 +21,7 @@ public class RetryPauseMenu:MenuController {
 	public void Update() {
 		menuButtons[selectedIdx].GetComponent<SpriteRenderer>().sprite = buttonSheet[0];
 		HandleMouse();
-		if(cursor.launch() || (this is RetryMenu && cursor.pause())) { state = cursor.getY() + 1; }
+		if(cursor.launchOrPause()) { state = cursor.getY() + 1; }
 		cursor.DoUpdate();
 		selectedIdx = cursor.boardheight - cursor.getY() - 1;
 		menuButtons[selectedIdx].GetComponent<SpriteRenderer>().sprite = buttonSheet[1];
