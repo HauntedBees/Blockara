@@ -23,6 +23,7 @@ public class PuzzleHUD:InGameHUD {
 		SetupFromPuzzleLevel(additionalInfo);
 		float x = PD.IsLeftAlignedHUD() ? -1.2f : 0.6f;
 		Vector3 pos = new Vector3(x, 1.03f);
+		AddDamageReferenceKey();
 		FontData f = new FontData(TextAnchor.MiddleLeft, TextAlignment.Left, 0.03f);
 		switch(puzzleType) {
 			case 0: 
@@ -45,6 +46,11 @@ public class PuzzleHUD:InGameHUD {
 			if(actualUnlockedRow == y) { continue; }
 			GetGameObject(new Vector3((PD.IsLeftAlignedHUD()?0.45f:-0.45f), -1.84f + y * Consts.TILE_SIZE), "lock" + y, rowLockSprite, false, "Zapper");
 		}
+	}
+	private void AddDamageReferenceKey() {
+		Vector2 pos = new Vector2(PD.IsLeftAlignedHUD()?-0.9f:0.9f, 0.42f);
+		GameObject helper = GetGameObject(pos, "Damage Reference", Resources.Load<Sprite>(SpritePaths.GuideCircle + (PD.IsColorBlind()?SpritePaths.ColorblindSuffix:"")), false, "Reference");
+		helper.transform.localScale = new Vector2(0.8f, 0.8f);
 	}
 	public int GetUnlockedRow() { if(puzzleType == 0) { return PD.rowCount - initRemainingMoves; } else { return -1; } }
 	private void SetupFromPuzzleLevel(int level) {
