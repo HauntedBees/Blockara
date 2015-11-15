@@ -1,9 +1,9 @@
 # Blockara
 ## wut
-Blockara is an in-development head-to-head puzzle game.
+Blockara is a head-to-head action puzzle game where you, one of the best alchemists in the world, must compete in the World Alchemy Tournament for a chance to have your wish granted by the September Dragon! Fight your way to the top in Story Mode or hone your skills in the other game modes!
 ## license
-Blockara's source code is licensed with the Apache 2.0 License.
+Blockara's source code is licensed with the [Apache 2.0 License](http://www.apache.org/licenses/LICENSE-2.0). The code links with the [DOTween](http://dotween.demigiant.com/) engine. Art and sound assets included in this GitHub project are licensed with the [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) license. Art and sound assets not in this GitHub project are either Creative Commons/Public Domain assets from resources like [Freesound](http://freesound.org/), or are assets created solely for this game. All assets that are needed for the game to compile properly in Unity will either be included in this project or will have substitute files as alternatives to non-open assets. These substitute files are not included on GitHub yet, but will be when the game is complete.
 ## why
 It was inevitable that I would make a game that isn't just a smug pixelated flash game.
 ## want to make changes?
-the game isn't even done yet hold your horses yo.
+The game isn't even done yet hold your horses yo. Right now if you see something blatantly wrong feel free to make a pull request or let me know or whatever. Please use the Apache 2.0 License for all contributions. There is no guarantee that changes made to this project, even if put in the main branch, will be included in release versions of the game or ports of the game to other systems.
