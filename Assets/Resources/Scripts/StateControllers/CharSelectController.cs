@@ -195,10 +195,12 @@ public class CharSelectController:MenuController {
 		charSprite2.transform.localScale = new Vector3(-0.7f, 0.7f);
 	}
 	private void SetupBackgrounds() {
-		bg1 = GetGameObject(new Vector3(-1.78f, 0.0f), "Background 1", Resources.Load<Sprite> (SpritePaths.DefaultBG), false, "BG0");
+		bg1 = GetGameObject(new Vector3(-2.25f, 0.5f), "Background 1", Resources.Load<Sprite> (SpritePaths.DefaultBG), false, "BG0");
+		bg1.transform.localScale /= 2.5f;
 		originalRect = bg1.GetComponent<SpriteRenderer>().sprite.rect;
 		UpdateBackground(true);
-		bg2 = GetGameObject(new Vector3(1.78f, 0.0f), "Background 2", Resources.Load<Sprite> (SpritePaths.DefaultBG), false, "BG0");
+		bg2 = GetGameObject(new Vector3(2.25f, 0.5f), "Background 2", Resources.Load<Sprite> (SpritePaths.DefaultBG), false, "BG0");
+		bg2.transform.localScale /= 2.5f;
 		UpdateBackground(false);
 		GetGameObject(Vector3.zero, "Background Cover", Resources.Load<Sprite>(SpritePaths.BGBlackFadeCharSel), false, "BG1");
 	}
