@@ -63,7 +63,7 @@ public class PlayerDataController:LeftButtonsMenuController {
 
 		List<XmlNode> bios = GetFilteredBiosList();
 		GameObject characters = GetGameObject(new Vector3(x - 1.4f, y), "BioChar", null, false, "HUD");
-		GameObject goBack = GetGameObject(new Vector3(x, y), "Return", Resources.Load<Sprite>(SpritePaths.PersistDataBack), false, "HUD");
+		GameObject goBack = GetGoBackImage(x, y);
 		writer = new PlayerDataTextWriter(headerText, infoPaneTextCenter, infoPaneTextLeft, infoPaneTextRight, bios, GetXMLHead(), characters, goBack, PD);
 		bioCount = bios.Count - 1;
 	}

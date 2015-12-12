@@ -31,4 +31,8 @@ public class LeftButtonsMenuController:MenuController {
 		UpdateMouseInput();
 		HandleMouse();
 	}
+	protected GameObject GetGoBackImage(float x, float y) {
+		Sprite[] sprites = Resources.LoadAll<Sprite>(SpritePaths.PersistDataBack);
+		return GetGameObject(new Vector3(x, y - 0.926f), "Return", sprites[Random.Range(0, 5)], false, "HUD");
+	}
 }

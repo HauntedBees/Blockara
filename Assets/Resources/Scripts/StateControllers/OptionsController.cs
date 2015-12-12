@@ -60,7 +60,7 @@ public class OptionsController:LeftButtonsMenuController {
 		sidepanels = new GameObject[] {side_back, side_accessibility, side_controls, side_options};
 		selectedIdx = 3;
 
-		createInfoPane(0.8f, 0.0f);
+		CreateInfoPane(0.8f, 0.0f);
 	}
 	private void ResetOptions(bool andGraphics = true) {
 		resolutions = new Vector2[] { new Vector2(1280, 720), new Vector2(1600, 900), new Vector2(1920, 1080) };
@@ -87,9 +87,9 @@ public class OptionsController:LeftButtonsMenuController {
 			optionsScreen.SetFlsText(isFullScreen);
 		}
 	}
-	private void createInfoPane(float x, float y) {
+	private void CreateInfoPane(float x, float y) {
 		GetGameObject(new Vector3(x, y), "infoPane", Resources.Load<Sprite>(SpritePaths.BigOptionInfoBox));
-		goBack = GetGameObject(new Vector3(x, y), "Return", Resources.Load<Sprite>(SpritePaths.PersistDataBack), false, "HUD");
+		goBack = GetGoBackImage(x, y);
 		goBack.SetActive(false);
 		FontData font = PD.mostCommonFont.Clone();
 		font.scale = 0.06f;
