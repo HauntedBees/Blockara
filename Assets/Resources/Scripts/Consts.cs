@@ -130,9 +130,7 @@ public static class SpritePaths {
 	public const string CharSelSheetAll			= CharPath + "charSelGrid3";
 	public const string CharSelProfiles 		= CharPath + "CharSelPlayers1";
 	public const string CharSelVictoryIcons 	= CharPath + "completionIcons";
-	public const string CharWins1 				= CharPath + "Wins1";
-	public const string CharWins2 				= CharPath + "Wins2";
-	public const string CharSeptWhite 			= CharPath + "WhiteSeptOnly";
+	public const string CharFullShots	 		= CharPath + "CharFull";
 	public const string CharGroupShot 			= CharPath + "GroupShot";
 	public const string CharNames	 			= CharPath + "names";
 	public const string LockedRow 				= TilePath + "LockedRow";

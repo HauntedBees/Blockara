@@ -42,11 +42,11 @@ public class MainMenuController:MenuController {
 	private void SetupCharacter() {
 		SaveData sd = PD.GetSaveData();
 		PD.p2Char = (PersistData.C) sd.GetTitleScreenCharacter();
-		int winType = sd.getPlayerWinType(PD.GetPlayerSpritePath(PD.p2Char));
-		string winPath = (winType == 2)?SpritePaths.CharWins2:SpritePaths.CharWins1;
-		if(PD.p2Char == PersistData.C.White || PD.p2Char == PersistData.C.September) { winPath = SpritePaths.CharSeptWhite; }
-		Sprite[] sheet = Resources.LoadAll<Sprite>(winPath);
-		float xOffset = (int)PD.p2Char%2==0?2.5f:-2.5f;
+		int winOffset = PD.GetPlayerSpriteStartIdx(PD.p2Char) * 3 + sd.getPlayerWinType(PD.GetPlayerSpritePath(PD.p2Char));
+		if(PD.p2Char == PersistData.C.White) { winOffset = 30; } else if(PD.p2Char == PersistData.C.September) { winOffset = 31; }
+		Sprite[] sheet = Resources.LoadAll<Sprite>(SpritePaths.CharFullShots);
+		bool onRight = System.Array.IndexOf(new int[] {0, 3, 4, 7, 11, 13, 15, 16, 17, 19, 20, 22, 23, 24, 27, 29, 31}, winOffset) >= 0;
+		float xOffset = onRight?2.5f:-2.5f;
 		if(PD.p2Char == PersistData.C.Everyone) {
 			PD.sounds.SetVoiceAndPlay(SoundPaths.S_AllShout, 0);
 			PD.sounds.SetMusicAndPlay(SoundPaths.M_Title_DerivPath + "Group");
@@ -54,13 +54,11 @@ public class MainMenuController:MenuController {
 			charTalker = new CutsceneChar(PD.GetPlayerSpritePath(PD.p2Char), character, null, 0, PD);
 		} else if(PD.p2Char != PersistData.C.Null) {
 			PD.sounds.SetVoiceAndPlay(SoundPaths.VoicePath + PD.GetPlayerSpritePath(PD.p2Char) + "/" + "083", 0);
+			character = GetGameObject(new Vector3(xOffset, -0.5f), "A Player Is You", sheet[winOffset], true, "Zapper");
+			charTalker = new CutsceneChar(PD.GetPlayerSpritePath(PD.p2Char), character, null, 0, PD);
 			if(PD.p2Char != PersistData.C.September && PD.p2Char != PersistData.C.White) { 
-				character = GetGameObject(new Vector3(xOffset, -0.5f), "A Player Is You", sheet[(int)PD.p2Char], true, "Zapper");
-				charTalker = new CutsceneChar(PD.GetPlayerSpritePath(PD.p2Char), character, null, 0, PD);
 				PD.sounds.SetMusicAndPlay(SoundPaths.M_Title_DerivPath + PD.GetPlayerSpritePath(PD.p2Char));
 			} else {
-				character = GetGameObject(new Vector3(xOffset, -0.5f), "A Player Is You", sheet[(PD.p2Char == PersistData.C.White)?0:1], true, "Zapper");
-				charTalker = new CutsceneChar(PD.GetPlayerSpritePath(PD.p2Char), character, null, 0, PD);
 				PD.sounds.SetMusicAndPlay(SoundPaths.M_Title_DerivPath + "White");
 				if(PD.p2Char == PersistData.C.September) {
 					PD.sounds.SetVoiceAndPlay(SoundPaths.VoicePath + "September/042", 0);
@@ -75,12 +73,10 @@ public class MainMenuController:MenuController {
 	}
 	private void SetupAFuckingBalloon() {
 		if(PD.GetSaveData().savedOptions["beatafuckingballoon"] != 1) { return; }
-		Sprite[] puhloon = Resources.LoadAll<Sprite>(SpritePaths.CharPath + "MasterAlchemist");
-		Sprite psprite = puhloon[Random.Range(0, 8)];
-		GameObject pleaseDadCanIHgaaveOne = GetGameObject(new Vector3(-2.0f, 1.2f), "Puhloonverlay", psprite, false, "HUDText");
+		Sprite psprite = Resources.LoadAll<Sprite>(SpritePaths.CharFullShots)[32];
+		GameObject pleaseDadCanIHgaaveOne = GetGameObject(new Vector3(-1.8f, 1.2f), "Puhloonverlay", psprite, false, "HUDText");
 		pleaseDadCanIHgaaveOne.renderer.material.color = new Color(1.0f, 1.0f, 1.0f, 0.5f);
-		pleaseDadCanIHgaaveOne.renderer.transform.localScale = new Vector2(0.16733f, 0.16733f);
-		pleaseDadCanIHgaaveOne.renderer.transform.Rotate(new Vector3(0.0f, 0.0f, 1.0f), 331.95f);
+		pleaseDadCanIHgaaveOne.renderer.transform.localScale = new Vector2(0.5f, 0.45f);
 	}
 	private void SetupTitle() {
 		string presstext = string.Format(GetXmlValue(top, "starttext"), PD.GetP1InputName(InputMethod.KeyBinding.launch), PD.GetP1InputName(InputMethod.KeyBinding.pause));

@@ -23,27 +23,24 @@ public class WinScreenController:StateController {
 			SetUpUnlock(true);
 			return;
 		}
-		Sprite[] sheet, winTexts = Resources.LoadAll<Sprite>(SpritePaths.WinnerTexts);
-		Sprite winText;
+		Sprite winText = Resources.LoadAll<Sprite>(SpritePaths.WinnerTexts)[PD.winType - 1];
 		if(PD.winType == 2) {
-			sheet = Resources.LoadAll<Sprite>(SpritePaths.CharWins2);
-			winText = winTexts[0];
 			PD.sounds.SetVoiceAndPlay(SoundPaths.NarratorPath + "042", 0);
 		} else {
-			sheet = Resources.LoadAll<Sprite>(SpritePaths.CharWins1);
 			PD.sounds.SetVoiceAndPlay(SoundPaths.NarratorPath + "043", 0);
-			winText = winTexts[1];
 		}
+		Sprite[] sheet = Resources.LoadAll<Sprite>(SpritePaths.CharFullShots);
 		Sprite charSpr;
-		if(PD.p1Char == PersistData.C.September) {
-			charSpr = Resources.LoadAll<Sprite>(SpritePaths.CharSeptWhite)[1];
+		if(PD.p1Char == PersistData.C.FuckingBalloon) {
+			charSpr = sheet[32];
+		} else if(PD.p1Char == PersistData.C.September) {
+			charSpr = sheet[31];
 		} else if(PD.p1Char == PersistData.C.White) {
-			charSpr = Resources.LoadAll<Sprite>(SpritePaths.CharSeptWhite)[0];
+			charSpr = sheet[30];
 		} else {
-			charSpr = sheet[(int)PD.p1Char];
+			charSpr = sheet[(int)PD.p1Char * 3 + PD.winType];
 		}
-		pose = GetGameObject(new Vector3(0.0f, -1.0f), "win", charSpr, false, "HUDText");
-		pose.renderer.transform.localScale = new Vector3(0.5f, 0.5f);
+		pose = GetGameObject(new Vector3(0.0f, -0.2f), "win", charSpr, false, "HUDText");
 		winTextGO = GetGameObject(new Vector3(0.0f, 1.0f), "win2", winText, false, "HUDText");
 	}
 	public void Update() {
@@ -67,12 +64,12 @@ public class WinScreenController:StateController {
 			Destroy(pose);
 			Destroy(winTextGO);
 		}
-		Sprite[] sheet = Resources.LoadAll<Sprite>(SpritePaths.CharSeptWhite);
+		Sprite[] sheet = Resources.LoadAll<Sprite>(SpritePaths.CharFullShots);
 		Sprite[] winText = Resources.LoadAll<Sprite>(SpritePaths.NewUnlocks);
 		
-		pose = GetGameObject(new Vector3(0.0f, -1.0f), "win", sheet[PD.unlockNew - 1], false, "HUDText");
-		pose.renderer.transform.localScale = new Vector3(0.5f, 0.5f);
+		pose = GetGameObject(new Vector3(0.0f, -0.8f), "win", sheet[PD.unlockNew + 29], false, "HUDText");
 		winTextGO = GetGameObject(new Vector3(0.0f, 1.0f), "win2", winText[PD.unlockNew - 1], false, "HUDText");
+		winTextGO.transform.localScale = new Vector3(0.5f, 0.5f);
 		PD.sounds.SetSoundAndPlay(SoundPaths.S_Applause + Random.Range(1, 7).ToString());
 		PD.sounds.SetMusicAndPlay(SoundPaths.M_Title_DerivPath + "White");
 		isUnlock = true;

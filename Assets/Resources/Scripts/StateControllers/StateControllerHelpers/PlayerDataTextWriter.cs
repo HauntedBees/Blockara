@@ -36,7 +36,7 @@ public class PlayerDataTextWriter:ScoreTextFormatter {
 		goBack = gb;
 		goBack.SetActive(false);
 		navDetails = top;
-		charSheet = Resources.LoadAll<Sprite>(SpritePaths.CharWins1);
+		charSheet = Resources.LoadAll<Sprite>(SpritePaths.CharFullShots);
 		PD = p;
 		bounds = new Vector2(2.4f, 3.0f);
 	}
@@ -123,13 +123,13 @@ public class PlayerDataTextWriter:ScoreTextFormatter {
 		infoPaneTextRight.text = "";
 		infoPaneTextCenter.text = "";
 	}
-	public void SetToBiosPanel(int pos) {
+	public void SetToBiosPanel(int pos, PersistData pers) {
 		goBack.SetActive(false);
 		infoPaneTextCenter.text = "";
 		infoPaneTextLeft.text = "";
-		LoadCharacterBio(pos);
+		LoadCharacterBio(pos, pers);
 	}
-	public void LoadCharacterBio(int charIdx) {
+	public void LoadCharacterBio(int charIdx, PersistData pers) {
 		XmlNode bio = characterBios[charIdx];
 		headerText.text = bio.Attributes["name"].InnerText;
 		int actIdx = int.Parse(bio.Attributes["idx"].InnerText);
@@ -139,7 +139,8 @@ public class PlayerDataTextWriter:ScoreTextFormatter {
 			characters.SetActive(false);
 		} else {
 			characters.SetActive(true);
-			characters.GetComponent<SpriteRenderer>().sprite = charSheet[actIdx > 9 ? 0 : actIdx];
+			int displayIdx = actIdx >= 10 ? (actIdx + 20) : (actIdx * 3 + Random.Range(0, 1 + pers.GetSaveData().getPlayerWinType(pers.GetPlayerSpritePathFromInt(actIdx))));
+			characters.GetComponent<SpriteRenderer>().sprite = charSheet[displayIdx];
 			res = GetXmlValue("age") + ": " + bio.SelectSingleNode("age").InnerText;
 			res += "\n\n" + GetXmlValue("likes") + ": " + bio.SelectSingleNode("likes").InnerText;
 			res += "\n\n" + GetXmlValue("dislikes") + ": " + bio.SelectSingleNode("dislikes").InnerText;

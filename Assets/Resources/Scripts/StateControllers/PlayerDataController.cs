@@ -62,7 +62,7 @@ public class PlayerDataController:LeftButtonsMenuController {
 		soundTest.ToggleVisibility(false);
 
 		List<XmlNode> bios = GetFilteredBiosList();
-		GameObject characters = GetGameObject(new Vector3(x - 1.2f, y), "BioChar", null, false, "HUD");
+		GameObject characters = GetGameObject(new Vector3(x - 1.4f, y), "BioChar", null, false, "HUD");
 		GameObject goBack = GetGameObject(new Vector3(x, y), "Return", Resources.Load<Sprite>(SpritePaths.PersistDataBack), false, "HUD");
 		writer = new PlayerDataTextWriter(headerText, infoPaneTextCenter, infoPaneTextLeft, infoPaneTextRight, bios, GetXMLHead(), characters, goBack, PD);
 		bioCount = bios.Count - 1;
@@ -117,7 +117,8 @@ public class PlayerDataController:LeftButtonsMenuController {
 			charIdx += dx;
 
 			if(charIdx < 0) { charIdx = bioCount; } else if(charIdx > bioCount) { charIdx = 0; }
-			if(dx != 0) { SignalMovement(); writer.LoadCharacterBio(charIdx); }
+
+			if(dx != 0) { SignalMovement(); writer.LoadCharacterBio(charIdx, PD); }
 
 			if(keyWasPressed) { p1_delay = 20; }
 		} else if(cy == 1) {
@@ -144,7 +145,7 @@ public class PlayerDataController:LeftButtonsMenuController {
 			case 5: writer.SetToHighScorePanel(PersistData.GT.QuickPlay); ToggleBioInfo(false); soundTest.ToggleVisibility(false); break;
 			case 4: writer.SetToHighScorePanel(PersistData.GT.Arcade); ToggleBioInfo(false); soundTest.ToggleVisibility(false); break;
 			case 3: writer.SetToHighScorePanel(PersistData.GT.Campaign); ToggleBioInfo(false); soundTest.ToggleVisibility(false); break;
-			case 2: writer.SetToBiosPanel(charIdx); ToggleBioInfo(true); soundTest.ToggleVisibility(false); break;
+			case 2: writer.SetToBiosPanel(charIdx, PD); ToggleBioInfo(true); soundTest.ToggleVisibility(false); break;
 			case 1: writer.SetToSoundTest(); ToggleBioInfo(false); soundTest.ToggleVisibility(true); break;
 			case 0: writer.SetToBackPanel(); ToggleBioInfo(false); soundTest.ToggleVisibility(false); break;
 		}
