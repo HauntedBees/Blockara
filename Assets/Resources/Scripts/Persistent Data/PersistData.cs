@@ -385,6 +385,8 @@ public class PersistData:MonoBehaviour {
 			runningScore = 0;
 			runningTime = 0;
 			if(gameType == GT.Challenge && advanceToWinScreenFromPuzzleScreen) {
+				p1Char = unlockNew == 1 ? C.White : C.September;
+				p2Char = p1Char;
 				ChangeScreen(GS.WinnerIsYou); 
 				return;
 			}
