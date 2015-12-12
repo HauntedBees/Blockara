@@ -45,6 +45,7 @@ public class CharSelectController:MenuController {
 			spPath = SpritePaths.CharSelSheetWhite;
 			crPath = SpritePaths.CharSelCursorsWhite;
 			crNum = 11;
+			initX = -3.21f;
 			dX = 0.6455f;
 		}
 		charactersel = GetGameObject(new Vector3(0.0f, -0.99f), "Character Select", Resources.Load<Sprite>(spPath), true, "HUD");
