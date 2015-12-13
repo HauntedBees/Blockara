@@ -22,10 +22,13 @@ public class MainMenuController:MenuController {
 	private Sprite[] buttonSheet;
 	private int konamiCodeState;
 	private float delay;
+	private bool expectingGamepad, expectingP2Gamepad;
 	System.Xml.XmlNode top;
 	public void Start() {
 		StateControllerInit(false);
 		top = GetXMLHead();
+		expectingGamepad = false;
+		expectingP2Gamepad = false;
 		buttonSheet = Resources.LoadAll<Sprite>(SpritePaths.LongButtons);
 		Screen.showCursor = true;
 		PD.level = -1;
@@ -79,7 +82,15 @@ public class MainMenuController:MenuController {
 		pleaseDadCanIHgaaveOne.renderer.transform.localScale = new Vector2(0.5f, 0.45f);
 	}
 	private void SetupTitle() {
-		string presstext = string.Format(GetXmlValue(top, "starttext"), PD.GetP1InputName(InputMethod.KeyBinding.launch), PD.GetP1InputName(InputMethod.KeyBinding.pause));
+		string presstext = "";
+		int gamepadCount = PD.GetGamepadsPresent();
+		if(gamepadCount > 0) {
+			expectingGamepad = true;
+			if(gamepadCount > 1) { expectingP2Gamepad = true; }
+			presstext = GetXmlValue(top, "starttextgamepad");
+		} else {
+			presstext = string.Format(GetXmlValue(top, "starttext"), PD.GetP1InputName(InputMethod.KeyBinding.launch), PD.GetP1InputName(InputMethod.KeyBinding.pause));
+		}
 		float texty = -0.05f;
 		if(PD.p2Char == PersistData.C.Everyone) { texty = -1.8f; }
 		pressButtonToStart = GetMeshText(new Vector3(0.0f, texty), presstext, PD.mostCommonFont);
@@ -138,6 +149,17 @@ public class MainMenuController:MenuController {
 	}
 	private void UpdateTitle() {
 		if(--timeUntilDemo < 0) { isTransitioning = true; PD.MoveToDemo(); }
+		PD.usingGamepad1 = false;
+		if(expectingGamepad) {
+			for(int i = 0; i < 4; i++) {
+				if(Input.GetKeyDown((KeyCode)(350 + 20 * i))) {
+					PD.UpdateGamepad(0, i);
+					PD.usingGamepad1 = true;
+					if(expectingP2Gamepad) { PD.usingGamepad2 = true; }
+					break;
+				}
+			}
+		}
 		PD.controller = PD.GetP1Controller();
 		if(PD.controller != null) { PD.sounds.SetSoundAndPlay(SoundPaths.S_Menu_Confirm); CleanupTitle(); }
 	}

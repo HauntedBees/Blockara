@@ -26,7 +26,7 @@ public class SaveData {
 	public List<KeyValuePair<string, int>> timePlayed, remainingInfo;
 	public Dictionary<int, int> puzzleScores, puzzleTimes;
 	public Dictionary<string, int> savedOptions, gameOptionDefaults;
-	public Dictionary<int, string> controlBindingsP1, controlBindingsP2;
+	public Dictionary<int, string> controlBindingsP1, controlBindingsP2, controlBindingsGamepadP1, controlBindingsGamepadP2;
 	public string highScoreName;
 	public string culture;
 	private SaveIOCore saveHandler;
@@ -210,7 +210,7 @@ public class SaveData {
 	private void FirstLoad() {
 		firstTime = true;
 		setupSavedOptions();
-		setupDefaultControls();
+		SetupDefaultKeyControls();
 		setupGameOptionDefaults();
 		puzzleScores = new Dictionary<int, int>();
 		puzzleTimes = new Dictionary<int, int>();
@@ -262,7 +262,7 @@ public class SaveData {
 		gameOptionDefaults.Add("3_2", 4);
 		gameOptionDefaults.Add("4_4", 0);
 	}
-	public void setupDefaultControls() {
+	public void SetupDefaultKeyControls() {
 		controlBindingsP1 = new Dictionary<int, string>();
 		controlBindingsP1.Add((int)InputMethod.KeyBinding.down, ((int)KeyCode.DownArrow).ToString());
 		controlBindingsP1.Add((int)InputMethod.KeyBinding.up, ((int)KeyCode.UpArrow).ToString());
@@ -294,6 +294,72 @@ public class SaveData {
 		controlBindingsP2.Add((int)InputMethod.KeyBinding.hidden2, ((int)KeyCode.J).ToString());
 		controlBindingsP2.Add((int)InputMethod.KeyBinding.hidden3, ((int)KeyCode.Y).ToString());
 	}
+	public void SetupDefaultPadControls() {
+		controlBindingsGamepadP1 = new Dictionary<int, string>();
+		controlBindingsGamepadP1.Add((int)InputMethod.KeyBinding.down, "joy1_6:-1");
+		controlBindingsGamepadP1.Add((int)InputMethod.KeyBinding.up, "joy1_6:1");
+		controlBindingsGamepadP1.Add((int)InputMethod.KeyBinding.left, "joy1_5:-1");
+		controlBindingsGamepadP1.Add((int)InputMethod.KeyBinding.right, "joy1_5:1");
+		controlBindingsGamepadP1.Add((int)InputMethod.KeyBinding.shiftL, "354");
+		controlBindingsGamepadP1.Add((int)InputMethod.KeyBinding.shiftR, "355");
+		controlBindingsGamepadP1.Add((int)InputMethod.KeyBinding.shiftAL, "joy1_2:1");
+		controlBindingsGamepadP1.Add((int)InputMethod.KeyBinding.shiftAR, "joy1_2:-1");
+		controlBindingsGamepadP1.Add((int)InputMethod.KeyBinding.pause, "357");
+		controlBindingsGamepadP1.Add((int)InputMethod.KeyBinding.launch, "350");
+		controlBindingsGamepadP1.Add((int)InputMethod.KeyBinding.back, "351");
+		controlBindingsGamepadP1.Add((int)InputMethod.KeyBinding.hidden1, ((int)KeyCode.H).ToString());
+		controlBindingsGamepadP1.Add((int)InputMethod.KeyBinding.hidden2, ((int)KeyCode.J).ToString());
+		controlBindingsGamepadP1.Add((int)InputMethod.KeyBinding.hidden3, ((int)KeyCode.Y).ToString());
+		controlBindingsGamepadP2 = new Dictionary<int, string>();
+		controlBindingsGamepadP2.Add((int)InputMethod.KeyBinding.down, "joy2_6:-1");
+		controlBindingsGamepadP2.Add((int)InputMethod.KeyBinding.up, "joy2_6:1");
+		controlBindingsGamepadP2.Add((int)InputMethod.KeyBinding.left, "joy2_5:-1");
+		controlBindingsGamepadP2.Add((int)InputMethod.KeyBinding.right, "joy2_5:1");
+		controlBindingsGamepadP2.Add((int)InputMethod.KeyBinding.shiftL, "374");
+		controlBindingsGamepadP2.Add((int)InputMethod.KeyBinding.shiftR, "375");
+		controlBindingsGamepadP2.Add((int)InputMethod.KeyBinding.shiftAL, "joy2_2:1");
+		controlBindingsGamepadP2.Add((int)InputMethod.KeyBinding.shiftAR, "joy2_2:-1");
+		controlBindingsGamepadP2.Add((int)InputMethod.KeyBinding.pause, "377");
+		controlBindingsGamepadP2.Add((int)InputMethod.KeyBinding.launch, "370");
+		controlBindingsGamepadP2.Add((int)InputMethod.KeyBinding.back, "371");
+		controlBindingsGamepadP2.Add((int)InputMethod.KeyBinding.hidden1, ((int)KeyCode.H).ToString());
+		controlBindingsGamepadP2.Add((int)InputMethod.KeyBinding.hidden2, ((int)KeyCode.J).ToString());
+		controlBindingsGamepadP2.Add((int)InputMethod.KeyBinding.hidden3, ((int)KeyCode.Y).ToString());
+	}
+	public void UpdateGamepadNumber(int controller, string buttonPrefix, string analogPrefix) {
+		if(controlBindingsGamepadP1 == null) { SetupDefaultPadControls(); }
+		if(controller == 0) {
+			List<int> keys = new List<int>(controlBindingsGamepadP1.Keys);
+			foreach(int key in keys) {
+				string old = controlBindingsGamepadP1[key];
+				if(old.StartsWith("joy")) {
+					controlBindingsGamepadP1[key] = analogPrefix + "_" + old.Split('_')[1];
+				} else {
+					controlBindingsGamepadP1[key] = buttonPrefix + old.Substring(2);
+				}
+			}
+		} else {
+			List<int> keys = new List<int>(controlBindingsGamepadP2.Keys);
+			foreach(int key in keys) {
+				string old = controlBindingsGamepadP2[key];
+				if(old.StartsWith("joy")) {
+					controlBindingsGamepadP2[key] = analogPrefix + "_" + old.Split('_')[1];
+				} else {
+					controlBindingsGamepadP2[key] = buttonPrefix + old.Substring(2);
+				}
+			}
+		}
+	}
+	public string GetBinding(InputMethod.KeyBinding key, int player, bool usingGamepad) {
+		if(usingGamepad) {
+			if(player == 0) { return controlBindingsGamepadP1[(int) key]; }
+			return controlBindingsGamepadP2[(int) key];
+		} else {
+			if(player == 0) { return controlBindingsP1[(int) key]; }
+			return controlBindingsP2[(int) key];
+		}
+	}
+
 	private void loadScores(ref List<KeyValuePair<string, int>> scoreBoard, XmlNode head, string headNodeName, string innerNodeName) {
 		scoreBoard = new List<KeyValuePair<string, int>>();
 		XmlNode An = head.SelectSingleNode(headNodeName);

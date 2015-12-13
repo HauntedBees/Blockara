@@ -23,6 +23,7 @@ public class PersistData:MonoBehaviour {
 	public GT gameType;
 	public int unlockNew, demoPlayers, level, puzzleType, initialDifficulty, difficulty, rounds, currentRound, rowCount, rowCount2, totalRoundTime, totalP1RoundScore, totalP2RoundScore, winType, runningScore, runningTime, prevMainMenuLocationX, prevMainMenuLocationY, balloonType;
 	public bool won, useSpecial, isTutorial, isDemo, override2P, isTransitioning, aboutToFightAFuckingBalloon, usingMouse;
+	public bool usingGamepad1, usingGamepad2;
 	public List<bool> playerOneWonRound;
 	public List<int> playerRoundScores, playerRoundTimes;
 	public InputMethod controller, controller2;
@@ -42,6 +43,8 @@ public class PersistData:MonoBehaviour {
 		prevMainMenuLocationY = 4;
 		p1Char = C.Null;
 		p2Char = C.Null;
+		usingGamepad1 = false;
+		usingGamepad2 = false;
 		initialDifficulty = 4;
 		difficulty = 4;
 		unlockNew = 0;
@@ -63,7 +66,29 @@ public class PersistData:MonoBehaviour {
 	public void ClearTileBank() { for(int i = 0; i < TileBank.Count; i++) { TileBank[i].CleanGameObjects(true); Destroy(TileBank[i].gameObject); } TileBank.Clear(); }
 	#endregion
 	#region "Controller Setup"
-	public bool IsKeyDownOrButtonPressed() { return Input.inputString.Length > 0 || Input.GetKey(KeyCode.Return) || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow); }
+	private bool IsKeyboardRegisteringAsGamepad() { return Input.GetJoystickNames()[0].IndexOf("abcdefg") >= 0; }
+	public int GetGamepadsPresent() {
+		string[] gamepads = Input.GetJoystickNames();
+		if(gamepads.Length == 0) { return 0; }
+		bool keyboardPresent = IsKeyboardRegisteringAsGamepad();
+		if(gamepads.Length == 1 && keyboardPresent) { return 0; }
+		return keyboardPresent ? (gamepads.Length - 1) : gamepads.Length;
+	}
+	public void UpdateGamepad(int player, int buttonIdx) {
+		int analogIdx = buttonIdx + 1;
+		string buttonPrefix = (35 + buttonIdx * 2).ToString();
+		string analogPrefix = "joy" + analogIdx;
+		saveInfo.UpdateGamepadNumber(player, buttonPrefix, analogPrefix);
+		SaveGeemu();
+	}
+
+	public bool IsKeyDownOrButtonPressed() {
+		for(int i = 0; i < 4; i++) {
+			if(Input.GetKeyDown((KeyCode)(350 + 20 * i))) { return true; }
+			if(Input.GetKeyDown((KeyCode)(357 + 20 * i))) { return true; }
+		}
+		return Input.inputString.Length > 0 || Input.GetKey(KeyCode.Return) || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow);
+	}
 	private InputVal GetInputVal(string binding) {
 		if(binding.Contains(":")) {
 			string[] split = binding.Split(new char[]{':'});
@@ -73,9 +98,14 @@ public class PersistData:MonoBehaviour {
 		}
 	}
 	public string GetP1InputName(InputMethod.KeyBinding binding) { return GetInputVal(saveInfo.controlBindingsP1[(int)binding]).GetName(); }
+	public string GetP2InputName(InputMethod.KeyBinding binding) { return GetInputVal(saveInfo.controlBindingsP2[(int)binding]).GetName(); }
 	public int ReturnLaunchOrPauseOrNothingIsPressed() {
-		InputVal launch = GetInputVal(saveInfo.controlBindingsP1[(int)InputMethod.KeyBinding.launch]);
-		InputVal pause = GetInputVal(saveInfo.controlBindingsP1[(int)InputMethod.KeyBinding.pause]);
+		for(int i = 0; i < 4; i++) {
+			if(Input.GetKeyDown((KeyCode)(350 + 20 * i))) { return 1; }
+			if(Input.GetKeyDown((KeyCode)(357 + 20 * i))) { return 2; }
+		}
+		InputVal launch = GetInputVal(saveInfo.GetBinding(InputMethod.KeyBinding.launch, 0, usingGamepad1));
+		InputVal pause = GetInputVal(saveInfo.GetBinding(InputMethod.KeyBinding.pause, 0, usingGamepad1));
 		if(Input.GetMouseButtonDown(0) || launch.KeyDown()) { return 1; }
 		if(pause.KeyDown()) { return 2; }
 		return 0;
@@ -86,8 +116,17 @@ public class PersistData:MonoBehaviour {
 	}
 
 	public InputMethod detectInput_P2() {
-		if(Input.GetKeyDown((KeyCode)int.Parse(saveInfo.controlBindingsP2[(int)InputMethod.KeyBinding.launch])) 
-		   || Input.GetKeyDown((KeyCode)int.Parse(saveInfo.controlBindingsP2[(int)InputMethod.KeyBinding.pause]))) { return new Input_Computer(); }
+		if(usingGamepad2) {
+			for(int i = 0; i < 4; i++) {
+				if(Input.GetKeyDown((KeyCode)(350 + 20 * i))) {
+					UpdateGamepad(1, i);
+					break;
+				}
+			}
+		}
+		InputVal launch = GetInputVal(saveInfo.GetBinding(InputMethod.KeyBinding.launch, 1, usingGamepad2));
+		InputVal pause = GetInputVal(saveInfo.GetBinding(InputMethod.KeyBinding.pause, 1, usingGamepad2));
+		if(launch.KeyDown() || pause.KeyDown()) { return new Input_Computer(); }
 		return null;
 	}
 	#endregion
@@ -467,9 +506,17 @@ public class PersistData:MonoBehaviour {
 	}
 	public void SetKeyBinding(int player, int key, string val) {
 		if(player == 0) {
-			saveInfo.controlBindingsP1[key] = val;
+			if(usingGamepad1) {
+				saveInfo.controlBindingsGamepadP1[key] = val;
+			} else {
+				saveInfo.controlBindingsP1[key] = val;
+			}
 		} else {
-			saveInfo.controlBindingsP2[key] = val;
+			if(usingGamepad2) {
+				saveInfo.controlBindingsGamepadP2[key] = val;
+			} else {
+				saveInfo.controlBindingsP2[key] = val;
+			}
 		}
 		SaveGeemu();
 	}
@@ -479,11 +526,12 @@ public class PersistData:MonoBehaviour {
 		return false;
 	}
 	public Dictionary<int, string> GetKeyBindings(int player = 0) {
-		if(saveInfo.controlBindingsP1 == null) { saveInfo.setupDefaultControls(); SaveGeemu(); }
+		if(saveInfo.controlBindingsP1 == null) { saveInfo.SetupDefaultKeyControls(); SaveGeemu(); }
+		if(saveInfo.controlBindingsGamepadP1 == null) { saveInfo.SetupDefaultPadControls(); SaveGeemu(); }
 		if(player == 0) {
-			return saveInfo.controlBindingsP1;
+			return usingGamepad1 ? saveInfo.controlBindingsGamepadP1 : saveInfo.controlBindingsP1;
 		} else {
-			return saveInfo.controlBindingsP2;
+			return usingGamepad2 ? saveInfo.controlBindingsGamepadP2 : saveInfo.controlBindingsP2;
 		}
 	}
 	#endregion

@@ -3,6 +3,9 @@
 	<opening>Every 12,000 years the September Dragon {0}rises from her slumber to grant a wish to the {0}best alchemist in the world. {0}{0}Today, she awakens...</opening> <!-- ({0} is NEWLINE) -->
 	<!-- Main Menu -->
 	<starttext>Press {0} or {1} to begin!</starttext> <!-- {0} is LAUNCH key/button, {1} is PAUSE key/button. -->
+	<starttextgamepad>Press A to begin!</starttextgamepad>
+	<starttext2P>Press {1}{0}or {2}!</starttext2P> <!-- {0} is NEWLINE. {1} is LAUNCH key/button, {2} is PAUSE key/button. -->
+	<starttext2Pgamepad>Press A!</starttext2Pgamepad>
 	<quickplay>Quick Play</quickplay>
 	<arcade>Story Mode</arcade>
 	<campaign>Endless Mode</campaign>

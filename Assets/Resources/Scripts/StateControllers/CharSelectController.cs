@@ -15,7 +15,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Xml;
 public class CharSelectController:MenuController {
-	private GameObject bg1, bg2, charactersel, begin, beginText, cancel, charSprite1, charSprite2, chooseText, charName1, charName2;
+	private GameObject bg1, bg2, charactersel, begin, beginText, cancel, charSprite1, charSprite2, chooseText, charName1, charName2, char2StartText;
 	private OptionsSelector cursorOpDisplay;
 	private OptionsCursor cursorOp;
 	private MenuCursor cursor2;
@@ -70,7 +70,19 @@ public class CharSelectController:MenuController {
 		SetupBackgrounds();
 		ToggleDisplayOptions(false);
 		if(PD.gameType == PersistData.GT.Arcade) { AddVictoryIcons(); }
-		else if(PD.gameType == PersistData.GT.Versus) { conf2 = false; }
+		else if(PD.gameType == PersistData.GT.Versus) {
+			SetupP2StartText(top, f);
+			conf2 = false;
+		}
+	}
+	private void SetupP2StartText(XmlNode top, FontData f) {
+		string text = "";
+		if(PD.usingGamepad2) {
+			text = GetXmlValue(top, "starttext2Pgamepad");
+		} else {
+			text = string.Format(GetXmlValue(top, "starttext2P"), "\n", PD.GetP2InputName(InputMethod.KeyBinding.launch), PD.GetP2InputName(InputMethod.KeyBinding.pause));
+		}
+		char2StartText = GetMeshText(new Vector3(2.5f, 1.1f), text, f).gameObject;
 	}
 	private int InitOptionsTextAndReturnValueCount() {
 		FontData f = PD.mostCommonFont.Clone(); 
@@ -400,18 +412,19 @@ public class CharSelectController:MenuController {
 				if(pressed) { p2_delay = 5; }
 			}
 		} else if(PD.gameType == PersistData.GT.Versus && PD.controller2 == null) {
-			int completionPercent = PD.GetSaveData().CalculateGameCompletionPercent();
-			string crPath = SpritePaths.CharSelCursors;
-			int crNum = 10;
-			if(completionPercent == 100) {
-				crPath = SpritePaths.CharSelCursorsAll;
-				crNum = 12;
-			} else if(completionPercent >= 50) {
-				crPath = SpritePaths.CharSelCursorsWhite;
-				crNum = 11;
-			}
 			PD.controller2 = PD.detectInput_P2();
 			if(PD.controller2 != null) {
+				char2StartText.SetActive(false);
+				int completionPercent = PD.GetSaveData().CalculateGameCompletionPercent();
+				string crPath = SpritePaths.CharSelCursors;
+				int crNum = 10;
+				if(completionPercent == 100) {
+					crPath = SpritePaths.CharSelCursorsAll;
+					crNum = 12;
+				} else if(completionPercent >= 50) {
+					crPath = SpritePaths.CharSelCursorsWhite;
+					crNum = 11;
+				}
 				cursor2 = GetMenuCursor(crNum, 1, crPath, initX, -0.99f, dX, 0.0f, 1, 0, 2, 1, 0.2f);
 				InitPlayer2Select();
 				UpdateBackground(false);
