@@ -54,7 +54,7 @@ public class BoardWar:BoardWarCore {
 	} 
 	protected void CreateBG() {
 		if(!isShown) { return; }
-		GetGameObject(GetScreenPosFromXY(0, 0) - new Vector3(0.13f, 0.13f), "Background", Resources.Load<Sprite>(SpritePaths.BGTileBack), false, "BG1");
+		GetGameObject(GetScreenPosFromXY(0, 0) - new Vector3(0.18f, 0.13f), "Background", Resources.Load<Sprite>(SpritePaths.BGTileBack), false, "BG1");
 	}
 	public void SetMirror(BoardMirror m) { mirror = m; }
 	public BoardMirror GetMirror() { return mirror; }
