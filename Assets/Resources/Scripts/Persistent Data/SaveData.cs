@@ -136,6 +136,7 @@ public class SaveData {
 			if(timePlayed[i].Key == name) { 
 				KeyValuePair<string, int> res = new KeyValuePair<string, int>(timePlayed[i].Key, timePlayed[i].Value + time);
 				timePlayed[i] = res;
+				break;
 			}
 		}
 	}

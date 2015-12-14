@@ -330,6 +330,7 @@ public class GameController:CharDisplayController {
 						isTransitioning = true;
 						if(PD.gameType == PersistData.GT.Challenge) {
 							PD.LowerPuzzleLevel();
+						PD.SaveAndPuzzleSelect(hud.GetTimeInSeconds()); 
 						} else { 
 							PD.SaveAndMainMenu(hud.GetTimeInSeconds());
 						} 
@@ -578,6 +579,7 @@ public class GameController:CharDisplayController {
 		
 	private void DebugShit() {
 		if(Input.GetKeyDown(KeyCode.BackQuote)) { PD.SaveAndReset(0); return; }
+		if(Input.GetKeyDown(KeyCode.Q)) { board1.Debug_SwapTile(); }
 		/*if(Input.GetKeyDown(KeyCode.Q)) { board1.TakeDamage(cursor1.getX(), 6, 0); }
 		if(Input.GetKeyDown(KeyCode.W)) { board1.TakeDamage(cursor1.getX(), 6, 1); }
 		if(Input.GetKeyDown(KeyCode.E)) { board1.TakeDamage(cursor1.getX(), 6, 2); }*/

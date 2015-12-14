@@ -115,6 +115,15 @@ public class InGameHUD:All {
 		lastCheck = Time.time;
 		if(++seconds >= 60) { seconds = 0; minutes++; }
 		string res = minutes + (seconds<10?":0":":") + seconds;
+		if(minutes == 100 && seconds == 0) {
+			Vector3 t = timerText.transform.localScale;
+			t.x *= 0.8f;
+			timerText.transform.localScale = t;
+		} else if(minutes == 1000 && seconds == 0) {
+			Vector3 t = timerText.transform.localScale;
+			t.x *= 0.7f;
+			timerText.transform.localScale = t;
+		}
 		if(minutes >= 1000) { res = "go outside"; }
 		timerText.text = res;
 	}

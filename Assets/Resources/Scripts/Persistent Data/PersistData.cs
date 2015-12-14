@@ -167,6 +167,7 @@ public class PersistData:MonoBehaviour {
 	public void SaveAndQuit(int time) { saveInfo.addPlayTime(gameType, time); SaveGeemu(); Application.Quit(); }
 	public void SaveAndReset(int time) { saveInfo.addPlayTime(gameType, time); SaveGeemu(); ChangeScreen(GS.Game); }
 	public void SaveAndMainMenu(int time) { saveInfo.addPlayTime(gameType, time); SaveGeemu(); GoToMainMenu(); }
+	public void SaveAndPuzzleSelect(int time) { saveInfo.addPlayTime(gameType, time); SaveGeemu(); ChangeScreen(GS.PuzSel); }
 	public void GoToMainMenu() { ChangeScreen(GS.MainMenu); }
 	public void ChangeScreen(GS type) {
 		if(isTransitioning) { return; }
