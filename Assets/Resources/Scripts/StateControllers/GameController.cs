@@ -330,6 +330,7 @@ public class GameController:CharDisplayController {
 						isTransitioning = true;
 						if(PD.gameType == PersistData.GT.Challenge) {
 							PD.LowerPuzzleLevel();
+							PD.SaveAndPuzzleSelect(hud.GetTimeInSeconds()); 
 						} else { 
 							PD.SaveAndMainMenu(hud.GetTimeInSeconds());
 						} 
