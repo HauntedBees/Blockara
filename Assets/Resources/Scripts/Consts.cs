@@ -24,7 +24,6 @@ public static class SoundPaths {
 	public const string NarratorPath		= VoicePath + "Narrator/"; 
 	public const string CutscenePath 		= RootPath + "cutsceneBeeps/";
 	public const string A_BEEEEEE 			= RootPath + "aBeeClean";
-	public const string S_AllShout			= VoicePath + "AllShout";
 	public const string S_Menu_Confirm 		= SoundEffectsPath + "menuconfirm";
 	public const string S_Menu_Deny 		= SoundEffectsPath + "menucancel";
 	public const string S_Menu_Select 		= SoundEffectsPath + "menusel";

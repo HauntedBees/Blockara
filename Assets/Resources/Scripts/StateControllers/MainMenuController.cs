@@ -51,7 +51,7 @@ public class MainMenuController:MenuController {
 		bool onRight = System.Array.IndexOf(new int[] {0, 3, 4, 7, 11, 13, 15, 16, 17, 19, 20, 22, 23, 24, 27, 29, 31}, winOffset) >= 0;
 		float xOffset = onRight?2.5f:-2.5f;
 		if(PD.p2Char == PersistData.C.Everyone) {
-			PD.sounds.SetVoiceAndPlay(SoundPaths.S_AllShout, 0);
+			PD.sounds.SetVoiceAndPlay(SoundPaths.NarratorPath + "001", 0);
 			PD.sounds.SetMusicAndPlay(SoundPaths.M_Title_DerivPath + "Group");
 			character = GetGameObject(new Vector3(0.0f, -0.5f), "A Player Is Everyone!", Resources.Load<Sprite>(SpritePaths.CharGroupShot), true, "Zapper");
 			charTalker = new CutsceneChar(PD.GetPlayerSpritePath(PD.p2Char), character, null, 0, PD);
