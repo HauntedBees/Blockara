@@ -259,9 +259,9 @@ public class SaveData {
 		gameOptionDefaults.Add("2_2", 6);
 		gameOptionDefaults.Add("2_3", 6);
 		gameOptionDefaults.Add("2_4", 6);
-		gameOptionDefaults.Add("3_0", 4);
-		gameOptionDefaults.Add("3_1", 4);
-		gameOptionDefaults.Add("3_2", 4);
+		gameOptionDefaults.Add("3_0", 2);
+		gameOptionDefaults.Add("3_1", 2);
+		gameOptionDefaults.Add("3_2", 2);
 		gameOptionDefaults.Add("4_4", 0);
 	}
 	public void SetupDefaultKeyControls() {
