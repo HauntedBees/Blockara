@@ -104,7 +104,7 @@ public class AccessibilityHandler:MenuHandler {
 		if((val_scopo == 1 && dx == 1) || (val_scopo == 0 && dx == -1)) { return false; }
 		val_scopo += dx;
 		UpdateScopoText();
-		UpdateCursorPosition(8, val_scopo);
+		UpdateCursorPosition(2, val_scopo);
 		return true;
 	}
 	public void Reset(SaveData sd) {
@@ -122,9 +122,8 @@ public class AccessibilityHandler:MenuHandler {
 		UpdateEasyModeText();
 		UpdateKeyDelayText();
 		UpdateScopoText();
-		optionInfos.Add(new OptionMinMaxInfo(0, 0, 0));
-		optionInfos.Add(new OptionMinMaxInfo(1, 0, 2));
-		optionInfos.Add(new OptionMinMaxInfo(1, 0, 2));
+		optionInfos.Add(new OptionMinMaxInfo(1, 0, 0));
+		optionInfos.Add(new OptionMinMaxInfo(1, 0, 0));
 		optionInfos.Add(new OptionMinMaxInfo(val_scopo, 0, 1));
 		optionInfos.Add(new OptionMinMaxInfo(val_keydelay, 6, 20));
 		optionInfos.Add(new OptionMinMaxInfo(val_easymode, 0, 1));

@@ -42,14 +42,14 @@ public class OptionsController:LeftButtonsMenuController {
 
 		float x = -2.85f, topy = 0.15f;
 		cursor = GetMenuCursor(1, 4, null, x, topy - 0.6f, 0.0f, 0.3f, 0, 3);
-		cursor2 = GetMenuCursor(1, 10, null, 1.9f, -0.8f, 0.0f, 0.2f, 0, 8);
+		cursor2 = GetMenuCursor(1, 9, null, 1.9f, -0.8f, 0.0f, 0.2f, 0, 8);
 
 		cursor3 = GetMenuCursor(2, 1, SpritePaths.RightArrows, 0.55f, 1.25f, 1.75f, 0.0f, 0, 0, 1, 2, 1.0f);
 		cursor3.Rotate(-90.0f);
 		cursor3.SetVisibility(false);
 
 		cursor2Display = gameObject.AddComponent<OptionsSelector>();
-		cursor2Display.Setup(1.1f, -0.8f, 0.2f);
+		cursor2Display.Setup(1.1f, -0.6f, 0.2f);
 		cursor2Display.SetVisibility(false);
 
 		top = GetXMLHead();
@@ -247,18 +247,19 @@ public class OptionsController:LeftButtonsMenuController {
 		cursor3.SetVisibility(false);
 		cursor2.DoUpdate();
 		int cy = cursor2.getY();
-		if(cy == 0) { cursor2.setY(1); cy = 1; }
+		//if(cy == 0) { cursor2.setY(1); cy = 1; }
 		cursor2Display.UpdatePosition(cy);
+		//Debug.Log (cy);
 		if(cursor2.launchOrPause()) {
-			if(cy == 1) {
+			if(cy == 0) {
 				menuPosition = 0;
 				accessibilityScreen.Reset(PD.GetSaveData());
 				cursor.setY(1);
 				SignalFailure();
-			} else if(cy == 2) { 
+			} else if(cy == 1) { 
 				ApplySelected_Accessibility();
 			} else {
-				cursor2.setY(2);
+				cursor2.setY(1);
 			}
 		} else if(cursor2.back()) {
 			menuPosition = 0;
@@ -282,7 +283,7 @@ public class OptionsController:LeftButtonsMenuController {
 				}
 			}
 		}
-		accessibilityScreen.UpdateCursorGraphic(cursor2Display, cursor2.getY());
+		accessibilityScreen.UpdateCursorGraphic(cursor2Display, cy);
 	}
 	private void UpdateOptions() {
 		cursor2Display.SetVisibility(true);
@@ -330,20 +331,20 @@ public class OptionsController:LeftButtonsMenuController {
 		optionsScreen.UpdateCursorGraphic(cursor2Display, cursor2.getY());
 	}
 	private void UpdateAccessibilityOption(int y, int dx) {
-		if(y < 3) { SignalFailure(); return; }
-		if(y == 9) {
+		if(y < 2) { SignalFailure(); return; }
+		if(y == 8) {
 			if(!accessibilityScreen.ChangeColorblind(dx)) { SignalFailure(); } else { SignalMovement(); }
-		} else if(y == 8) {
-			if(!accessibilityScreen.ChangeHUDPlacement(dx)) { SignalFailure(); } else { SignalMovement(); }
 		} else if(y == 7) {
-			if(!accessibilityScreen.ChangeEmphasizeCursor(dx)) { SignalFailure(); } else { SignalMovement(); }
+			if(!accessibilityScreen.ChangeHUDPlacement(dx)) { SignalFailure(); } else { SignalMovement(); }
 		} else if(y == 6) {
-			if(!accessibilityScreen.ChangeTouchControls(dx)) { SignalFailure(); } else { SignalMovement(); }
+			if(!accessibilityScreen.ChangeEmphasizeCursor(dx)) { SignalFailure(); } else { SignalMovement(); }
 		} else if(y == 5) {
-			if(!accessibilityScreen.ChangeEasyMode(dx)) { SignalFailure(); } else { SignalMovement(); }
+			if(!accessibilityScreen.ChangeTouchControls(dx)) { SignalFailure(); } else { SignalMovement(); }
 		} else if(y == 4) {
-			if(!accessibilityScreen.ChangeKeyDelay(dx)) { SignalFailure(); } else { SignalMovement(); }
+			if(!accessibilityScreen.ChangeEasyMode(dx)) { SignalFailure(); } else { SignalMovement(); }
 		} else if(y == 3) {
+			if(!accessibilityScreen.ChangeKeyDelay(dx)) { SignalFailure(); } else { SignalMovement(); }
+		} else if(y == 2) {
 			if(!accessibilityScreen.ChangeScopophobia(dx)) { SignalFailure(); } else { SignalMovement(); }
 		}
 	}
@@ -568,7 +569,8 @@ public class OptionsController:LeftButtonsMenuController {
 			Vector2 res = accessibilityScreen.GetColliderPosition(clicker);
 			if(res.y < 0) { return false; }
 			int i = (int) res.y;
-			cursor2.setY(9 - i);
+			int cy = 8 - i;
+			cursor2.setY(cy);
 			int dx = 0;
 			if(clicker.getPositionInGameObject(cursor2Display.leftArrow).z == 1.0f) {
 				cursor2Display.HighlightArrow(false);
@@ -580,15 +582,15 @@ public class OptionsController:LeftButtonsMenuController {
 				cursor2Display.ClearArrows();
 			}
 			if(!clicker.isDown()) { return false; }
-			if(i == 7) { 
+			if(cy == 1) { 
 				ApplySelected_Accessibility();
-			} else if(i == 8) {
+			} else if(cy == 0) {
 				menuPosition = 0;
 				SignalFailure();
 				accessibilityScreen.Reset(PD.GetSaveData());
 				cursor.setY(1);
 			} else {
-				UpdateAccessibilityOption(9 - i, dx);
+				UpdateAccessibilityOption(cy, dx);
 			}
 		} else {
 			if(clicker.getPositionInGameObject(side_back).z > 0) {
