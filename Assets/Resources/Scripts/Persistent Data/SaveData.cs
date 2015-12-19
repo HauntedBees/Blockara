@@ -238,7 +238,7 @@ public class SaveData {
 		savedOptions.Add("fullscreen", Screen.fullScreen?1:0);
 		savedOptions.Add("vol_m", 80);
 		savedOptions.Add("vol_s", 90);
-		savedOptions.Add("vol_v", 90);
+		savedOptions.Add("vol_v", 100);
 		savedOptions.Add("colorblind", 0);
 		savedOptions.Add("hudplacement", 1);
 		savedOptions.Add("emphasizecursor", 0);
