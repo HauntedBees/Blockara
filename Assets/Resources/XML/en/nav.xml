@@ -124,6 +124,7 @@
 	<!--Accessibility Values-->
 	<accessibilityscalewidth>0.8</accessibilityscalewidth> <!-- adjust this value so that the right arrow does not overlap the largest possible value -->
 	<colorblind>Color-Blind Mode</colorblind>
+	<scopophobia>Scopophobia Mode</scopophobia>
 	<hudplacement>In-Game HUD Placement</hudplacement>
 	<emphasizecursor>Use High Contrast Cursor</emphasizecursor>
 	<touchcontrols>In-Game Mouse Controls</touchcontrols>

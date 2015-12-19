@@ -494,6 +494,7 @@ public class PersistData:MonoBehaviour {
 	public SaveData GetSaveData() { return saveInfo; }
 	public bool UseHighContrastCursor() { return saveInfo.savedOptions["emphasizecursor"] == 1; }
 	public bool IsColorBlind() { return saveInfo.savedOptions["colorblind"] == 1; }
+	public bool IsScopophobic() { return saveInfo.savedOptions["scopophobia"] == 1; }
 	public bool IsLeftAlignedHUD() { return saveInfo.savedOptions["hudplacement"] == 0; }
 	public void SetOption(string s, int v) { if(!saveInfo.savedOptions.ContainsKey(s)) { saveInfo.savedOptions.Add(s, v); } else { saveInfo.savedOptions[s] = v; } }
 	public void SetRes() { Screen.SetResolution(saveInfo.savedOptions["width"], saveInfo.savedOptions["height"], saveInfo.savedOptions["fullscreen"] == 1); }

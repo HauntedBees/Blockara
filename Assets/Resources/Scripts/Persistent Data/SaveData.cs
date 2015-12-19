@@ -246,6 +246,7 @@ public class SaveData {
 		savedOptions.Add("easymode", 0);
 		savedOptions.Add("keydelay", 7);
 		savedOptions.Add("beatafuckingballoon", 0);
+		savedOptions.Add("scopophobia", 0);
 	}
 	public void setupGameOptionDefaults() {
 		gameOptionDefaults = new Dictionary<string, int>();

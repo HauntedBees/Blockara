@@ -96,6 +96,7 @@ public static class SpritePaths {
 	public const string DestroyTile 			= HUDPath + "destroyTile";
 	public const string DialogBox 				= HUDPath + "dialogTile";
 	public const string EyeSheet 				= HUDPath + "eyes";
+	public const string EyeSheetScopo 			= HUDPath + "eyes_sp";
 	public const string TransparentBlackCover 	= HUDPath + "finnCover";
 	public const string GuideCircle 			= HUDPath + "guide";
 	public const string InfoBox 				= HUDPath + "infoTile1P";

@@ -29,7 +29,7 @@ public class BoardWarSpecial:BoardWar {
 		for (int x = 0; x < width; x++) { tiles.Add(CreateTile(x, height - 1, 4)); }
 		shields = new List<Shield>();
 		shieldSheet = Resources.LoadAll<Sprite>(SpritePaths.Shield);
-		eyeSheet = Resources.LoadAll<Sprite>(SpritePaths.EyeSheet);
+		eyeSheet = Resources.LoadAll<Sprite>(PD.IsScopophobic()?SpritePaths.EyeSheetScopo:SpritePaths.EyeSheet);
 		gold = 0; eyeballTimer = 0;
 		justGotAShield = false;
 		frozen = false;

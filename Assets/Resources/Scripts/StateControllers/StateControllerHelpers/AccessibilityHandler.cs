@@ -14,8 +14,8 @@ limitations under the License.*/
 using UnityEngine;
 using System.Collections.Generic;
 public class AccessibilityHandler:MenuHandler {
-	private TextMesh txt_colorblind, txt_hudplacement, txt_emphasizecursor, txt_touchcontrols, txt_easymode, txt_keydelay, txt_clr;
-	public int val_colorblind, val_hudplacement, val_emphasizecursor, val_touchcontrols, val_easymode, val_keydelay;
+	private TextMesh txt_colorblind, txt_hudplacement, txt_emphasizecursor, txt_touchcontrols, txt_easymode, txt_keydelay, txt_scopo, txt_clr;
+	public int val_colorblind, val_hudplacement, val_emphasizecursor, val_touchcontrols, val_easymode, val_keydelay, val_scopo;
 	public void Setup() {
 		top = GetXMLHead();
 		headerText.text = GetXmlValue(top, "accessibility");
@@ -28,6 +28,7 @@ public class AccessibilityHandler:MenuHandler {
 		texts.Add(GetMeshText(new Vector2(x,  0.4f), GetXmlValue(top, "touchcontrols") + ":", f));
 		texts.Add(GetMeshText(new Vector2(x,  0.2f), GetXmlValue(top, "easymode") + ":", f));
 		texts.Add(GetMeshText(new Vector2(x,  0.0f), GetXmlValue(top, "keydelay") + ":", f));
+		texts.Add(GetMeshText(new Vector2(x,  -0.2f), GetXmlValue(top, "scopophobia") + ":", f));
 		x += 0.25f;
 		f.align = TextAlignment.Left; f.anchor = TextAnchor.MiddleLeft;
 		txt_colorblind = GetMeshText(new Vector3(x,  1.0f), GetXmlValue(top, "off"), f);
@@ -36,14 +37,16 @@ public class AccessibilityHandler:MenuHandler {
 		txt_touchcontrols = GetMeshText(new Vector3(x,  0.4f), GetXmlValue(top, "off"), f);
 		txt_easymode = GetMeshText(new Vector3(x,  0.2f), GetXmlValue(top, "off"), f);
 		txt_keydelay = GetMeshText(new Vector3(x,  0.0f), "7", f);
-		texts.Add(GetMeshText(new Vector3(x, -0.2f), GetXmlValue(top, "apply"),  f));
-		texts.Add(GetMeshText(new Vector3(x, -0.4f), GetXmlValue(top, "cancel"), f));
+		txt_scopo = GetMeshText(new Vector3(x,  -0.2f), GetXmlValue(top, "off"), f);
+		texts.Add(GetMeshText(new Vector3(x, -0.4f), GetXmlValue(top, "apply"),  f));
+		texts.Add(GetMeshText(new Vector3(x, -0.6f), GetXmlValue(top, "cancel"), f));
 		texts.Add(txt_colorblind);
 		texts.Add(txt_hudplacement);
 		texts.Add(txt_emphasizecursor);
 		texts.Add(txt_touchcontrols);
 		texts.Add(txt_easymode);
 		texts.Add(txt_keydelay);
+		texts.Add(txt_scopo);
 		x = 1.9f;
 		colliders.Add(GetCollider("cbd", new Vector3(x, 1.0f)));
 		colliders.Add(GetCollider("hud", new Vector3(x, 0.8f)));
@@ -51,8 +54,9 @@ public class AccessibilityHandler:MenuHandler {
 		colliders.Add(GetCollider("tch", new Vector3(x, 0.4f)));
 		colliders.Add(GetCollider("e-z", new Vector3(x, 0.2f)));
 		colliders.Add(GetCollider("del", new Vector3(x, 0.0f)));
-		colliders.Add(GetCollider("apl", new Vector3(x, -0.2f)));
-		colliders.Add(GetCollider("cnx", new Vector3(x, -0.4f)));
+		colliders.Add(GetCollider("sco", new Vector3(x, -0.2f)));
+		colliders.Add(GetCollider("apl", new Vector3(x, -0.4f)));
+		colliders.Add(GetCollider("cnx", new Vector3(x, -0.6f)));
 	}
 	public bool ChangeColorblind(int dx) {
 		if((val_colorblind == 1 && dx == 1) || (val_colorblind == 0 && dx == -1)) { return false; }
@@ -96,6 +100,13 @@ public class AccessibilityHandler:MenuHandler {
 		UpdateCursorPosition(3, val_keydelay);
 		return true;
 	}
+	public bool ChangeScopophobia(int dx) {
+		if((val_scopo == 1 && dx == 1) || (val_scopo == 0 && dx == -1)) { return false; }
+		val_scopo += dx;
+		UpdateScopoText();
+		UpdateCursorPosition(8, val_scopo);
+		return true;
+	}
 	public void Reset(SaveData sd) {
 		val_colorblind = sd.savedOptions["colorblind"];
 		val_hudplacement = sd.savedOptions["hudplacement"];
@@ -103,15 +114,18 @@ public class AccessibilityHandler:MenuHandler {
 		val_touchcontrols = sd.savedOptions["touchcontrols"];
 		val_easymode = sd.savedOptions["easymode"];
 		val_keydelay = sd.savedOptions["keydelay"];
+		val_scopo = sd.savedOptions["scopophobia"];
 		UpdateColorBlindText();
 		UpdateHUDPlacementText();
 		UpdateEmphasizeCursorText();
 		UpdateTouchControlText();
 		UpdateEasyModeText();
 		UpdateKeyDelayText();
+		UpdateScopoText();
 		optionInfos.Add(new OptionMinMaxInfo(0, 0, 0));
 		optionInfos.Add(new OptionMinMaxInfo(1, 0, 2));
 		optionInfos.Add(new OptionMinMaxInfo(1, 0, 2));
+		optionInfos.Add(new OptionMinMaxInfo(val_scopo, 0, 1));
 		optionInfos.Add(new OptionMinMaxInfo(val_keydelay, 6, 20));
 		optionInfos.Add(new OptionMinMaxInfo(val_easymode, 0, 1));
 		optionInfos.Add(new OptionMinMaxInfo(val_touchcontrols, 0, 1));
@@ -125,9 +139,10 @@ public class AccessibilityHandler:MenuHandler {
 	private void UpdateColorBlindText() { txt_colorblind.text = val_colorblind == 1 ? GetXmlValue(top, "on") : GetXmlValue(top, "off"); }
 	private void UpdateTouchControlText() { txt_touchcontrols.text = val_touchcontrols == 1 ? GetXmlValue(top, "on") : GetXmlValue(top, "off"); }
 	private void UpdateHUDPlacementText() { txt_hudplacement.text = val_hudplacement == 1 ? GetXmlValue(top, "right") : GetXmlValue(top, "left"); }
+	private void UpdateScopoText() { txt_scopo.text = val_scopo == 1 ? GetXmlValue(top, "on") : GetXmlValue(top, "off"); }
 	public Vector2 GetColliderPosition(MouseCore clicker) {
-		if(colliders.Count != 8) { return new Vector2(-1.0f, -1.0f); }
-		for(int i = 0; i < 8; i++) {
+		if(colliders.Count != 9) { return new Vector2(-1.0f, -1.0f); }
+		for(int i = 0; i < 9; i++) {
 			Vector3 collider = clicker.getPositionInGameObject(colliders[i]);
 			if(collider.z == 0) { continue; }
 			return new Vector2(collider.x, i);

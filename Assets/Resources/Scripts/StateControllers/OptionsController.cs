@@ -42,14 +42,14 @@ public class OptionsController:LeftButtonsMenuController {
 
 		float x = -2.85f, topy = 0.15f;
 		cursor = GetMenuCursor(1, 4, null, x, topy - 0.6f, 0.0f, 0.3f, 0, 3);
-		cursor2 = GetMenuCursor(1, 9, null, 1.9f, -0.6f, 0.0f, 0.2f, 0, 8);
+		cursor2 = GetMenuCursor(1, 10, null, 1.9f, -0.8f, 0.0f, 0.2f, 0, 8);
 
 		cursor3 = GetMenuCursor(2, 1, SpritePaths.RightArrows, 0.55f, 1.25f, 1.75f, 0.0f, 0, 0, 1, 2, 1.0f);
 		cursor3.Rotate(-90.0f);
 		cursor3.SetVisibility(false);
 
 		cursor2Display = gameObject.AddComponent<OptionsSelector>();
-		cursor2Display.Setup(1.1f, -0.6f, 0.2f);
+		cursor2Display.Setup(1.1f, -0.8f, 0.2f);
 		cursor2Display.SetVisibility(false);
 
 		top = GetXMLHead();
@@ -331,18 +331,20 @@ public class OptionsController:LeftButtonsMenuController {
 	}
 	private void UpdateAccessibilityOption(int y, int dx) {
 		if(y < 3) { SignalFailure(); return; }
-		if(y == 8) {
+		if(y == 9) {
 			if(!accessibilityScreen.ChangeColorblind(dx)) { SignalFailure(); } else { SignalMovement(); }
-		} else if(y == 7) {
+		} else if(y == 8) {
 			if(!accessibilityScreen.ChangeHUDPlacement(dx)) { SignalFailure(); } else { SignalMovement(); }
-		} else if(y == 6) {
+		} else if(y == 7) {
 			if(!accessibilityScreen.ChangeEmphasizeCursor(dx)) { SignalFailure(); } else { SignalMovement(); }
-		} else if(y == 5) {
+		} else if(y == 6) {
 			if(!accessibilityScreen.ChangeTouchControls(dx)) { SignalFailure(); } else { SignalMovement(); }
-		} else if(y == 4) {
+		} else if(y == 5) {
 			if(!accessibilityScreen.ChangeEasyMode(dx)) { SignalFailure(); } else { SignalMovement(); }
-		} else if(y == 3) {
+		} else if(y == 4) {
 			if(!accessibilityScreen.ChangeKeyDelay(dx)) { SignalFailure(); } else { SignalMovement(); }
+		} else if(y == 3) {
+			if(!accessibilityScreen.ChangeScopophobia(dx)) { SignalFailure(); } else { SignalMovement(); }
 		}
 	}
 	private void UpdateOption(int y, int dx) {
@@ -401,6 +403,7 @@ public class OptionsController:LeftButtonsMenuController {
 		PD.SetOption("touchcontrols", accessibilityScreen.val_touchcontrols);
 		PD.SetOption("easymode", accessibilityScreen.val_easymode);
 		PD.SetOption("keydelay", accessibilityScreen.val_keydelay);
+		PD.SetOption("scopophobia", accessibilityScreen.val_scopo);
 		PD.KEY_DELAY = accessibilityScreen.val_keydelay;
 		PD.SaveGeemu();
 	}
@@ -565,7 +568,7 @@ public class OptionsController:LeftButtonsMenuController {
 			Vector2 res = accessibilityScreen.GetColliderPosition(clicker);
 			if(res.y < 0) { return false; }
 			int i = (int) res.y;
-			cursor2.setY(8 - i);
+			cursor2.setY(9 - i);
 			int dx = 0;
 			if(clicker.getPositionInGameObject(cursor2Display.leftArrow).z == 1.0f) {
 				cursor2Display.HighlightArrow(false);
@@ -577,15 +580,15 @@ public class OptionsController:LeftButtonsMenuController {
 				cursor2Display.ClearArrows();
 			}
 			if(!clicker.isDown()) { return false; }
-			if(i == 6) { 
+			if(i == 7) { 
 				ApplySelected_Accessibility();
-			} else if(i == 7) {
+			} else if(i == 8) {
 				menuPosition = 0;
 				SignalFailure();
 				accessibilityScreen.Reset(PD.GetSaveData());
 				cursor.setY(1);
 			} else {
-				UpdateAccessibilityOption(8 - i, dx);
+				UpdateAccessibilityOption(9 - i, dx);
 			}
 		} else {
 			if(clicker.getPositionInGameObject(side_back).z > 0) {
