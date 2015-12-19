@@ -191,7 +191,6 @@ public class GameController:CharDisplayController {
 		c.xOffset = offset; c.player = player;
 		c.setWidthAndHeight(width, height);
 		c.Setup(parent, th, PD.gameType != PersistData.GT.Training && PD.gameType != PersistData.GT.Challenge && (player == 2 || player2Human || (PD.isDemo && PD.demoPlayers == 2)));
-		c.SetInitXAndID(0);
 		return c;
 	}
 	private BoardCursorActualCore CreatePlayerCursor(bool isHuman, float offset, int player, BoardWar b1, BoardWar b2, bool force2P = false) {
@@ -206,7 +205,6 @@ public class GameController:CharDisplayController {
 		} else {
 			c = GetBotCursor(player, offset, width, height, th, b1, b2);
 		}
-		c.SetInitXAndID(0);
 		return c;
 	}
 	private BoardCursorTutorial GetTutorialCursor(int p, float o, int w, int h, TweenHandler th) {

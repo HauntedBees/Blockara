@@ -21,8 +21,8 @@ public class BoardCursorMirror:BoardCursorCore {
 		isShown = show;
 		th = t;
 		InitializeMembers();
-		x = boardwidth - 1;
-		y = boardheight - 1;
+		x = 4;
+		y = 0;
 		maxY = 1.85f - (boardheight - 1) * Consts.TILE_SIZE;
 
 		UpdateMirrorCursorPos(true);

@@ -22,7 +22,6 @@ public class BoardCursorCore:InputCore {
 	public int boardheight;
 	protected int prevx;
 	protected int prevy;
-	protected int id;
 	protected float myDTween;
 	protected Sprite[] sheet;
 	protected bool moved;
@@ -35,9 +34,8 @@ public class BoardCursorCore:InputCore {
 	}
 	public void SetPD(PersistData p) { PD = p; }
 	protected void InitializeMembers() {
-		id = 0;
-		x = 0;
-		y = 0;
+		x = 3;
+		y = boardheight - 1;
 		prevx = -1;
 		prevy = -1;
 		moved = false;
@@ -49,8 +47,7 @@ public class BoardCursorCore:InputCore {
 		cursor = GetGameObject(Vector3.zero, "", sheet[0], false, "HUDText");
 		if(!isShown) { cursor.SetActive(false); }
 	}
-	virtual protected void ExtraInit() { } 
-	public void SetInitXAndID(int x) { this.x = x; this.id = x; }
+	virtual protected void ExtraInit() { }
 	virtual public void DoUpdate(int max = -1) {}
 	protected void UpdateCursorPos(bool skipTween = false) {
 		if(!isShown) { return; }
