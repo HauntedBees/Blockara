@@ -238,6 +238,7 @@ public class PersistData:MonoBehaviour {
 			sounds.SetMusicAndPlay(SoundPaths.M_Credits, false);
 		}
 	}
+	public void AlterSound() { sounds.SetPitchP2(); }
 	public float voicePitch = 1.0f;
 	public void InhaleHelium() { if(voicePitch == 1.0f) { voicePitch = 1.5f; } else { voicePitch = 1.0f; } }
 	#endregion

@@ -23,9 +23,10 @@ public class CutsceneChar {
 	private int _player;
 	private PersistData _PD;
 	public int loseFrame;
-	public bool bobbing;
+	public bool bobbing, hidden;
 	private float localy;
-	public CutsceneChar (string n, GameObject o, Sprite[] s, int p, PersistData PD) {
+	public CutsceneChar(string n, GameObject o, Sprite[] s, int p, PersistData PD) {
+		if(n == "Doug") { PD.AlterSound(); }
 		_name = PD.GetPlayerDisplayName(n);
 		_path = n;
 		_obj = o;
@@ -34,12 +35,13 @@ public class CutsceneChar {
 		_PD = PD;
 		sheetScale = new Vector3(_obj.transform.localScale.x, _obj.transform.localScale.y);
 		loseFrame = 5;
+		hidden = false;
 		bobbing = false;
 		localy = o.transform.localPosition.y;
 	}
 	public string GetPath(bool isBalloonCutscene = false) { return isBalloonCutscene?"White":_path; }
 	public string GetName() { return _name=="MasterAlchemist"?"The Master":_name; }
-	public void Hide() { _obj.transform.localPosition = new Vector3(-100f, -100f); }
+	public void Hide() { _obj.transform.localPosition = new Vector3(-100f, -100f); hidden = true; }
 	public CutsceneChar SetSortingLayer(string s) { _obj.GetComponent<SpriteRenderer>().sortingLayerName = s; return this; }
 
 	private float tweenHeight = 0.3f, tweenLength = 0.2f; // debug 
@@ -129,8 +131,8 @@ public class CutsceneChar {
 		}
 	}
 	public void SayThingFromReaction(SpeechType type) {
-		if(_PD.gameType == PersistData.GT.Challenge) { return; }
-		if(_player == 1 && (_PD.gameType  == PersistData.GT.Campaign || _PD.gameType == PersistData.GT.Training)) { return; }
+		if(hidden) { return; }
+		if(_player == 1 && _PD.gameType == PersistData.GT.Training) { return; }
 		int startidx, endidx;
 		string storedPath = _path;
 		if(_path == "Everyone") {
@@ -166,6 +168,7 @@ public class CutsceneChar {
 	public void SayThingFromXML(string path, bool forcePlayer1 = false, string newPath = "") {
 		string sayPath = newPath;
 		if(string.IsNullOrEmpty(sayPath)) { sayPath = _path; }
+		if(sayPath == "Doug") { sayPath = new string[]{"George", "Milo", "Devin", "Andrew", "Lars", "Alice/Ana", "MasterAlchemist"}[Random.Range(0, 7)]; }
 		if(sayPath == "MasterAlchemist") { path = Random.Range(0, 17).ToString("D3"); }
 		if(sayPath == "September" && path == "017" && Random.value < 0.05f) { path = "018"; }
 		_PD.sounds.SetVoiceAndPlay(SoundPaths.VoicePath + sayPath + "/" + path, forcePlayer1?0:_player);

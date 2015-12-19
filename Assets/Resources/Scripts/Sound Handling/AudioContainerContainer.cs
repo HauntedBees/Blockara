@@ -49,6 +49,7 @@ public class AudioContainerContainer:MonoBehaviour { // I named the class this t
 			nextNarratorVoice = "";
 		}
 	}
+	public void SetPitchP2() { voices[1].SetDoug(); }
 	public void Update() {
 		if(nextNarratorVoice == "" || voices[0].isPlaying()) { return; }
 		string nextVal = nextNarratorVoice;

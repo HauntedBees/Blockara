@@ -22,7 +22,8 @@ public class AudioContainer {
 		source.volume = volume;
 		pitch = p;
 	}
-	public void SetClip(AudioClip c, bool looping = false) { source.clip = c; source.pitch = pitch;  source.loop = looping; }
+	public void SetDoug() { pitch = 0.75f; }
+	public void SetClip(AudioClip c, bool looping = false) { source.clip = c; source.pitch = pitch; source.loop = looping; }
 	public void Play() { source.pitch = pitch; source.Play(); }
 	public void Pause() { source.Pause(); }
 	public void Stop() { source.Stop(); }

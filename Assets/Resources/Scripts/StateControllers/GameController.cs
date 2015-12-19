@@ -85,9 +85,14 @@ public class GameController:CharDisplayController {
 		actor1 = CreateActor(PD.GetPlayerSpritePath(PD.p1Char), new Vector3(-posx, posy));
 		actor1.SetScale(scale); actor1.SetSprite(0); actor1.bobbing = true; actor1.InGameBob();
 		if(PD.gameType == PersistData.GT.Challenge) { actor1.Hide(); }
-		actor2 = CreateActor(PD.GetPlayerSpritePath(PD.p2Char), new Vector3(posx, posy), true);
-		actor2.SetScale(scale); actor2.SetSprite(0); actor2.bobbing = true; actor2.InGameBob();
-		if(PD.gameType == PersistData.GT.Campaign || PD.gameType == PersistData.GT.Challenge || PD.gameType == PersistData.GT.Training) { actor2.Hide(); }
+		if(PD.gameType == PersistData.GT.Campaign && Random.Range(0, 500) == 69) {
+			actor2 = CreateActor("Doug", new Vector3(posx, posy), true);
+			actor2.SetScale(scale); actor2.SetSprite(0); actor2.bobbing = true; actor2.InGameBob();
+		} else {
+			actor2 = CreateActor(PD.GetPlayerSpritePath(PD.p2Char), new Vector3(posx, posy), true);
+			actor2.SetScale(scale); actor2.SetSprite(0); actor2.bobbing = true; actor2.InGameBob();
+			if(PD.gameType == PersistData.GT.Campaign || PD.gameType == PersistData.GT.Challenge || PD.gameType == PersistData.GT.Training) { actor2.Hide(); }
+		}
 	}
 	private void SetupRoundDisplay() {
 		roundLabels = new List<GameObject>();
