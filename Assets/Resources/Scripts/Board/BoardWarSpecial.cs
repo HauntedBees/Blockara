@@ -142,6 +142,7 @@ public class BoardWarSpecial:BoardWar {
 			}
 		}
 		if(idx >= 0) { shields.RemoveAt(idx); }
+		UpdateHighestRowWithTiles();
 		return;
 	}
 	override protected Tile CreateTile(int x, int y, int tval = -1, int sval = -1) {
