@@ -145,11 +145,13 @@ public class BlockNexter:ScriptableObject {
 	private GameObject CreateTile(int x, int y, int idx) {
 		GameObject g = Instantiate(universalPrefabReference, GetDisplayPos(x, y), Quaternion.identity) as GameObject;
 		g.renderer.sortingLayerName = "HUDText";
-		g.GetComponent<SpriteRenderer>().sprite = tileSheet[tileVals[idx]];
-		GameObject g_minor = Instantiate(universalPrefabReference, GetDisplayPos(x, y), Quaternion.identity) as GameObject;
-		g_minor.renderer.sortingLayerName = "HUDTextPlusOne";
-		g_minor.GetComponent<SpriteRenderer>().sprite = overlaySprite;
-		g_minor.transform.parent = g.transform;
+		if(tileVals[idx] != 3) {
+			g.GetComponent<SpriteRenderer>().sprite = tileSheet[tileVals[idx]];
+			GameObject g_minor = Instantiate(universalPrefabReference, GetDisplayPos(x, y), Quaternion.identity) as GameObject;
+			g_minor.renderer.sortingLayerName = "HUDTextPlusOne";
+			g_minor.GetComponent<SpriteRenderer>().sprite = overlaySprite;
+			g_minor.transform.parent = g.transform;
+		}
 		g.renderer.transform.localScale = isSmall?new Vector2(sizeMultSmall, sizeMultSmall):new Vector2(sizeMult, sizeMult);
 		return g;
 	}

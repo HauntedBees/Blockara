@@ -28,36 +28,32 @@ public class BlockHandler {
 		balloonType = PD.balloonType;
 		isTutorial = PD.isTutorial;
 		if(gameType == PersistData.GT.Challenge) {
-			setupPlayerInts();
-			setupTilesForPuzzle(lv);
+			SetupPlayerInts();
+			SetupTilesForPuzzle(lv);
 		} else if(gameType != PersistData.GT.Training || !isTutorial) {
 			vals = new List<int>();
-			setupPlayerInts();
+			SetupPlayerInts();
 			for(int i = 0; i < 50; i++) { vals.Add(Random.Range(0, 3)); }
 		} else {
 			if(isTutorial) {
-				setupPlayerInts();
-				setupTilesForPuzzle(0);
+				SetupPlayerInts();
+				SetupTilesForPuzzle(0);
 			}
 		}
 	}
-	private void setupPlayerInts() {
-		playerInts = new int[2];
-		playerInts[0] = 0;
-		playerInts[1] = 0;
-	}
+	private void SetupPlayerInts() { playerInts = new int[] {0, 0}; }
 	public int GetPlayerColor(int player) {
 		if(balloonNum == player) { return balloonType; }
 		if(gameType == PersistData.GT.Campaign && player == 2) { return Random.Range(0, 3); }
-		if(gameType == PersistData.GT.Challenge) { return getTileForPlayerPuzzle(player); }
-		if(gameType == PersistData.GT.Training && isTutorial) { return getTileForPlayerPuzzle(player); }
+		if(gameType == PersistData.GT.Challenge) { return GetTileForPlayerPuzzle(player); }
+		if(gameType == PersistData.GT.Training && isTutorial) { return GetTileForPlayerPuzzle(player); }
 		int idx = player - 1;
 		int pos = playerInts[idx];
 		if(pos >= vals.Count) {
-			int minPos = getMinPos();
+			int minPos = GetMinPos();
 			if(minPos > 0) {
 				while(minPos-- > 0) { vals.RemoveAt(0); vals.Add(Random.Range(0, 3)); }
-				minPos = getMinPos();
+				minPos = GetMinPos();
 				playerInts[0] -= minPos;
 				playerInts[1] -= minPos;
 			} else {
@@ -67,7 +63,7 @@ public class BlockHandler {
 		pos = playerInts[idx]++;
 		return vals[pos];
 	}
-	private void setupTilesForPuzzle(int lv) { // 0 is tutorial
+	private void SetupTilesForPuzzle(int lv) { // 0 is tutorial
 		XmlDocument doc = new XmlDocument();
 		TextAsset ta = Resources.Load<TextAsset>("XML/challenges");
 		doc.LoadXml(ta.text);
@@ -77,7 +73,7 @@ public class BlockHandler {
 		vals = l.SelectSingleNode("p1").InnerText.Split(',').Select(n => System.Convert.ToInt32(n)).ToList();
 		valsBot = l.SelectSingleNode("p2").InnerText.Split(',').Select(n => System.Convert.ToInt32(n)).ToList();
 	}
-	private int getTileForPlayerPuzzle(int player) {
+	private int GetTileForPlayerPuzzle(int player) {
 		if(player == 1) {
 			if(playerInts[0] >= vals.Count) { return 3; } 
 			int res = vals[playerInts[0]++];
@@ -87,8 +83,8 @@ public class BlockHandler {
 			if(res < 4) { return res; }
 			return Random.Range(0, 3);
 		}
-		if(playerInts[1] >= valsBot.Count) { return Random.Range(0, 3); } 
+		if(playerInts[1] >= valsBot.Count) { return Random.Range(0, 3); }
 		return valsBot[playerInts[1]++];
 	}
-	private int getMinPos() { return (playerInts[0] < playerInts[1]) ? playerInts[0] : playerInts[1]; }
+	private int GetMinPos() { return (playerInts[0] < playerInts[1]) ? playerInts[0] : playerInts[1]; }
 }
