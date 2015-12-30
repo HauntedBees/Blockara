@@ -39,8 +39,13 @@ public class MainMenuController:MenuController {
 		title = GetGameObject(new Vector3(0.0f, 1.25f), "Blockara Title", Resources.Load<Sprite>(SpritePaths.LogoText), true);
 		SetupCharacter();
 		SetupAFuckingBalloon();
+		SetupCopyright();
 		if(PD.controller == null) { SetupTitle(); }
 		else { SetupMenu(); }
+	}
+	private void SetupCopyright() {
+		FontData f = PD.mostCommonFont.Clone(); f.color = Color.white;
+		GetMeshText(new Vector3(1.35f, -1.8f), "Copyright \u00A9 2014-2016 Sean Finch/Haunted Bees Productions", f);
 	}
 	private void SetupCharacter() {
 		SaveData sd = PD.GetSaveData();
