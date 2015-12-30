@@ -123,15 +123,15 @@ Below are the Mode Options that appear on the Character Select Screen.
 ## Special Tiles
 These are special tiles that can be seen when Special Tiles are enabled in Mode Options, or in Endless and Puzzle Modes.
 
-|Name           |Effect                                                                                                         |
-|---------------|---------------------------------------------------------------------------------------------------------------|
-|Pause Sign     |Temporarily prevents the opponent from moving their cursor, shifting, launching, or being happy.               |
-|Tile Shield    |Gives you a shield that can block one or more launches.                                                        |
-|Eye See        |Causes a large number of eyeballs to open up and stare at your opponent, obstructing their view of the field.  |
-|Row Bomb       |When destroyed, it will take out all of the other tiles in the row it was in, too.                             |
-|Precious Monies|*(Endless Mode Only)* Instantly gives you some Gold, which can be used to buy lost tiles and shield repairs.   |
-|Arrow Tiles    |*(Puzzle Mode Only)* Destroying one of these will shift all of the other tiles in the row to the left or right.|
-|Anti-Tile      |*(Puzzle Mode Only)* These tiles cannot be destroyed. Period. Sorry.                                           |
+|Name           |Effect                                                                                                                                                                                                  |
+|---------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|Pause Sign     |Temporarily prevents the opponent from moving their cursor, shifting, launching, or being happy.                                                                                                        |
+|Tile Shield    |Gives you a shield that can block one or more launches.                                                                                                                                                 |
+|Eye See        |Causes a large number of eyeballs to open up and stare at your opponent, obstructing their view of the field. The graphic is changed if Scopophobia Mode is enabled in the Accessibility Options menu.  |
+|Row Bomb       |When destroyed, it will take out all of the other tiles in the row it was in, too.                                                                                                                      |
+|Precious Monies|*(Endless Mode Only)* Instantly gives you some Gold, which can be used to buy lost tiles and shield repairs.                                                                                            |
+|Arrow Tiles    |*(Puzzle Mode Only)* Destroying one of these will shift all of the other tiles in the row to the left or right.                                                                                         |
+|Anti-Tile      |*(Puzzle Mode Only)* These tiles cannot be destroyed. Period. Sorry.                                                                                                                                    |
 
 ## Other Screens
 You can also access the Player Data and Options Menus from the Title Screen.
