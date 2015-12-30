@@ -30,7 +30,6 @@ public class CharSelectController:MenuController {
 		StateControllerInit();
 		PD.sounds.SetVoiceAndPlay(SoundPaths.NarratorPath + "022", 0);
 		p1_delay = 0; p2_delay = 0; p1eggState = 0;
-		PD.controller2 = null;
 		conf1 = false; conf1options = false; conf2 = true;
 		int completionPercent = PD.GetSaveData().CalculateGameCompletionPercent();
 		string spPath = SpritePaths.CharSelSheet, crPath = SpritePaths.CharSelCursors;
@@ -76,6 +75,10 @@ public class CharSelectController:MenuController {
 		}
 	}
 	private void SetupP2StartText(XmlNode top, FontData f) {
+		if(PD.controller2 != null) {
+			FullInitP2Select();
+			return;
+		}
 		string text = "";
 		if(PD.usingGamepad2) {
 			text = GetXmlValue(top, "starttext2Pgamepad");
@@ -413,24 +416,27 @@ public class CharSelectController:MenuController {
 			}
 		} else if(PD.gameType == PersistData.GT.Versus && PD.controller2 == null) {
 			PD.controller2 = PD.detectInput_P2();
-			if(PD.controller2 != null) {
+			if(PD.controller2 != null) { 
 				char2StartText.SetActive(false);
-				int completionPercent = PD.GetSaveData().CalculateGameCompletionPercent();
-				string crPath = SpritePaths.CharSelCursors;
-				int crNum = 10;
-				if(completionPercent == 100) {
-					crPath = SpritePaths.CharSelCursorsAll;
-					crNum = 12;
-				} else if(completionPercent >= 50) {
-					crPath = SpritePaths.CharSelCursorsWhite;
-					crNum = 11;
-				}
-				cursor2 = GetMenuCursor(crNum, 1, crPath, initX, -0.99f, dX, 0.0f, 1, 0, 2, 1, 0.2f);
-				InitPlayer2Select();
-				UpdateBackground(false);
+				FullInitP2Select();
 				SignalSuccess();
 			}
 		}
+	}
+	private void FullInitP2Select() {
+		int completionPercent = PD.GetSaveData().CalculateGameCompletionPercent();
+		string crPath = SpritePaths.CharSelCursors;
+		int crNum = 10;
+		if(completionPercent == 100) {
+			crPath = SpritePaths.CharSelCursorsAll;
+			crNum = 12;
+		} else if(completionPercent >= 50) {
+			crPath = SpritePaths.CharSelCursorsWhite;
+			crNum = 11;
+		}
+		cursor2 = GetMenuCursor(crNum, 1, crPath, initX, -0.99f, dX, 0.0f, 1, 0, 2, 1, 0.2f);
+		InitPlayer2Select();
+		UpdateBackground(false);
 	}
 	private void AddCancelButton() {
 		float x = cursor.getPos(cursor.getX(), 0).x;
