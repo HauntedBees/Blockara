@@ -114,7 +114,6 @@ public static class SpritePaths {
 	public const string White					= HUDPath + "white";
 	public const string WhiteSingle				= HUDPath + "whiteSingle";
 	public const string Texts					= HUDPath + "text";
-	public const string BGBlackFade 			= BGPath + "blackFade";	// currently unused
 	public const string BGTileBack	 			= BGPath + "bgFull";
 	public const string BGBlackFadeCharSel 		= BGPath + "blackFadeCharSel";
 	public const string BGBlackFadeLeft 		= BGPath + "blackFadeLeft";
