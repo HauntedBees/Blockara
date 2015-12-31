@@ -14,12 +14,10 @@ limitations under the License.*/
 using UnityEngine;
 public class IntroController:StateController {
 	private int countdown;
-	private bool justWiped;
 	private bool hasBeed;
 	public void Start() {
 		Screen.showCursor = false;
 		countdown = 160; 
-		justWiped = false;
 		hasBeed = false;
 		GetPersistData();
 	}
@@ -29,15 +27,7 @@ public class IntroController:StateController {
 			PD.sounds.SetVoiceAndPlay(SoundPaths.A_BEEEEEE, 0);
 			hasBeed = true;
 		}
-		DebugShit(); 
 		int input = PD.ReturnLaunchOrPauseOrNothingIsPressed();
 		if(--countdown < 0 || input > 0) { if(input != 2) { PD.ChangeScreen(PersistData.GS.OpeningScene); } else { PD.GoToMainMenu(); } }
-	}
-	private void DebugShit() {
-		if(Input.GetKeyDown(KeyCode.F) && Input.GetKey(KeyCode.Z)) { justWiped = true; PD.WipeData(); }
-		if(justWiped) {
-			GameObject bee = GameObject.Find("beeLogo") as GameObject;
-			bee.transform.Rotate(new Vector3(0.0f, 0.0f, 1.0f), 1.0f);
-		}
 	}
 }

@@ -58,7 +58,6 @@ public class PersistData:MonoBehaviour {
 		KEY_DELAY = saveInfo.savedOptions["keydelay"];
 		SetRes();
 		override2P = false;
-		timeA = Time.timeSinceLevelLoad;
 	}
 	#region "Tile Bank"
 	public List<Tile> TileBank;
@@ -144,11 +143,7 @@ public class PersistData:MonoBehaviour {
 		fadeDir = -1;
 		fade = Resources.Load<Texture2D>(SpritePaths.FullBlackCover);
 	}
-	float timeA;
-	int fps, lastFPS;
-	public void Update() { if(Time.timeSinceLevelLoad - timeA <= 1) { fps++; } else { lastFPS = fps+1; timeA = Time.timeSinceLevelLoad; fps = 0; } }
 	public void OnGUI() {
-		//GUI.Label(new Rect(20,20,60,40), "fps: " + lastFPS + "\r\nGO: " + GameObject.FindObjectsOfType(typeof(GameObject)).Length);
 		if(isFading) {
 			fadeAlpha += fadeDir * fadeSpeed * Time.deltaTime;
 			fadeAlpha = Mathf.Clamp01(fadeAlpha);
@@ -161,7 +156,6 @@ public class PersistData:MonoBehaviour {
 		} else if(holdFade) {
 			GUI.DrawTexture(new Rect(0.0f, 0.0f, Screen.width, Screen.height), fade);
 		}
-
 	}
 
 	public void SaveAndQuit(int time) { saveInfo.addPlayTime(gameType, time); SaveGeemu(); Application.Quit(); }
@@ -243,7 +237,6 @@ public class PersistData:MonoBehaviour {
 	public void InhaleHelium() { if(voicePitch == 1.0f) { voicePitch = 1.5f; } else { voicePitch = 1.0f; } }
 	#endregion
 	#region "Character Select"
-	public void Debug_ForceWin(string name) { saveInfo.saveArcadeVictory(name, 2); }
 	public string GetPlayerSpritePathFromInt(int i, bool isBackground = false) { return GetPlayerSpritePath((C)i, isBackground); }
 	public void SetPlayer1(int i, bool anotherEasterEgg = false) { 
 		p1Char = (C)i;
@@ -304,7 +297,10 @@ public class PersistData:MonoBehaviour {
 	public void CharacterSelectConfirmation(bool moveToBalloon = false) {
 		runningScore = 0; runningTime = 0;
 		if(moveToBalloon) { MoveToBalloonBattle(); return; }
-		if(gameType == GT.QuickPlay && p2Char == C.Null) { p2Char = (C) Random.Range(0, 10); } // TODO: REMOVE THE NULL CHECK LATER
+		if(gameType == GT.QuickPlay && p2Char == C.Null) {
+			int justInCaseTheUnlikelyHappensAndThisTakesTooLong = 0;
+			while((p2Char == p1Char || p2Char == C.Null) && justInCaseTheUnlikelyHappensAndThisTakesTooLong++ < 10) { p2Char = (C) Random.Range(0, 10); }
+		}
 		if(gameType == GT.Arcade) { GetNextOpponent(); ChangeScreen(GS.CutScene); }
 		else { ChangeScreen(GS.Game); }
 	}

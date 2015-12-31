@@ -278,5 +278,4 @@ public class BoardWar:BoardWarCore {
 		cross.MakeDestroyTile();
 		recoveryDisplays.Add(cross);
 	}
-
 }

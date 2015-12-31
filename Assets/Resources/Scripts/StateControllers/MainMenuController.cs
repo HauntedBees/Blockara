@@ -171,7 +171,6 @@ public class MainMenuController:MenuController {
 	private void UpdateMenu() {
 		if(cursor.back()) { PD.sounds.SetSoundAndPlay(SoundPaths.S_Menu_Deny); CleanupMenu(); return; }
 		KonamiCodeCheck();
-		DebugShit();
 		HandleMouse();
 		cursor.DoUpdate();
 		menuButtons[selectedIdx].GetComponent<SpriteRenderer>().sprite = buttonSheet[0];
@@ -247,13 +246,5 @@ public class MainMenuController:MenuController {
 			if(pos.z == 1) { return i; }
 		}
 		return -1;
-	}
-	
-	private void DebugShit() {
-		if(Input.GetKeyDown(KeyCode.E) && Input.GetKey(KeyCode.R) && Input.GetKey(KeyCode.C)) { PD.ChangeScreen(PersistData.GS.Credits); }
-		if(PD.controller.EnableCheat1()) {  
-			Debug.Log("CHECK!"); 
-			PD.override2P = !PD.override2P;
-		}
 	}
 }

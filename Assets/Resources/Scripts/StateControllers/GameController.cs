@@ -244,7 +244,6 @@ public class GameController:CharDisplayController {
 	}
 
 	public void Update() {
-		DebugShit();
 		if(PD.isTransitioning) { return; }
 		if(ExitDemoIfNeeded()) { return; }
 		UpdateMouseInput();
@@ -578,16 +577,5 @@ public class GameController:CharDisplayController {
 				receiver.SayThingFromReaction(CutsceneChar.SpeechType.takeDamage);
 			}
 		}
-	}
-		
-	private void DebugShit() {
-		if(Input.GetKeyDown(KeyCode.BackQuote)) { PD.SaveAndReset(0); return; }
-		/*if(Input.GetKeyDown(KeyCode.Q)) { board1.TakeDamage(cursor1.getX(), 6, 0); }
-		if(Input.GetKeyDown(KeyCode.W)) { board1.TakeDamage(cursor1.getX(), 6, 1); }
-		if(Input.GetKeyDown(KeyCode.E)) { board1.TakeDamage(cursor1.getX(), 6, 2); }*/
-		if(Input.GetKeyDown(KeyCode.P)) { board1.Debug_JustListFuckingEverything(); }
-		if(Input.GetKeyDown(KeyCode.End)) { board2.BeDefeated(); }
-		else if(Input.GetKey(KeyCode.PageDown)) { board1.BeDefeated(); }
-		if(Input.GetKey(KeyCode.Backspace)) { PD.GoToMainMenu(); }
 	}
 }

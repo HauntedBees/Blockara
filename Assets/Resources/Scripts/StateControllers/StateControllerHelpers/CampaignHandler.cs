@@ -36,7 +36,6 @@ public class CampaignHandler {
 		return (elem == null ? "ERROR LOL" : elem.InnerText);
 	}
 	public void Update(bool isClickingTile, bool isClickingPause) {
-		DebugShit();
 		if(inCampaignShop) { HandleShop(isClickingTile, isClickingPause); return; }
 		if(board1.IsDead()) { playerDied = true; }
 		else if(board2.IsDead()) {
@@ -117,9 +116,4 @@ public class CampaignHandler {
 	}
 	private int GetTilePrice(int y) { return 100 * PD.difficulty * (y + 1); }
 	private int GetShieldPrice() { return 100 * PD.difficulty; }
-	
-	private void DebugShit() {
-		if(PD.controller.EnableCheat1()) { (board1 as BoardWarSpecial).AddShield(); }
-		if(PD.controller.EnableCheat2()) { UnityEngine.Debug.Log("HAPEN"); board2.gold += 100; } 
-	}
 }

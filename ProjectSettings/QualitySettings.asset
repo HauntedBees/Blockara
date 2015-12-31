@@ -25,21 +25,4 @@ QualitySettings:
     maximumLODLevel: 0
     particleRaycastBudget: 256
     excludedTargetPlatforms: []
-  m_PerPlatformDefaultQuality:
-    Android: 0
-    BlackBerry: 0
-    FlashPlayer: 3
-    GLES Emulation: 3
-    PS3: 3
-    PS4: 3
-    PSM: 3
-    PSP2: 3
-    Standalone: 0
-    Tizen: 2
-    WP8: 0
-    Web: 0
-    Wii U: 3
-    Windows Store Apps: 0
-    XBOX360: 3
-    XboxOne: 3
-    iPhone: 0
+  m_PerPlatformDefaultQuality: {}

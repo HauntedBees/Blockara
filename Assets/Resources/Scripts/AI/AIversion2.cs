@@ -13,7 +13,6 @@ See the License for the specific language governing permissions and
 limitations under the License.*/
 using UnityEngine;
 using System.Collections.Generic;
-using System.Linq; // for debug
 public class AIversion2:AICore {
 	private int repeats0, repeats1, repeats2, repeats25;
 	private int repeatTheshold;
@@ -22,7 +21,6 @@ public class AIversion2:AICore {
 	private int[] lastTenStates;
 	private int stateArrayIdx;
 	private bool stateArrayFull;
-	private bool showFullDebug;
 	public AIversion2(BoardWar mine, BoardWar theirs, BoardCursorActualCore cursor, int difficulty = 0):base(mine, theirs, cursor, difficulty) {}
 	override protected void AdditionalSetup() {
 		state = 0; repeats0 = 0; repeats1 = 0; repeats2 = 0; repeats25 = 0;
@@ -30,7 +28,6 @@ public class AIversion2:AICore {
 		lastTenStates = new int[10];
 		stateArrayIdx = 0;
 		stateArrayFull = false;
-		showFullDebug = false;
 	}
 	override protected void setUpDifficulty(int d) {
 		difficulty = d;
@@ -80,7 +77,6 @@ public class AIversion2:AICore {
 			for(int j = i + 1; j < 10; j++) {
 				string nval = "" + lastTenStates[j] + lastTenStates[(j+1)%10] + lastTenStates[(j+2)%10] + lastTenStates[(j+3)%10] + lastTenStates[(j+4)%10] + lastTenStates[(j+5)%10];
 				if(nval == val) {
-					if(showFullDebug) Debug.Log ("FOUND A LOOP!");
 					stateArrayIdx = 0;
 					stateArrayFull = false;
 					lastTenStates = new int[10];
@@ -113,20 +109,8 @@ public class AIversion2:AICore {
 	}
 	override public AIAction TakeAction() {
 		if(inactive) { return new AIAction(0, 0); }
-		if(Input.GetKeyDown(KeyCode.M)) { showFullDebug = !showFullDebug; Debug.Log("now: " + showFullDebug); }
 		AddStateAndDetectLoop();
 		DetectTopTwoRowsAreShit();
-		if(Input.GetKey(KeyCode.Alpha1)) {
-			Debug.Log ("state: " + state);
-			Debug.Log (" yourX: " + yourX);
-			Debug.Log (" theirInvertedX: " + theirInvertedX);
-			Debug.Log (" y_row: " + y_row);
-			Debug.Log (" yourType: " + yourType);
-			Debug.Log (" theirType: " + theirType);
-			Debug.Log (" cur_row: " + cur_row);
-			Debug.Log (" dxdir: " + dxdir);
-			Debug.Log (" shiftdir: " + shiftdir);
-		}
 		delay = Random.Range(delayLowerbound, delayUpperbound);
 		AIAction res;
 		switch(state) {
@@ -156,8 +140,8 @@ public class AIversion2:AICore {
 	private struct typeDepthData { public int type, depth; public typeDepthData(int _type, int _depth) { type = _type; depth = _depth; } }
 	private struct columnData { public int x, type, height, dx; public columnData(int _x, int _type, int _height, int _dx) { x = _x; type = _type; height = _height; dx = _dx; } }
 
-	private AIAction sOhFuckLetsGoRandom() { // FUCK YOU I'M RANDOM
-		if(randoWhatsie == 0) { y_row = 1; } // Debug.Log("I'M GOG DAMN NUTTY!");
+	private AIAction sOhFuckLetsGoRandom() { // I GIVE UP, I'M RANDOM
+		if(randoWhatsie == 0) { y_row = 1; }
 		int cy = c.getY();
 		if(cy == (myBoard.height - myBoard.topoffset)) { y_row = -1; } else if(cy == 0) { y_row = 1; }
 		AIAction res = new AIAction(Random.value >= 0.75f ? 1: 0, Random.value >= 0.5f ? y_row : 0, Random.value >= 0.25f ? 1: 0, Random.value >= 0.5f);
@@ -168,14 +152,12 @@ public class AIversion2:AICore {
 		return res;
 	}
 	private AIAction s5() { // there's a row of all the same tile on top
-		//Debug.Log("S5 THE SCIENCE GYVE");
 		if(y_row > c.getY()) { return new AIAction(0, 1); }
 		else if(y_row < c.getY()) { return new AIAction(0, -1); }
 		state = 0;
 		return new AIAction(0, 0, 0, true);
 	}
-	private AIAction s4() { // OH FUCK I CAN'T EVEN DO ANYTHING; TOP ROW IS PROBABLY ALL DICKERS
-		//Debug.Log("I'M AT 4");
+	private AIAction s4() { // OH GEEZ I CAN'T EVEN DO ANYTHING; TOP ROW IS PROBABLY ALL RUINED
 		int yTop = GetHighestYWithValues();
 		if(GetAllTypesOnRow(yTop).Count == 1) {
 			int cy = c.getY();
@@ -237,7 +219,6 @@ public class AIversion2:AICore {
 	}
 
 	private AIAction s3_0() { // YOU CAN'T HURT THE ENEMY AT ALL, JUST TRY LAUNCHING WHATEVER
-		//Debug.Log("I'M AT 3");
 		int cy = c.getY();
 		int yTop = GetHighestYWithValues();
 		if(yTop == 0) {
@@ -294,7 +275,6 @@ public class AIversion2:AICore {
 				if(t != typeM) { break; }
 				depth++;
 			}
-			if(showFullDebug) Debug.Log("depth is " + depth);
 			if(depth < 2) {
 				if(cy == 0) {
 					state = 999;
@@ -312,7 +292,6 @@ public class AIversion2:AICore {
 				res2.Add(new distXData(x, GetDistanceBetweenPoints(cx, enemyBoard.width - 1 - x)));
 			}
 			if(res2.Count == 0) {
-				if(showFullDebug) Debug.Log("I can beat anything with that!");
 				if(cy == 0) {
 					state = 999;
 					return sOhFuckLetsGoRandom();
@@ -325,7 +304,6 @@ public class AIversion2:AICore {
 			res2.Sort((a, b) => Mathf.Abs(a.dx).CompareTo(Mathf.Abs(b.dx)));
 			distXData chosenOne = res2[Random.Range(0, Mathf.FloorToInt(paddingForPathetic * res2.Count))];
 			theirInvertedX = myBoard.width - 1 - chosenOne.x;
-			if(showFullDebug) Debug.Log("I can beat the tile at " + theirInvertedX + " with that!");
 			theirType = whatIsBeatenWhat(yourType);
 			shiftdir = chosenOne.dx == 0 ? 0 : -chosenOne.dx / Mathf.Abs(chosenOne.dx);
 			state = 2;
@@ -383,7 +361,6 @@ public class AIversion2:AICore {
 			if(types.Contains(type)) { continue; }
 			types.Add(type);
 		}
-		if(showFullDebug) Debug.Log("types on top row: " + string.Join(", ", types.Select(x => x.ToString()).ToArray()));
 		if(types.Count == 1 && types[0] == myBoard.deathTile) {
 			y_row--;
 			if(cy == 0) {
@@ -405,7 +382,6 @@ public class AIversion2:AICore {
 				}
 			}
 		}
-		if(showFullDebug) Debug.Log("types I should pick: " + string.Join(", ", winningTypes.Select(x => x.ToString()).ToArray()));
 		if(beatableXs.Count == 0) {
 			if(types.Contains(myBoard.deathTile)) {
 				y_row--;
@@ -429,7 +405,6 @@ public class AIversion2:AICore {
 		if(res.Count > 0) {
 			res.Sort((a, b) => Mathf.Abs(a.dx).CompareTo(Mathf.Abs(b.dx)));
 			columnData chosenOne = res[Random.Range(0, Mathf.FloorToInt(paddingForPathetic * (res.Count - 1)))];
-			if(showFullDebug) Debug.Log("i will go to [" + chosenOne.x + "]: type = " + chosenOne.type);
 			yourType = chosenOne.type;
 			yourX = chosenOne.x;
 			dxdir = chosenOne.dx == 0 ? 0 : chosenOne.dx / Mathf.Abs(chosenOne.dx);
@@ -485,9 +460,7 @@ public class AIversion2:AICore {
 		return res;
 	}
 	private AIAction s0_0() { // SEE IF ANYTHING EXISTING WORKS
-		if(showFullDebug) Debug.Log("AT 0");
 		if(repeats0++ > repeatTheshold) {
-			if(showFullDebug) Debug.Log("THIS IS TOO MUCH");
 			state = 3;
 			return s0_3();
 		}
@@ -507,9 +480,7 @@ public class AIversion2:AICore {
 			columnData cda = new columnData(x, typeAtPos, height, GetDistanceBetweenPoints(cx, x));
 			if(CanHitOpponentWithThis(acceptableTypes, cda)) { res.Add(cda); }
 		}
-		if(showFullDebug) Debug.Log("RES: " + res.Count);
 		if(res.Count == 0) {
-			if(showFullDebug) Debug.Log("THERE IS NOTHING HERE FOR ME");
 			state = 3;
 			return s0_3();
 		}
@@ -521,7 +492,6 @@ public class AIversion2:AICore {
 		columnData chosenOne = res[choice];	
 		yourX = chosenOne.x;
 		yourType = chosenOne.type;
-		if(showFullDebug) Debug.Log("CHOSEN ONE: " + chosenOne.x);
 		while(chances++ < 3 && choice < res.Count) {
 			res2.Clear();
 			for(int x = 0; x < acceptableTypes.Count; x++) {
@@ -530,9 +500,7 @@ public class AIversion2:AICore {
 			}
 			if(res2.Count != 0) { break; }
 		}
-		if(showFullDebug) Debug.Log("RES2: " + res2.Count);
 		if(res2.Count == 0) {
-			if(showFullDebug) Debug.Log("THERE IS NOTHING HERE FOR ME!");
 			state = 3;
 			return s0_3();
 		}
@@ -542,7 +510,6 @@ public class AIversion2:AICore {
 		theirType = whatIsBeatenWhat(yourType);
 		dxdir = chosenOne.dx == 0 ? 0 : chosenOne.dx / Mathf.Abs(chosenOne.dx);
 		shiftdir = chosenOne2.dx == 0 ? 0 : chosenOne2.dx / Mathf.Abs(chosenOne2.dx);
-		if(showFullDebug) Debug.Log("@");
 		return s0_1(yourX, theirInvertedX, yourType, theirType, dxdir, shiftdir);
 	}
 	

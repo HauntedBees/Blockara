@@ -139,15 +139,4 @@ public class BoardWarCore:ObjCore {
 			}
 		}
 	}
-	
-	public void Debug_JustListFuckingEverything() {
-		string s = "";
-		for(int y = height - 1; y >= 0; y--) {
-			for(int x = 0; x < width; x++) {
-				Tile t = tiles[GetListPosFromXY(x, y)];
-				s += "[" + t.GetColorVal() + ":" + t.GetSpecialVal() + ":" + t.IsDead() + "], ";
-			}
-		}
-		Debug.Log(s);
-	}
 }

@@ -337,6 +337,8 @@ MonoBehaviour:
   isTransitioning: 0
   aboutToFightAFuckingBalloon: 0
   usingMouse: 0
+  usingGamepad1: 0
+  usingGamepad2: 0
   playerOneWonRound: 
   playerRoundScores: 
   playerRoundTimes: 

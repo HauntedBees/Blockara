@@ -196,8 +196,8 @@ public class SaveData {
 		SaveData res = null;
 		try {
 			res = saveHandler.Load(saveFilePath);
-		} catch(System.Exception e) {
-			Debug.Log("WIPE THAT SMILDER OFF YOUR DILDER: " + e.Message);
+		} catch(System.Exception) {
+			res.firstTime = true;
 		}
 		if(res == null) { FirstLoad(); } else { res.firstTime = false; }
 		return res;
