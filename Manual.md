@@ -152,7 +152,14 @@ The Options Menu lets you change settings!
 
 # About This Game
 
-© 2015 Haunted Bees Productions
+© 2014-2016 Sean Finch - Haunted Bees Productions
+
+DOTween Engine © 2014 Daniele Giardini - Demigiant
+
+Sounds © 2007-2014 Mirko Horstmann, daenerys, sandyrb, maarten_wez, xtrgamr, theta4, CTCollab, zerolagtime, timgormly, Erdie, Tobiasz 'unfa' Karoń, D W, broumbroum under the CC BY 3.0 License.
+
+Nevis font © 2007-2016 Ed Merritt
+
 
 This program was created using Unity. Portions of this program © 2005-2012 Unity Technologies.
 
