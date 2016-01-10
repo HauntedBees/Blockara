@@ -42,7 +42,7 @@ public class Countdown:ScriptableObject {
 				display.GetComponent<SpriteRenderer>().sprite = textSprites[3];
 				PD.sounds.SetVoiceAndPlay(SoundPaths.NarratorPath + "020", 0);
 				goDisplayed = true;
-				if(PD.gameType == PersistData.GT.Versus) {
+				if(PD.gameType == PersistData.GT.Versus || PD.gameType == PersistData.GT.QuickPlay) {
 					switch(Random.Range (0, 3)) {
 						case 0: PD.sounds.SetMusicAndPlay(SoundPaths.M_Title_DerivPath + PD.GetPlayerSpritePath(PD.p1Char, false, true)); break;
 						case 1: PD.sounds.SetMusicAndPlay(SoundPaths.M_Title_DerivPath + PD.GetPlayerSpritePath(PD.p2Char, false, true)); break;
