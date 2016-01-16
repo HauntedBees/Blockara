@@ -449,7 +449,7 @@ public class PersistData:MonoBehaviour {
 			ChangeScreen(won?GS.WinnerIsYou:GS.HighScore);
 			return;
 		}
-		int dragonScore = 100 * GetScore(2, 5, 1.0f, initialDifficulty), puhLoonScore = dragonScore * 2.8;
+		int dragonScore = 100 * GetScore(2, 5, 1.0f, initialDifficulty), puhLoonScore = (int) (dragonScore * 2.8);
 		if(p1Char == C.FuckingBalloon) { dragonScore = runningScore + 100; puhLoonScore = runningScore + 100; }
 		if(level % 2 == 0) { difficulty++; }
 		if(p1Char == C.White || p1Char == C.September) {
