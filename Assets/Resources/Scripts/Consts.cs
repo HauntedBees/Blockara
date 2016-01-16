@@ -50,6 +50,8 @@ public static class SoundPaths {
 	public const string M_Menu 				= MusicPath + "Menu";
 	public const string M_Title_Default 	= MusicPath + "Title";
 	public const string M_Title_DerivPath	= MusicPath + "ThemeDerivs/";
+	public const string M_WinMusic			= M_Title_DerivPath + "Group";
+	public const string M_LoseMusic			= M_Title_DerivPath + "GroupSlow";
 }
 public static class SpritePaths {
 	private const string RootPath				= "Spritesheets/";

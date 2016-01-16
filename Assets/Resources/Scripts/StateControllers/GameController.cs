@@ -390,6 +390,7 @@ public class GameController:CharDisplayController {
 		actor2.DoReaction(CutsceneChar.Reaction.win, winningPlayer == 2);
 		if(player2Human) { p1Pos = new Vector3(-1.4f, 0.0f); p2Pos = new Vector3(1.4f, 0.0f); } else { p1Pos = Vector3.zero; p2Pos = Vector3.zero; }
 		hud.ShowVictoryText(winningPlayer, p1Pos, p2Pos, player2Human);
+		PD.FadeMusic(winningPlayer == 1 || player2Human ? SoundPaths.M_WinMusic : SoundPaths.M_LoseMusic);
 		if(PD.gameType == PersistData.GT.Arcade || PD.isDemo) { endCounter = 60; }
 		else if(PD.gameType == PersistData.GT.Challenge && winningPlayer == 2) {
 			(hud as PuzzleHUD).DisplayGameOverRetryScreen();

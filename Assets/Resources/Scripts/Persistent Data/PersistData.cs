@@ -222,7 +222,7 @@ public class PersistData:MonoBehaviour {
 	#region "Sound"
 	public void SetupSound() {
 		sounds = new GameObject("AudioContainers").AddComponent<AudioContainerContainer>();
-		sounds.Init(saveInfo.savedOptions["vol_m"] / 100.0f, saveInfo.savedOptions["vol_s"] / 100.0f, saveInfo.savedOptions["vol_v"] / 100.0f, voicePitch);
+		sounds.Init(saveInfo.savedOptions["vol_m"] / 100.0f, saveInfo.savedOptions["vol_s"] / 100.0f, saveInfo.savedOptions["vol_v"] / 100.0f, voicePitch, currentScreen == GS.Game);
 		if(currentScreen == GS.Options || currentScreen == GS.PlayerData || currentScreen == GS.PuzSel || currentScreen == GS.CharSel) {
 			sounds.SetMusicAndPlay(SoundPaths.M_Menu);
 		} else if(currentScreen == GS.CutScene) {
@@ -232,6 +232,7 @@ public class PersistData:MonoBehaviour {
 			sounds.SetMusicAndPlay(SoundPaths.M_Credits, false);
 		}
 	}
+	public void FadeMusic(string path) { sounds.FadeToMusicAndPlay(path); }
 	public void AlterSound() { sounds.SetPitchP2(); }
 	public float voicePitch = 1.0f;
 	public void InhaleHelium() { if(voicePitch == 1.0f) { voicePitch = 1.5f; } else { voicePitch = 1.0f; } }

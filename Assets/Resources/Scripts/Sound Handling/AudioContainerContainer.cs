@@ -18,8 +18,8 @@ public class AudioContainerContainer:MonoBehaviour { // I named the class this t
 	private AudioContainer[] sounds, voices;
 	private string nextNarratorVoice;
 	private const int soundLen = 8;
-	public void Init(float musVol, float sndVol, float voiVol, float voicePitch = 1.0f) {
-		music = new AudioContainer(new GameObject("aud_music"), musVol);
+	public void Init(float musVol, float sndVol, float voiVol, float voicePitch = 1.0f, bool needsTemp = false) {
+		music = new AudioContainer(new GameObject("aud_music"), musVol, 1.0f, needsTemp);
 		sounds = new AudioContainer[soundLen];
 		for(int i = 0; i < soundLen; i++) { sounds[i] = new AudioContainer(new GameObject("aud_sound_" + i), sndVol); }
 		voices = new AudioContainer[2];
@@ -30,6 +30,7 @@ public class AudioContainerContainer:MonoBehaviour { // I named the class this t
 		music.SetClip(Resources.Load<AudioClip>(path), loop);
 		music.Play();
 	}
+	public void FadeToMusicAndPlay(string path) { music.FadeIntoClip(Resources.Load<AudioClip>(path)); }
 	public void SetSoundAndPlay(string path) {
 		int idx = 0;
 		for(int i = 0; i < soundLen; i++) { if(!sounds[i].isPlaying()) { idx = i; break; } }

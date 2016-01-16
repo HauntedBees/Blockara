@@ -14,6 +14,7 @@ limitations under the License.*/
 using UnityEngine;
 using System.Collections.Generic;
 using System.Xml;
+using DG.Tweening;
 public class InGameHUD:All {
 	public bool lose;
 	protected bool pausing, gameEnd;
@@ -142,10 +143,48 @@ public class InGameHUD:All {
 	public void ShowVictoryText(int winPlayer, Vector3 p1Offset, Vector3 p2Offset, bool showP2) {
 		if(gameEnd) { return; }
 		pausing = true; gameEnd = true;
+
+		Sprite[] particleSprites = Resources.LoadAll<Sprite>(SpritePaths.Launch_Particles);
+		int d = Random.Range(0, 3), d2 = d + (winPlayer == 1 ? 1 : -1);
+		if(d2 == 3) { d2 = 0; } else if(d2 < 0) { d2 = 2; }
+		Color full = new Color(1.0f, 1.0f, 1.0f, 1.0f), empty = new Color(1.0f, 1.0f, 1.0f, 0.0f);
+		for(int i = 0; i < 50; i++) {
+			float y = -0.1f + Random.Range(0.0f, 0.2f), y2 = -0.1f + Random.Range(0.0f, 0.2f);
+
+			GameObject particle = GetGameObject(new Vector3(-4.0f + 8.0f * i/100, y), "particle", particleSprites[d], false, "Cover HUD Dialog Box");
+			particle.renderer.material.color = empty;
+			Sequence s = DOTween.Sequence();
+			s.Append(particle.renderer.material.DOColor(full, 0.2f).SetDelay(i / 100.0f));
+			s.Join(particle.transform.DOMoveY(y * 1.5f, 0.2f));
+			s.Append(particle.renderer.material.DOColor(empty, 0.5f));
+			s.Join(particle.transform.DOMoveY(y * 2.5f, 0.5f));
+
+			GameObject particle2 = GetGameObject(new Vector3(4.0f - 8.0f * i/100, y), "particle2", particleSprites[d2], false, "Cover HUD Dialog Box");
+			particle2.renderer.material.color = empty;
+			Sequence s2 = DOTween.Sequence();
+			s2.Append(particle2.renderer.material.DOColor(full, 0.2f).SetDelay(i / 100.0f));
+			s2.Join(particle2.transform.DOMoveY(y2 * 1.5f, 0.2f));
+			s2.Append(particle2.renderer.material.DOColor(empty, 0.5f));
+			s2.Join(particle2.transform.DOMoveY(y2 * 2.5f, 0.5f));
+		}
+		for(int i = 50; i < 100; i++) {
+			float y = -0.1f + Random.Range(0.0f, 0.2f);
+			GameObject particle = GetGameObject(new Vector3(winPlayer == 1 ? (-4.0f + 8.0f * i/100) : (4.0f - 8.0f * i/100), y), "particle", particleSprites[winPlayer==1?d:d2], false, "Cover HUD Dialog Box");
+			particle.renderer.material.color = empty;
+			Sequence s = DOTween.Sequence();
+			s.Append(particle.renderer.material.DOColor(full, 0.2f).SetDelay(i / 100.0f));
+			s.Join(particle.transform.DOMoveY(y * 1.5f, 0.2f));
+			s.Append(particle.renderer.material.DOColor(empty, 0.5f));
+			s.Join(particle.transform.DOMoveY(y * 2.5f, 0.5f));
+		}
 		Sprite[] textSprites = Resources.LoadAll<Sprite>(SpritePaths.Texts);
-		GetGameObject(p1Offset, "P1 End Condition", (winPlayer == 1 ? textSprites[0]:textSprites[1]), false, "Cover HUD Dialog Text");
+		GameObject text1 = GetGameObject(p1Offset, "P1 End Condition", (winPlayer == 1 ? textSprites[0]:textSprites[1]), false, "Cover HUD Dialog Text");
+		text1.renderer.material.color = empty;
+		text1.renderer.material.DOColor(full, 0.6f).SetDelay(showP2 ? 0.2f : 0.4f);
 		if(showP2) {
-			GetGameObject(p2Offset, "P2 End Condition", (winPlayer == 2 ? textSprites[0]:textSprites[1]), false, "Cover HUD Dialog Text");
+			GameObject text2 = GetGameObject(p2Offset, "P2 End Condition", (winPlayer == 2 ? textSprites[0]:textSprites[1]), false, "Cover HUD Dialog Text");
+			text2.renderer.material.color = empty;
+			text2.renderer.material.DOColor(full, 0.6f).SetDelay(0.2f);
 			if(tutorialAssist == null) { PD.sounds.SetVoiceAndPlay(SoundPaths.NarratorPath + (Random.value>0.5f?"045":"046"), 0); }
 		} else {
 			if(tutorialAssist == null) { PD.sounds.SetVoiceAndPlay(SoundPaths.NarratorPath + (winPlayer == 1 ? "037" : "038"), 0); }
