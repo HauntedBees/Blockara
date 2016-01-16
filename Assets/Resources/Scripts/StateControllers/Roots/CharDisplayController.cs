@@ -13,7 +13,7 @@ See the License for the specific language governing permissions and
 limitations under the License.*/
 using UnityEngine;
 public class CharDisplayController:StateController {
-	protected CutsceneChar CreateActor(string playerPath, Vector3 pos, bool flip = false, bool higherLayer = false) {
+	protected CutsceneChar CreateActor(string playerPath, Vector3 pos, bool flip = false, bool higherLayer = false, bool inGame = false) {
 		Sprite[] sheet = Resources.LoadAll<Sprite>(SpritePaths.CharPath + playerPath);
 		GameObject obj = GetGameObject(pos, "Character " + playerPath, null, false, higherLayer?"Cover HUD Actor":"BG1");
 		if(flip) { Vector3 t = obj.transform.localScale; t.x *= -1.0f; obj.transform.localScale = t; }
@@ -27,6 +27,6 @@ public class CharDisplayController:StateController {
 			p.y += 0.33f;
 			obj.transform.position = p;
 		}
-		return new CutsceneChar(playerPath, obj, sheet, flip?1:0, PD);
+		return new CutsceneChar(playerPath, obj, sheet, flip?1:0, PD, inGame);
 	}
 }

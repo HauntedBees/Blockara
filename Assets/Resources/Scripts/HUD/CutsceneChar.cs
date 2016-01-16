@@ -24,8 +24,9 @@ public class CutsceneChar {
 	private PersistData _PD;
 	public int loseFrame;
 	public bool bobbing, hidden;
+	private bool inGame; 
 	private float localy;
-	public CutsceneChar(string n, GameObject o, Sprite[] s, int p, PersistData PD) {
+	public CutsceneChar(string n, GameObject o, Sprite[] s, int p, PersistData PD, bool gameChar = false) {
 		if(n == "Doug") { PD.AlterSound(); }
 		_name = PD.GetPlayerDisplayName(n);
 		_path = n;
@@ -33,6 +34,7 @@ public class CutsceneChar {
 		_sheet = s;
 		_player = p;
 		_PD = PD;
+		inGame = gameChar;
 		sheetScale = new Vector3(_obj.transform.localScale.x, _obj.transform.localScale.y);
 		loseFrame = 5;
 		hidden = false;
@@ -44,12 +46,12 @@ public class CutsceneChar {
 	public void Hide() { _obj.transform.localPosition = new Vector3(-100f, -100f); hidden = true; }
 	public CutsceneChar SetSortingLayer(string s) { _obj.GetComponent<SpriteRenderer>().sortingLayerName = s; return this; }
 
-	private float tweenHeight = 0.3f, tweenLength = 0.2f;
+	private float tweenHeight = 0.2f, tweenLength = 0.3f;
 	public void Bob() {
-		if(!bobbing) { return; }
+		if(!bobbing) { _obj.transform.DOComplete(); return; }
 		Sequence bobSequence = DOTween.Sequence();
-		bobSequence.Append(_obj.transform.DOLocalMoveY(localy + tweenHeight, tweenLength));
-		bobSequence.Append(_obj.transform.DOLocalMoveY(localy, tweenLength));
+		bobSequence.Append(_obj.transform.DOLocalMoveY(localy - tweenHeight, 0.01f).SetDelay(tweenLength));
+		bobSequence.Append(_obj.transform.DOLocalMoveY(localy, 0.01f).SetDelay(tweenLength));
 		bobSequence.OnComplete(Bob);
 	}
 	private float inGameTweenSpeed = 0.7f;
@@ -57,8 +59,8 @@ public class CutsceneChar {
 	public void InGameBob() {
 		if(!bobbing) { return; }
 		Sequence bobSequence = DOTween.Sequence();
-		bobSequence.Append(_obj.transform.DOLocalMoveY(localy - 0.05f, inGameTweenSpeed));
-		bobSequence.Append(_obj.transform.DOLocalMoveY(localy, inGameTweenSpeed));
+		bobSequence.Append(_obj.transform.DOLocalMoveY(localy - 0.05f, 0.01f).SetDelay(inGameTweenSpeed));
+		bobSequence.Append(_obj.transform.DOLocalMoveY(localy, 0.01f).SetDelay(inGameTweenSpeed));
 		bobSequence.OnComplete(InGameBob);
 	}
 	public void FlickerColor(int colortype) {
@@ -79,7 +81,7 @@ public class CutsceneChar {
 		s.OnComplete(ReturnBob);
 		return this;
 	}
-	private void ReturnBob() { bobbing = true; InGameBob(); }
+	private void ReturnBob() { bobbing = true; if(inGame) { InGameBob(); } else { Bob(); } }
 	private void ChangeSprite(int idx) { _obj.GetComponent<SpriteRenderer>().sprite = _sheet[idx]; }
 
 	public CutsceneChar SetScale(float f) {

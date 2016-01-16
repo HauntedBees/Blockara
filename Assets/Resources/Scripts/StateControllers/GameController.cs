@@ -82,14 +82,14 @@ public class GameController:CharDisplayController {
 	private void SetupActors() {
 		bool is2p = (player2Human || (PD.isDemo && PD.demoPlayers == 2));
 		float posx = is2p?3.0f:2.35f, posy = is2p?-1.2f:-0.8f, scale = is2p?0.22f:0.33f;
-		actor1 = CreateActor(PD.GetPlayerSpritePath(PD.p1Char), new Vector3(-posx, posy));
+		actor1 = CreateActor(PD.GetPlayerSpritePath(PD.p1Char), new Vector3(-posx, posy), false, false, true);
 		actor1.SetScale(scale); actor1.SetSprite(0); actor1.bobbing = true; actor1.InGameBob();
 		if(PD.gameType == PersistData.GT.Challenge) { actor1.Hide(); }
 		if(PD.gameType == PersistData.GT.Campaign && Random.Range(0, 500) == 69) {
-			actor2 = CreateActor("Doug", new Vector3(posx, posy), true);
+			actor2 = CreateActor("Doug", new Vector3(posx, posy), true, false, true);
 			actor2.SetScale(scale); actor2.SetSprite(0); actor2.bobbing = true; actor2.InGameBob();
 		} else {
-			actor2 = CreateActor(PD.GetPlayerSpritePath(PD.p2Char), new Vector3(posx, posy), true);
+			actor2 = CreateActor(PD.GetPlayerSpritePath(PD.p2Char), new Vector3(posx, posy), true, false, true);
 			actor2.SetScale(scale); actor2.SetSprite(0); actor2.bobbing = true; actor2.InGameBob();
 			if(PD.gameType == PersistData.GT.Campaign || PD.gameType == PersistData.GT.Challenge || PD.gameType == PersistData.GT.Training) { actor2.Hide(); }
 		}
