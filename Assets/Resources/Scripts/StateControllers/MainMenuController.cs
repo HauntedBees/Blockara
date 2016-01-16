@@ -56,12 +56,7 @@ public class MainMenuController:MenuController {
 		Sprite[] sheet = Resources.LoadAll<Sprite>(SpritePaths.CharFullShots);
 		bool onRight = System.Array.IndexOf(new int[] {0, 3, 4, 7, 11, 13, 15, 16, 17, 19, 20, 22, 23, 24, 27, 29, 31}, winOffset) >= 0;
 		float xOffset = onRight?2.5f:-2.5f;
-		if(PD.p2Char == PersistData.C.Everyone) {
-			PD.sounds.SetVoiceAndPlay(SoundPaths.NarratorPath + "001", 0);
-			PD.sounds.SetMusicAndPlay(SoundPaths.M_Title_DerivPath + "Group");
-			character = GetGameObject(new Vector3(0.0f, -0.5f), "A Player Is Everyone!", Resources.Load<Sprite>(SpritePaths.CharGroupShot), true, "Zapper");
-			charTalker = new CutsceneChar(PD.GetPlayerSpritePath(PD.p2Char), character, null, 0, PD);
-		} else if(PD.p2Char != PersistData.C.Null) {
+		if(PD.p2Char != PersistData.C.Null) {
 			PD.sounds.SetVoiceAndPlay(SoundPaths.VoicePath + PD.GetPlayerSpritePath(PD.p2Char) + "/" + "083", 0);
 			character = GetGameObject(new Vector3(xOffset, -0.5f), "A Player Is You", sheet[winOffset], true, "Zapper");
 			charTalker = new CutsceneChar(PD.GetPlayerSpritePath(PD.p2Char), character, null, 0, PD);
@@ -98,7 +93,6 @@ public class MainMenuController:MenuController {
 			presstext = string.Format(GetXmlValue(top, "starttext"), PD.GetP1InputName(InputMethod.KeyBinding.launch), PD.GetP1InputName(InputMethod.KeyBinding.pause));
 		}
 		float texty = -0.05f;
-		if(PD.p2Char == PersistData.C.Everyone) { texty = -1.8f; }
 		pressButtonToStart = GetMeshText(new Vector3(0.0f, texty), presstext, PD.mostCommonFont);
 		pressButtonToStart.color = Color.white;
 		timeUntilDemo = 600;
@@ -119,7 +113,6 @@ public class MainMenuController:MenuController {
 		cursor = GetMenuCursor(2, 5, null, -0.5f, -1.32f, 0.2f, 0.2f, cursx, cursy);
 		cursor.SetVisibility(false);
 		float menuX = 0.0f, topy = 0.35f, dx = 0.8f, bottomdy = 1.2f;
-		if(PD.p2Char == PersistData.C.Everyone) { dx = 3.0f; bottomdy = 2.1f; }
 		menuButtons = new GameObject[9];
 		menuButtonHighlights = new GameObject[9];
 		texts = new TextMesh[9];

@@ -36,7 +36,6 @@ public class SaveData {
 		idxes.Add(-1);
 		for(int i = 0; i < characterFreqs.Count; i++) { if(characterFreqs[i].Value > 0) { idxes.Add(i); } }
 		for(int i = 0; i < characterWinsArcade.Count; i++) { if(characterWinsArcade[i].Value == 2) { idxes.Add(11); break; } else if(characterWinsArcade[i].Value == 1 && !idxes.Contains(10)) { idxes.Add(10); } }
-		if(CalculateGameCompletionPercent() == 100) { idxes.Add(12); }
 		return idxes[Random.Range(0, idxes.Count)];
 	}
 	public int CalculateGameCompletionPercent() {
