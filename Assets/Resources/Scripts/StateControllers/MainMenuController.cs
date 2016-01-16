@@ -138,7 +138,7 @@ public class MainMenuController:MenuController {
 		PD.controller = null;
 		Destroy(cursor.cursor);
 		cursor = null;
-		for(int i = 0; i < 9; i++) { Destroy(texts[i].gameObject); Destroy(menuButtons[i]); }
+		for(int i = 0; i < 9; i++) { Destroy(texts[i].gameObject); Destroy(menuButtons[i]); Destroy(menuButtonHighlights[i]); }
 		texts = null;
 		SetupTitle();
 	}
