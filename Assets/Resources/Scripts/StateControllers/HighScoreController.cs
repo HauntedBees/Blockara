@@ -13,6 +13,7 @@ See the License for the specific language governing permissions and
 limitations under the License.*/
 using UnityEngine;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 public class HighScoreController:MenuController {
 	private TextMesh currentScore, currentTime, nameEntry;
 	private string scorePosText, scoreTxt, timePosText, timeTxt, currentName;
@@ -24,6 +25,7 @@ public class HighScoreController:MenuController {
 	private Sprite[] confirmButtonSprites;
 	private GameObject inputCollider, confirmButton;
 	private ScoreTextFormatter writer;
+	private Regex keyPress;
 	public void Start() {
 		StateControllerInit(false);
 		SaveData sd = PD.GetSaveData();
@@ -32,6 +34,8 @@ public class HighScoreController:MenuController {
 		string savedName = sd.highScoreName;
 		inputName = new int[] {System.Array.IndexOf(characters, savedName[0]), System.Array.IndexOf(characters, savedName[1]), System.Array.IndexOf(characters, savedName[2])};
 		GetGameObject(Vector3.zero, "BG", Resources.Load<Sprite>(SpritePaths.HighScoreBG), false, "BG0");
+
+		keyPress = new Regex("[A-Za-z0-9]");
 
 		PD.sounds.SetMusicAndPlay(SoundPaths.M_Menu);
 
@@ -157,7 +161,7 @@ public class HighScoreController:MenuController {
 	}
 	private void KeyboardInput() {
 		int cx = nameCursor.getX();
-		bool change = false;
+		bool change = false, manualChange = false;
 		if(--p1_delay <= 0) {
 			if(nameCursor.upP()) {
 				change = true;
@@ -165,16 +169,21 @@ public class HighScoreController:MenuController {
 			} else if(nameCursor.downP()) {
 				change = true;
 				if(--inputName[cx] < 0) { inputName[cx] = characters.Length - 1; }
+			} else if(keyPress.IsMatch(Input.inputString)) {
+				int idx = System.Array.IndexOf(characters, Input.inputString.ToUpper()[0]);
+				if(idx >= 0) { inputName[cx] = idx; }
+				change = true;
+				manualChange = true;
 			}
 			if(change) { SignalMovement(); p1_delay = 10; }
 		}
 		if(change) { nameEntry.text = GetName(); }
-		if(nameCursor.launchOrPause()) {
+		if(nameCursor.launchOrPause() || manualChange) {
 			if(cx < 2) {
 				nameEntry.text = GetName();
 				nameCursor.shiftX(1);
 				SignalMovement();
-			} else { SignalSuccess(); Save(); }
+			} else if(!manualChange) { SignalSuccess(); Save(); }
 		}
 	}
 	private string GetName() {
