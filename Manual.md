@@ -154,12 +154,39 @@ The Options Menu lets you change settings!
 
 © 2014-2016 Sean Finch - Haunted Bees Productions
 
-DOTween Engine © 2014 Daniele Giardini - Demigiant
+[DOTween Engine](http://dotween.demigiant.com/) © 2014 [Daniele Giardini - Demigiant](http://demigiant.com/)
 
-Sounds © 2007-2014 Mirko Horstmann, daenerys, sandyrb, maarten_wez, xtrgamr, theta4, CTCollab, zerolagtime, timgormly, Erdie, Tobiasz 'unfa' Karoń, D W, broumbroum under the CC BY 3.0 License.
+[Nevis Font](http://tenbytwenty.com/?xxxx_posts=nevis) © 2007-2013 [Ed Merritt](http://www.edmerritt.com/)
 
-Nevis font © 2007-2016 Ed Merritt
+[Press Start 2P Font](https://fontlibrary.org/en/font/press-start-2p) © 2011-2012 [Cody Boisclair](http://www.zone38.net/)
 
+Voice of MODE created with eSpeak. [eSpeak](http://espeak.sourceforge.net/) © 2006-2014 [Jonathan Duddington](http://sourceforge.net/u/jonsd/profile/)
+
+"[applause_13sec_2](http://freesound.org/people/m1rk0/sounds/35101/)" by [Mirko Horstmann](http://freesound.org/people/m1rk0/) is licensed under [CC BY 3.0](http://creativecommons.org/licenses/by/3.0/).
+
+"[applause](http://freesound.org/people/daenerys/sounds/260802/)" by [daenerys](http://freesound.org/people/daenerys/) is licensed under [CC BY 3.0](http://creativecommons.org/licenses/by/3.0/).
+
+"[FEMALES REJOICING CLOSE](http://freesound.org/people/sandyrb/sounds/41457/)" by [sandyrb](http://freesound.org/people/sandyrb/) is licensed under [CC BY 3.0](http://creativecommons.org/licenses/by/3.0/).
+
+"[some people applauding](http://freesound.org/people/maarten_wez/sounds/42392/)" by [Maarten Wez](http://freesound.org/people/maarten_wez/) is licensed under [CC BY 3.0](http://creativecommons.org/licenses/by/3.0/).
+
+"[awww than applause and cheering](http://freesound.org/people/xtrgamr/sounds/243801/)" by [xtrgamr](http://freesound.org/people/xtrgamr/) is licensed under [CC BY 3.0](http://creativecommons.org/licenses/by/3.0/).
+
+"[ding30603-spedup](http://freesound.org/people/theta4/sounds/66136/)" by [theta4](http://freesound.org/people/theta4/) is licensed under [CC BY 3.0](http://creativecommons.org/licenses/by/3.0/).
+
+"[Fire Ball Release](http://freesound.org/people/CTCollab/sounds/223611/)" by [CTCollab](http://freesound.org/people/CTCollab/) is licensed under [CC BY 3.0](http://creativecommons.org/licenses/by/3.0/).
+
+"[tape_slow11](http://freesound.org/people/zerolagtime/sounds/49238/)" by [zerolagtime](http://freesound.org/people/zerolagtime/) is licensed under [CC BY 3.0](http://creativecommons.org/licenses/by/3.0/).
+
+"[8-bit explosion](http://freesound.org/people/timgormly/sounds/170146/)" by [timgormly](http://freesound.org/people/timgormly/) is licensed under [CC BY 3.0](http://creativecommons.org/licenses/by/3.0/).
+
+"[wooden01](http://freesound.org/people/Erdie/sounds/28052/)" by [Erdie](http://freesound.org/people/Erdie/) is licensed under [CC BY 3.0](http://creativecommons.org/licenses/by/3.0/).
+
+"[Projectile Shoot](http://freesound.org/people/unfa/sounds/193427/)" by [unfa](http://freesound.org/people/unfa/sounds/193427/) is licensed under [CC BY 3.0](http://creativecommons.org/licenses/by/3.0/).
+
+"[Menu Interface - Confirm 003](http://freesound.org/people/D%20W/sounds/143607/)" by [D W](http://freesound.org/people/D%20W/) is licensed under [CC BY 3.0](http://creativecommons.org/licenses/by/3.0/).
+
+"[sf3-sfx-menu-select](http://freesound.org/people/broumbroum/sounds/50561/)" by [broumbroum](http://freesound.org/people/broumbroum/) is licensed under [CC BY 3.0](http://creativecommons.org/licenses/by/3.0/).
 
 This program was created using Unity. Portions of this program © 2005-2012 Unity Technologies.
 
