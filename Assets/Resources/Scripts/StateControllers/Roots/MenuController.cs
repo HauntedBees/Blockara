@@ -14,7 +14,7 @@ limitations under the License.*/
 using UnityEngine;
 public class MenuController:StateController {
 	protected MenuCursor cursor;
-	protected int selectedIdx;
+	protected int selectedIdx, buttonOpacityTime;
 	protected MenuCursor GetMenuCursor(int w, int h, string sprite, float px, float py, float dx, float dy, int initX, int initY, int p = 1, int frame = -1, float dtweenchange = -1, string sortLayer = "") {
 		GameObject g = new GameObject("Menu CursorContainer " + p);
 		MenuCursor c = g.AddComponent<MenuCursor>();
@@ -39,6 +39,7 @@ public class MenuController:StateController {
 		c.SetupMenu(sprite, px, py, dx, dy, initX, initY, frame, dtweenchange);
 		return c;
 	}
+	protected float GetButtonOpacity() { return 0.25f * Mathf.Sin(buttonOpacityTime++ / 4) + 0.75f; }
 	protected void SignalFailure() { PD.sounds.SetSoundAndPlay(SoundPaths.S_Menu_Deny); }
 	protected void SignalMovement() { PD.sounds.SetSoundAndPlay(SoundPaths.S_Menu_Select); }
 	protected void SignalSuccess() { PD.sounds.SetSoundAndPlay(SoundPaths.S_Menu_Confirm); }

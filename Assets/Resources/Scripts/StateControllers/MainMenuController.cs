@@ -13,7 +13,7 @@ See the License for the specific language governing permissions and
 limitations under the License.*/
 using UnityEngine;
 public class MainMenuController:MenuController {
-	private GameObject[] menuButtons;
+	private GameObject[] menuButtons, menuButtonHighlights;
 	private GameObject title, character;
 	private CutsceneChar charTalker;
 	private int timeUntilDemo;
@@ -34,6 +34,7 @@ public class MainMenuController:MenuController {
 		PD.level = -1;
 		PD.isDemo = false;
 		selectedIdx = 0;
+		buttonOpacityTime = 0;
 		konamiCodeState = 0;
 		delay = 0;
 		title = GetGameObject(new Vector3(0.0f, 1.25f), "Blockara Title", Resources.Load<Sprite>(SpritePaths.LogoText), true);
@@ -120,6 +121,7 @@ public class MainMenuController:MenuController {
 		float menuX = 0.0f, topy = 0.35f, dx = 0.8f, bottomdy = 1.2f;
 		if(PD.p2Char == PersistData.C.Everyone) { dx = 3.0f; bottomdy = 2.1f; }
 		menuButtons = new GameObject[9];
+		menuButtonHighlights = new GameObject[9];
 		texts = new TextMesh[9];
 		AddButton(0, menuX - dx, topy, GetXmlValue(top, "quickplay"));
 		AddButton(1, menuX + dx, topy, GetXmlValue(top, "versus"));
@@ -134,6 +136,8 @@ public class MainMenuController:MenuController {
 
 	private void AddButton(int idx, float x, float y, string text) {
 		menuButtons[idx] = GetGameObject(new Vector3(x, y - 0.1f), text, buttonSheet[0], true, "HUD");
+		menuButtonHighlights[idx] = GetGameObject(new Vector3(x, y - 0.1f), text, buttonSheet[1], false, "HUDPlusOne");
+		menuButtonHighlights[idx].SetActive(false);
 		texts[idx] = GetMeshText(new Vector3(x, y), text, PD.mostCommonFont);
 	}
 
@@ -173,11 +177,13 @@ public class MainMenuController:MenuController {
 		KonamiCodeCheck();
 		HandleMouse();
 		cursor.DoUpdate();
-		menuButtons[selectedIdx].GetComponent<SpriteRenderer>().sprite = buttonSheet[0];
+		int oldIdx = selectedIdx;
 		int cY = cursor.getY(), cX = cursor.getX();
 		if(cY == 0) { cX = 0; }
 		selectedIdx = 8 - cY * 2 + cX;
-		menuButtons[selectedIdx].GetComponent<SpriteRenderer>().sprite = buttonSheet[1];
+		if(selectedIdx != oldIdx) { menuButtonHighlights[oldIdx].SetActive(false); }
+		menuButtonHighlights[selectedIdx].SetActive(true);
+		menuButtonHighlights[selectedIdx].renderer.material.color = new Color(1.0f, 1.0f, 1.0f, GetButtonOpacity());
 		if(cursor.launchOrPause()) { ConfirmSelectionAndAdvance(selectedIdx); }
 	}
 	private void ConfirmSelectionAndAdvance(int pos) {

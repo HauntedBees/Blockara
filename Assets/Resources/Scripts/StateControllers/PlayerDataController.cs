@@ -15,7 +15,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Xml;
 public class PlayerDataController:LeftButtonsMenuController {
-	private int prevPos, charIdx, p1_delay, bioCount;
+	private int charIdx, p1_delay, bioCount;
 	private bool bioInfoHidden, inSoundTest;
 	private OptionsSelector navigationArrows;
 	private SoundTest soundTest;
@@ -29,7 +29,7 @@ public class PlayerDataController:LeftButtonsMenuController {
 		float x = -2.85f, topy = 0.85f;
 		
 		selectedIdx = 5;
-		sidepanels = new GameObject[7];
+		sidepanels = new GameObject[7][];
 		sidepanels[0] =	GetButton(x, topy, 		  GetXmlValue(top, "overall"), PD.mostCommonFont);
 		sidepanels[1] =	GetButton(x, topy - 0.3f, GetXmlValue(top, "quickplay"), PD.mostCommonFont);
 		sidepanels[2] =	GetButton(x, topy - 0.6f, GetXmlValue(top, "arcade"), PD.mostCommonFont);
@@ -123,7 +123,7 @@ public class PlayerDataController:LeftButtonsMenuController {
 			if(keyWasPressed) { p1_delay = 20; }
 		} else if(cy == 1) {
 			bool res = UpdateSoundTest(false);
-			if(res || cursor.launchOrPause() || (clicker.getPositionInGameObject(sidepanels[5]).z > 0.0f && clicker.isDown())) {
+			if(res || cursor.launchOrPause() || (clicker.getPositionInGameObject(sidepanels[5][0]).z > 0.0f && clicker.isDown())) {
 				if(!res) { SignalSuccess(); }
 				inSoundTest = true;
 			}
@@ -131,11 +131,12 @@ public class PlayerDataController:LeftButtonsMenuController {
 		if(cursor.back() || (cursor.getY() == 0 && (cursor.launchOrPause() || (clicker.isDown() && PD.usingMouse)))) { SignalSuccess(); PD.GoToMainMenu(); }
 	}
 	private void UpdateCursorPosition(int pos, bool earlyExit = false) {
-		if(pos == prevPos) { return; }
-		sidepanels[selectedIdx].GetComponent<SpriteRenderer>().sprite = leftButton[0];
-		prevPos = pos;
+		int oldIdx = selectedIdx;
 		selectedIdx = 6 - pos;
-		sidepanels[selectedIdx].GetComponent<SpriteRenderer>().sprite = leftButton[1];
+		if(selectedIdx != oldIdx) { sidepanels[oldIdx][1].SetActive(false); }
+		sidepanels[selectedIdx][1].SetActive(true);
+		sidepanels[selectedIdx][1].renderer.material.color = new Color(1.0f, 1.0f, 1.0f, GetButtonOpacity());
+		if(selectedIdx == oldIdx) { return; }
 		if(earlyExit) { return; }
 		UpdatePanel(pos);
 	}

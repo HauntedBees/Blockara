@@ -14,18 +14,21 @@ limitations under the License.*/
 using UnityEngine;
 public class LeftButtonsMenuController:MenuController {
 	protected Sprite[] leftButton;
-	protected GameObject[] sidepanels;
+	protected GameObject[][] sidepanels;
 	protected override void StateControllerInit(bool showBack = true) {
 		base.StateControllerInit(showBack);
+		buttonOpacityTime = 0;
 		GetGameObject(Vector3.zero, "Gradient BG Cover", Resources.Load<Sprite>(SpritePaths.BGBlackFadeLeft), false, "BG1");
 		leftButton = Resources.LoadAll<Sprite>(SpritePaths.LeftButtons);
 	}
-	protected GameObject GetButton(float x, float y, string text, FontData f) {
+	protected GameObject[] GetButton(float x, float y, string text, FontData f) {
 		Vector3 pos = new Vector3(x, y);
-		GameObject g = GetGameObject(pos, "Button: " + text, leftButton[0], true);
+		GameObject g = GetGameObject(pos, "Button: " + text, leftButton[0], true, "HUD");
+		GameObject g2 = GetGameObject(pos, "ButtonTop: " + text, leftButton[1], false, "HUDPlusOne");
+		g2.SetActive(false);
 		pos.y += 0.1f;
 		GetMeshText(pos, text, f);
-		return g;
+		return new GameObject[] {g, g2};
 	}
 	protected void TweenAndMouse() {
 		UpdateMouseInput();

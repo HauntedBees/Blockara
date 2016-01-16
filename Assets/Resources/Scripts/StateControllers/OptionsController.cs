@@ -27,7 +27,8 @@ public class OptionsController:LeftButtonsMenuController {
 	private bool isFullScreen;
 	private int volume_music, volume_sound, volume_voice;
 	private bool confirmWipe;
-	private GameObject side_options, side_controls, side_accessibility, side_back, goBack;
+	private GameObject[] side_options, side_controls, side_accessibility, side_back;
+	private GameObject goBack;
 	
 	private OptionsHandler optionsScreen;
 	private ControlsHandler controlsScreen;
@@ -57,7 +58,7 @@ public class OptionsController:LeftButtonsMenuController {
 		side_controls = GetButton(x, topy, GetXmlValue(top, "controls"), PD.mostCommonFont);
 		side_accessibility = GetButton(x, topy - 0.3f, GetXmlValue(top, "accessibility"), PD.mostCommonFont);
 		side_back = GetButton(x, topy - 0.6f, GetXmlValue(top, "back"), PD.mostCommonFont);
-		sidepanels = new GameObject[] {side_back, side_accessibility, side_controls, side_options};
+		sidepanels = new GameObject[][] {side_back, side_accessibility, side_controls, side_options};
 		selectedIdx = 3;
 
 		CreateInfoPane(0.8f, 0.0f);
@@ -111,10 +112,10 @@ public class OptionsController:LeftButtonsMenuController {
 			default: UpdateOuter(); break;
 		}
 		if(menuPosition > 0 && PD.usingMouse) {
-			if(clicker.getPositionInGameObject(side_back).z > 0) { cursor.setY(0); }
-			else if(clicker.getPositionInGameObject(side_accessibility).z > 0) { cursor.setY(1); }
-			else if(clicker.getPositionInGameObject(side_controls).z > 0) { cursor.setY(2); }
-			else if(clicker.getPositionInGameObject(side_options).z > 0) { cursor.setY(3); }
+			if(clicker.getPositionInGameObject(side_back[0]).z > 0) { cursor.setY(0); }
+			else if(clicker.getPositionInGameObject(side_accessibility[0]).z > 0) { cursor.setY(1); }
+			else if(clicker.getPositionInGameObject(side_controls[0]).z > 0) { cursor.setY(2); }
+			else if(clicker.getPositionInGameObject(side_options[0]).z > 0) { cursor.setY(3); }
 			UpdateOuterMouse(clicker.isDown(), true);
 		}
 	}
@@ -434,10 +435,12 @@ public class OptionsController:LeftButtonsMenuController {
 		cursor.SetVisibility(true);
 		cursor3.SetVisibility(false);
 		cursor.DoUpdate();
-		sidepanels[selectedIdx].GetComponent<SpriteRenderer>().sprite = leftButton[0];
+		int oldIdx = selectedIdx;
 		int cy = cursor.getY();
 		selectedIdx = cy;
-		sidepanels[selectedIdx].GetComponent<SpriteRenderer>().sprite = leftButton[1];
+		if(selectedIdx != oldIdx) { sidepanels[oldIdx][1].SetActive(false); }
+		sidepanels[selectedIdx][1].SetActive(true);
+		sidepanels[selectedIdx][1].renderer.material.color = new Color(1.0f, 1.0f, 1.0f, GetButtonOpacity());
 		if(cursor.launchOrPause()) {
 			menuPosition = cy;
 			if(cy == 3) {
@@ -525,10 +528,10 @@ public class OptionsController:LeftButtonsMenuController {
 				cursor.setY(3);
 			}
 		} else if(menuPosition == 2) {
-			if(clicker.getPositionInGameObject(side_back).z > 0 || 
-			   clicker.getPositionInGameObject(side_accessibility).z > 0 ||
-			   clicker.getPositionInGameObject(side_controls).z > 0 ||
-			   clicker.getPositionInGameObject(side_options).z > 0) {
+			if(clicker.getPositionInGameObject(side_back[0]).z > 0 || 
+			   clicker.getPositionInGameObject(side_accessibility[0]).z > 0 ||
+			   clicker.getPositionInGameObject(side_controls[0]).z > 0 ||
+			   clicker.getPositionInGameObject(side_options[0]).z > 0) {
 				if(clicker.isDown()) {
 					LeaveControls();
 					return false;
@@ -591,10 +594,10 @@ public class OptionsController:LeftButtonsMenuController {
 				UpdateAccessibilityOption(cy, dx);
 			}
 		} else {
-			if(clicker.getPositionInGameObject(side_back).z > 0) {
+			if(clicker.getPositionInGameObject(side_back[0]).z > 0) {
 				cursor.setY(0);
 				if(clicker.isDown()) { SignalSuccess(); PD.GoToMainMenu(); }
-			} else if(clicker.getPositionInGameObject(side_accessibility).z > 0) {
+			} else if(clicker.getPositionInGameObject(side_accessibility[0]).z > 0) {
 				cursor.setY(1);
 				if(clicker.isDown()) {
 					SignalSuccess();
@@ -602,13 +605,13 @@ public class OptionsController:LeftButtonsMenuController {
 					menuPosition = 1;
 					cursor2Display.SetWidth(GetXmlFloat(top, "accessibilityscalewidth"));
 				}
-			} else if(clicker.getPositionInGameObject(side_controls).z > 0) {
+			} else if(clicker.getPositionInGameObject(side_controls[0]).z > 0) {
 				cursor.setY(2);
 				if(clicker.isDown()) {
 					SignalSuccess();
 					menuPosition = 2;
 				}
-			} else if(clicker.getPositionInGameObject(side_options).z > 0) {
+			} else if(clicker.getPositionInGameObject(side_options[0]).z > 0) {
 				cursor.setY(3);
 				if(clicker.isDown()) {
 					cursor2.setY(8);
@@ -623,10 +626,10 @@ public class OptionsController:LeftButtonsMenuController {
 	}
 	private void UpdateOuterMouse(bool isClicking, bool ignoreC2Resize = false) {
 		cursor.SetVisibility(true);
-		sidepanels[selectedIdx].GetComponent<SpriteRenderer>().sprite = leftButton[0];
+		sidepanels[selectedIdx][0].GetComponent<SpriteRenderer>().sprite = leftButton[0];
 		int cy = cursor.getY();
 		selectedIdx = cy;
-		sidepanels[selectedIdx].GetComponent<SpriteRenderer>().sprite = leftButton[1];
+		sidepanels[selectedIdx][0].GetComponent<SpriteRenderer>().sprite = leftButton[1];
 		if(isClicking) {
 			UpdateCursorPosition(cy);
 			menuPosition = cy;

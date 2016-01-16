@@ -73,6 +73,10 @@ TagManager:
     userID: 1
     uniqueID: 4234948103
     locked: 0
+  - name: HUDPlusOne
+    userID: 20
+    uniqueID: 1521561673
+    locked: 0
   - name: HUDText
     userID: 5
     uniqueID: 2178703593
