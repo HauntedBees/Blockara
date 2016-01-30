@@ -192,7 +192,7 @@ public class ControlsHandler:MenuHandler {
 		string[] axisVals = axisname.Split(':');
 		int dir = int.Parse(axisVals[1]);
 		int justTheAxis = int.Parse(axisVals[0].Split('_')[1]);
-		#if (UNITY_EDITOR || UNITY_STANDALONE_WIN)
+		#if (UNITY_EDITOR || UNITY_STANDALONE_WIN || UNITY_STANDALONE_OSX)
 		switch(justTheAxis) { // left is negative up is negative
 			case 0: if(dir<0) { return 10; } else { return 11; } // L X-axis
 			case 1: if(dir<0) { return 13; } else { return 12; } // L Y-axis
@@ -229,11 +229,11 @@ public class ControlsHandler:MenuHandler {
 			case 7: return 8;
 			case 8: return 14;
 			case 9: 
-#if (UNITY_EDITOR || UNITY_STANDALONE_WIN)
+			#if (UNITY_EDITOR || UNITY_STANDALONE_WIN || UNITY_STANDALONE_OSX)
 				return 19;
-#elif UNITY_STANDALONE_LINUX
+			#elif UNITY_STANDALONE_LINUX
 				return 14;
-#endif
+			#endif
 			case 10: return 19;
 		}
 		return 0;
