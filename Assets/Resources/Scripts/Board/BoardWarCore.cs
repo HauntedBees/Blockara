@@ -23,19 +23,17 @@ public class BoardWarCore:ObjCore {
 	protected bool ignoreDamageSound, isMirror;
 	protected void SetupTilesList() {
 		tiles = new List<Tile>();
-		for (int y = 0; y < height; y++) { for (int x = 0; x < width; x++) { int pos = GetListPosFromXY(x, y); tiles.Add(CreateTile(x, y, GetTileColor(pos), GetTileSpecialVal(pos))); } }
+		for (int y = 0; y < height; y++) {
+			for (int x = 0; x < width; x++) {
+				int pos = GetListPosFromXY(x, y);
+				tiles.Add(CreateTile(x, y, GetTileColor(pos), GetTileSpecialVal(pos)));
+			}
+		}
 	}
 	virtual protected Tile CreateTile(int x, int y, int tval = -1, int sval = -1) {
-		Tile t;
 		int sreal = (sval < 0 ? GetSpecial() : sval);
-		if(PD.TileBank.Count == 0) {
-			GameObject g = new GameObject("tileHolder");
-			t = g.AddComponent<Tile>();
-		} else {
-			t = PD.TileBank[0];
-			PD.TileBank.RemoveAt(0);
-			t.gameObject.SetActive(true);
-		}
+		GameObject g = new GameObject("tileHolder");
+		Tile t = g.AddComponent<Tile>();
 		t.SetupTile(PD, GetScreenPosFromXY(x, y), tileSheet, overlaySprite, shapeSheet, tval, sreal, isShown);
 		return t;
 	}
@@ -91,7 +89,7 @@ public class BoardWarCore:ObjCore {
 	protected void LaunchTiles(int length, int topy, int x, bool mirror = false) {
 		if(isShown) {
 			PD.sounds.SetSoundAndPlay(SoundPaths.S_Launch);
-			for(int y = 0; y < length; y++) {  tiles[GetListPosFromXY(x, topy - y)].CleanGameObjects(); }
+			for(int y = 0; y < length; y++) { tiles[GetListPosFromXY(x, topy - y)].CleanGameObjects(); }
 		}
 		for(int y = topy - length; y >= 0; y--) {
 			int pos = GetListPosFromXY(x, y);

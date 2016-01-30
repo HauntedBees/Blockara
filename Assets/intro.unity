@@ -344,8 +344,10 @@ MonoBehaviour:
   playerRoundTimes: 
   sounds: {fileID: 0}
   universalPrefab: {fileID: 0}
+  universalPrefabCollider: {fileID: 0}
   culture: en
   KEY_DELAY: 0
+  GameObjectBank: []
   TileBank: []
   dontFade: 0
   voicePitch: 1

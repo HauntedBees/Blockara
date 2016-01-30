@@ -30,12 +30,13 @@ public class PersistData:MonoBehaviour {
 	private SaveData saveInfo;
 	public FontData mostCommonFont;
 	public AudioContainerContainer sounds;
-	public GameObject universalPrefab;
+	public GameObject universalPrefab, universalPrefabCollider;
 	public string culture = "en";
 	public int KEY_DELAY;
 	void Start() {
 		Object.DontDestroyOnLoad(this);
-		universalPrefab = Resources.Load<GameObject>("Prefabs/Tile");
+		universalPrefab = Resources.Load<GameObject>("Prefabs/Tile_NoCollider");
+		universalPrefabCollider = Resources.Load<GameObject>("Prefabs/Tile");
 		Object.DontDestroyOnLoad(universalPrefab);
 		Texture2D t = Resources.Load<Texture2D>(SpritePaths.MouseCursor);
 		Cursor.SetCursor(t, Vector2.zero, CursorMode.ForceSoftware);
@@ -60,9 +61,19 @@ public class PersistData:MonoBehaviour {
 		override2P = false;
 	}
 	#region "Tile Bank"
-	public List<Tile> TileBank;
-	public void InitTileBank() { TileBank = new List<Tile>(); }
-	public void ClearTileBank() { for(int i = 0; i < TileBank.Count; i++) { TileBank[i].CleanGameObjects(true); Destroy(TileBank[i].gameObject); } TileBank.Clear(); }
+	public List<GameObject> GameObjectBank;
+	public void InitGameObjectBank() {
+		int count = gameType == GT.Versus ? 800 : 400;
+		for(int i = 0; i < count; i++) {
+			GameObjectBank.Add(Instantiate(universalPrefab, Vector3.zero, Quaternion.identity) as GameObject);
+		}
+	}
+	public void ClearGameObjectBank() {
+		for(int i = 0; i < GameObjectBank.Count; i++) {
+			Destroy(GameObjectBank[i]);
+		}
+		GameObjectBank.Clear();
+	}
 	#endregion
 	#region "Controller Setup"
 	private bool IsKeyboardRegisteringAsGamepad() { return Input.GetJoystickNames()[0].IndexOf("abcdefg") >= 0; }
@@ -165,7 +176,7 @@ public class PersistData:MonoBehaviour {
 	public void GoToMainMenu() { ChangeScreen(GS.MainMenu); }
 	public void ChangeScreen(GS type) {
 		if(isTransitioning) { return; }
-		if(currentScreen == GS.Game) { ClearTileBank(); }
+		if(currentScreen == GS.Game) { ClearGameObjectBank(); }
 		isTransitioning = true;
 		StartFade(1);
 		StartCoroutine(ChangeScreenInner(type));
@@ -174,7 +185,7 @@ public class PersistData:MonoBehaviour {
 	public void OnLevelWasLoaded() {
 		isTransitioning = false;
 		if(dontFade) { dontFade = false; return; }
-		if(currentScreen == GS.Game) { InitTileBank(); }
+		if(currentScreen == GS.Game) { InitGameObjectBank(); }
 		StartFade(-1);
 		SetupSound();
 	}

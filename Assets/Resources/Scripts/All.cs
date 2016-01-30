@@ -41,13 +41,37 @@ public class All:MonoBehaviour {
 		return meshText.GetComponent<TextMesh>();
 	}
 	protected GameObject GetGameObject(Vector3 pos, string name, Sprite sprite, bool collider = false, string sortLayer = "") {
-		GameObject g = Instantiate(PD.universalPrefab, pos, Quaternion.identity) as GameObject;
-		g.name = name;
+		GameObject g = Instantiate(collider?PD.universalPrefabCollider:PD.universalPrefab, pos, Quaternion.identity) as GameObject;
+		g.name = name + Random.Range (0, 10000);
 		if(sprite != null) { g.GetComponent<SpriteRenderer>().sprite = sprite; }
 		if(sortLayer != "") { g.renderer.sortingLayerName = sortLayer; }
 		if(collider) { WrapColliderToGameObject(g); }
 		return g;
 	}
+	protected GameObject GetGameObject_Tile(Vector3 pos, string name, Sprite sprite, string sortLayer) {
+		GameObject g;
+		if(PD.GameObjectBank.Count > 0) {
+			g = PD.GameObjectBank[0];
+			PD.GameObjectBank.Remove(g);
+		} else {
+			return GetGameObject(pos, name, sprite, collider, sortLayer);
+		}
+		g.SetActive(true);
+		g.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+		g.renderer.material.color = Color.white;
+		g.transform.position = pos;
+		g.name = name + Random.Range (0, 10000);
+		if(sprite != null) { g.GetComponent<SpriteRenderer>().sprite = sprite; }
+		g.renderer.sortingLayerName = sortLayer;
+		return g;
+	}
+	protected void PutGameObjectInBank(GameObject g) {
+		if(g==null){ return; }
+		g.SetActive(false);
+		g.transform.parent = null;
+		PD.GameObjectBank.Add(g);
+	}
+
 	protected GameObject GetCollider(string name, Vector3 pos, float scaleX = 1.0f, float scaleY = 1.0f) {
 		GameObject col = GetGameObject(pos, name, Resources.Load<Sprite>(SpritePaths.OptionsCollider), true, "HUD");
 		col.transform.localScale = new Vector3(scaleX, scaleY, 1.0f);
