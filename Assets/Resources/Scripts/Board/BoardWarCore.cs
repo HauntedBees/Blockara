@@ -16,13 +16,14 @@ using System.Collections.Generic;
 public class BoardWarCore:ObjCore {
 	public int width, height;
 	public float xOffset;
-	protected List<Tile> tiles;
+	protected List<Tile> tiles, dx;
 	public Sprite[] tileSheet, shapeSheet;
 	public Sprite overlaySprite;
 	public int deathTile, chain, topoffset;
 	protected bool ignoreDamageSound, isMirror;
 	protected void SetupTilesList() {
 		tiles = new List<Tile>();
+		dx = new List<Tile>();
 		for (int y = 0; y < height; y++) {
 			for (int x = 0; x < width; x++) {
 				int pos = GetListPosFromXY(x, y);
@@ -64,7 +65,7 @@ public class BoardWarCore:ObjCore {
 	virtual protected void ShiftRow(int rowNum, int dir, bool mirror = false) {
 		int rowStart = GetListPosFromXY(0, rowNum);
 		int rowEnd = rowStart + width;
-		List<Tile> dx = new List<Tile>();
+		dx.Clear();
 		for(int x = rowStart; x < rowEnd; x++) { dx.Add(tiles[x]); }
 		int length = dx.Count - 1;
 		if(dir < 0) {
@@ -95,7 +96,7 @@ public class BoardWarCore:ObjCore {
 			int pos = GetListPosFromXY(x, y);
 			ReplaceTileInListAndTween(pos + (length * width), tiles[pos], 0, Vector3.zero);
 		}
-		for(int y = length - 1; y >= 0; y--) { 
+		for(int y = length - 1; y >= 0; y--) {
 			int pos = GetListPosFromXY(x, y);
 			Tile tile = CreateTile(x, y, GetTileColor(pos), GetTileSpecialVal(pos));
 			tiles[pos] = tile;
