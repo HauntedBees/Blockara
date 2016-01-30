@@ -57,7 +57,7 @@ public class InputVal_Key:InputVal {
 				case 7: return "START";
 				case 8: return "L3";
 				case 9: 
-					#if (UNITY_EDITOR || UNITY_STANDALONE_WIN)
+					#if (UNITY_EDITOR || UNITY_STANDALONE_WIN || UNITY_STANDALONE_OSX)
 					return "R3";
 					#elif UNITY_STANDALONE_LINUX
 					return "L3";
@@ -100,7 +100,7 @@ public class InputVal_Axis:InputVal {
 	}
 	override public string GetName() {
 		int idx = int.Parse(joyName.Split('_')[1]);
-		#if (UNITY_EDITOR || UNITY_STANDALONE_WIN)
+		#if (UNITY_EDITOR || UNITY_STANDALONE_WIN || UNITY_STANDALONE_OSX)
 		switch(idx) { // left is negative up is negative
 			case 0: return "the L-stick"; // L X-axis
 			case 1: return "the L-stick"; // L Y-axis
