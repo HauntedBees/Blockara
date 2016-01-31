@@ -44,8 +44,8 @@ public class OptionsSelector:All {
 		rightArrow.SetActive(show);
 	}
 	public void HideAnArrowIfAtCorner(int val, int min, int max) {
-		leftArrow.renderer.material.color = (val != min) ? Color.white : Color.grey;
-		rightArrow.renderer.material.color = (val != max) ? Color.white : Color.grey;
+		leftArrow.GetComponent<SpriteRenderer>().color = (val != min) ? Color.white : Color.grey;
+		rightArrow.GetComponent<SpriteRenderer>().color = (val != max) ? Color.white : Color.grey;
 	}
 	public void HighlightArrow(bool right) {
 		if(right) {

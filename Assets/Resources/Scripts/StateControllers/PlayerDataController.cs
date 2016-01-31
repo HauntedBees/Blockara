@@ -135,7 +135,7 @@ public class PlayerDataController:LeftButtonsMenuController {
 		selectedIdx = 6 - pos;
 		if(selectedIdx != oldIdx) { sidepanels[oldIdx][1].SetActive(false); }
 		sidepanels[selectedIdx][1].SetActive(true);
-		sidepanels[selectedIdx][1].renderer.material.color = new Color(1.0f, 1.0f, 1.0f, GetButtonOpacity());
+		sidepanels[selectedIdx][1].GetComponent<SpriteRenderer>().color = new Color(1.0f, 1.0f, 1.0f, GetButtonOpacity());
 		if(selectedIdx == oldIdx) { return; }
 		if(earlyExit) { return; }
 		UpdatePanel(pos);

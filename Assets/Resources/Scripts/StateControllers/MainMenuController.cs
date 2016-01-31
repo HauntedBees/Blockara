@@ -79,7 +79,7 @@ public class MainMenuController:MenuController {
 		if(PD.GetSaveData().savedOptions["beatafuckingballoon"] != 1) { return; }
 		Sprite psprite = Resources.LoadAll<Sprite>(SpritePaths.CharFullShots)[32];
 		GameObject pleaseDadCanIHgaaveOne = GetGameObject(new Vector3(-1.8f, 1.2f), "Puhloonverlay", psprite, false, "HUDText");
-		pleaseDadCanIHgaaveOne.renderer.material.color = new Color(1.0f, 1.0f, 1.0f, 0.5f);
+		pleaseDadCanIHgaaveOne.GetComponent<SpriteRenderer>().color = new Color(1.0f, 1.0f, 1.0f, 0.5f);
 		pleaseDadCanIHgaaveOne.renderer.transform.localScale = new Vector2(0.5f, 0.45f);
 	}
 	private void SetupTitle() {
@@ -176,7 +176,7 @@ public class MainMenuController:MenuController {
 		selectedIdx = 8 - cY * 2 + cX;
 		if(selectedIdx != oldIdx) { menuButtonHighlights[oldIdx].SetActive(false); }
 		menuButtonHighlights[selectedIdx].SetActive(true);
-		menuButtonHighlights[selectedIdx].renderer.material.color = new Color(1.0f, 1.0f, 1.0f, GetButtonOpacity());
+		menuButtonHighlights[selectedIdx].GetComponent<SpriteRenderer>().color = new Color(1.0f, 1.0f, 1.0f, GetButtonOpacity());
 		if(cursor.launchOrPause()) { ConfirmSelectionAndAdvance(selectedIdx); }
 	}
 	private void ConfirmSelectionAndAdvance(int pos) {

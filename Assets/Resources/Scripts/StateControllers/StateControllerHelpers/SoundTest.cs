@@ -130,7 +130,7 @@ public class SoundTest:All {
 				}
 			}
 		}
-		for(int y = 0; y < playlistShown; y++) { playlistColliders[y].renderer.material.color = (y == cursorIdx ? Color.white : Color.clear); }
+		for(int y = 0; y < playlistShown; y++) { playlistColliders[y].GetComponent<SpriteRenderer>().color = (y == cursorIdx ? Color.white : Color.clear); }
 		if(topIdx > 0 && dy < 0) { topIdx--; }
 		else if(topIdx < (playlistEntries.Count - playlistShown) && dy > 0) { topIdx++; }
 		else { dy = 0; }
@@ -204,9 +204,9 @@ public class SoundTest:All {
 		Sprite collider = Resources.Load<Sprite>(SpritePaths.SoundTestCollider);
 		for(int y = 0; y < playlistShown; y++) {
 			playlistColliders[y] = GetGameObject(new Vector3(-1.21f + offsetx, 0.66f + offsety - 0.12f * y), "collider", collider, true, "HUDText");
-			playlistColliders[y].renderer.material.color = Color.clear;
+			playlistColliders[y].GetComponent<SpriteRenderer>().color = Color.clear;
 		}
-		playlistColliders[0].renderer.material.color = Color.white;
+		playlistColliders[0].GetComponent<SpriteRenderer>().color = Color.white;
 		topIdx = 0; cursorIdx = 0; dy = 0;
 		playlistEntries = new List<TrackInfo>();
 		string artist = "Michio Poppleton";

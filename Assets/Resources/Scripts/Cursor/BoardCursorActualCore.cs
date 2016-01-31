@@ -17,7 +17,9 @@ using System.Collections.Generic;
 public class BoardCursorActualCore:BoardCursorCore {
 	#region "Members"
 	protected GameObject white;
+	protected SpriteRenderer white_sr;
 	protected GameObject[] whiteDepth;
+	protected SpriteRenderer[] whiteDepth_sr;
 	private Sequence winningTweenJustSeventeenYoureTheWinningTween, damageTween;
 	protected int depth, penetrateDepth, maxWhiteDepth;
 	protected float moveDelay;
@@ -46,9 +48,12 @@ public class BoardCursorActualCore:BoardCursorCore {
 	private void InitializeWhite() {
 		if(!isShown) { return; }
 		white = GetGameObject(Vector3.zero, "White", Resources.Load<Sprite>(SpritePaths.White), false, "Default");
+		white_sr = white.GetComponent<SpriteRenderer>();
 		whiteDepth = new GameObject[maxWhiteDepth + 1];
+		whiteDepth_sr = new SpriteRenderer[maxWhiteDepth + 1];
 		for(int i = 0; i < (maxWhiteDepth + 1); i++) {
 			whiteDepth[i] = GetGameObject(Vector3.zero, "White" + i, Resources.Load<Sprite>(SpritePaths.WhiteSingle), false, "HUD");
+			whiteDepth_sr[i] = whiteDepth[i].GetComponent<SpriteRenderer>();
 			whiteDepth[i].SetActive(false);
 		}
 	}
@@ -68,12 +73,12 @@ public class BoardCursorActualCore:BoardCursorCore {
 		if(penetrateDepth > 0) {
 			if(damageTween == null || damageTween.IsComplete() || !damageTween.IsActive()) {
 				damageTween = DOTween.Sequence();
-				damageTween.Append(whiteDepth[depth + 1].renderer.material.DOColor(Color.black, 0.2f));
-				damageTween.Append(whiteDepth[depth + 1].renderer.material.DOColor(Color.white, 0.2f));
+				damageTween.Append(whiteDepth_sr[depth + 1].DOColor(Color.black, 0.2f));
+				damageTween.Append(whiteDepth_sr[depth + 1].DOColor(Color.white, 0.2f));
 				for(int i = depth + 2; i < (depth + 1 + penetrateDepth); i++) {
 					Sequence s = DOTween.Sequence();
-					s.Append(whiteDepth[i].renderer.material.DOColor(Color.black, 0.2f));
-					s.Append(whiteDepth[i].renderer.material.DOColor(Color.white, 0.2f));
+					s.Append(whiteDepth_sr[i].DOColor(Color.black, 0.2f));
+					s.Append(whiteDepth_sr[i].DOColor(Color.white, 0.2f));
 				}
 			}
 		}
@@ -82,12 +87,12 @@ public class BoardCursorActualCore:BoardCursorCore {
 		if(canKill) {
 			if(winningTweenJustSeventeenYoureTheWinningTween == null || winningTweenJustSeventeenYoureTheWinningTween.IsComplete() || !winningTweenJustSeventeenYoureTheWinningTween.IsActive()) {
 				winningTweenJustSeventeenYoureTheWinningTween = DOTween.Sequence();
-				winningTweenJustSeventeenYoureTheWinningTween.Append(white.renderer.material.DOColor(Color.black, 0.2f));
-				winningTweenJustSeventeenYoureTheWinningTween.Append(white.renderer.material.DOColor(Color.white, 0.2f));
+				winningTweenJustSeventeenYoureTheWinningTween.Append(white_sr.DOColor(Color.black, 0.2f));
+				winningTweenJustSeventeenYoureTheWinningTween.Append(white_sr.DOColor(Color.white, 0.2f));
 				for(int i = 0; i < maxWhiteDepth; i++) {
 					Sequence s = DOTween.Sequence();
-					s.Append(whiteDepth[i].renderer.material.DOColor(Color.black, 0.2f));
-					s.Append(whiteDepth[i].renderer.material.DOColor(Color.yellow, 0.2f));
+					s.Append(whiteDepth_sr[i].DOColor(Color.black, 0.2f));
+					s.Append(whiteDepth_sr[i].DOColor(Color.yellow, 0.2f));
 				}
 			}
 		}

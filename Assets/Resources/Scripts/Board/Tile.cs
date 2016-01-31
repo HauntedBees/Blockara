@@ -15,14 +15,17 @@ using DG.Tweening;
 using UnityEngine;
 public class Tile:ObjCore {
 	public GameObject block, wholeoverlay, glow;
+	private SpriteRenderer block_sr, shape_sr;
 	private GameObject charoverlay, shape;
 	protected int colorVal, specialVal, flashState;
 	private bool isEmpty;
 	private int emptySpriteTile;
 	private Sprite[] tileSheet, glowSheet;
+	private Color ColorHalf;
 	public bool isShield, clearBackOnOverlayWipe, isConcrete, isAnimating;
 	public void SetupTile(PersistData P, Vector3 pos, Sprite[] ts, Sprite os, Sprite[] ss, int tVal, int sVal, bool show) {
 		PD = P;
+		ColorHalf = new Color(1.0f, 1.0f, 1.0f, 0.5f);
 		tileSheet = ts;
 		glowSheet = Resources.LoadAll<Sprite>(SpritePaths.Glows);
 		emptySpriteTile = 3;
@@ -36,10 +39,12 @@ public class Tile:ObjCore {
 		if(isShown) {
 			int tValAct = (tVal < 0?emptySpriteTile:tVal);
 			block = GetTileObject(pos, "tile", ts[tValAct], "Tile");
+			block_sr = block.GetComponent<SpriteRenderer>();
 			charoverlay = GetTileObject(pos, "tile", os, "TileOverlay");
 			charoverlay.transform.parent = block.transform;
 			shape = GetTileObject(pos, "tile", ss[GetShapeIdx(tValAct, sVal)], "Shape");
 			shape.transform.parent = block.transform;
+			shape_sr = shape.GetComponent<SpriteRenderer>();
 			if(tValAct == emptySpriteTile) { shape.SetActive(false); }
 		}
 		if(tVal > 2 || tVal < 0) { Kill(); }
@@ -47,11 +52,12 @@ public class Tile:ObjCore {
 	public void StartFlash(int color, Vector3 pos) {
 		if(!isShown) { return; }
 		glow = GetGameObject(block.renderer.transform.position, "glow", glowSheet[color], false, "ShapeOverlay");
+		SpriteRenderer glow_sr = glow.GetComponent<SpriteRenderer>();
 		glow.renderer.transform.position = pos;
-		glow.renderer.material.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
+		glow_sr.color = Color.white;
 		Sequence S = DOTween.Sequence();
-		S.Append(glow.renderer.material.DOColor(new Color(1.0f, 1.0f, 1.0f, 0.9f), 0.15f));
-		S.Append(glow.renderer.material.DOColor(new Color(1.0f, 1.0f, 1.0f, 0.0f), 0.35f).OnComplete(()=>EndFlash(glow)));
+		S.Append(glow_sr.DOColor(new Color(1.0f, 1.0f, 1.0f, 0.9f), 0.15f));
+		S.Append(glow_sr.DOColor(new Color(1.0f, 1.0f, 1.0f, 0.0f), 0.35f).OnComplete(()=>EndFlash(glow)));
 		flashState = 0;
 	}
 	private void EndFlash(GameObject glow) { Destroy(glow); }
@@ -77,12 +83,10 @@ public class Tile:ObjCore {
 		if(wholeoverlay != null) { wholeoverlay.transform.position = v; }
 	}
 	public void MakeRecoveryTile(int type) {
-		Color c = block.renderer.material.color;
-		c.a = 0.5f;
 		clearBackOnOverlayWipe = true;
-		block.GetComponent<SpriteRenderer>().sprite = tileSheet[type];
-		block.renderer.material.color = c;
-		shape.renderer.material.color = c;
+		block_sr.sprite = tileSheet[type];
+		block_sr.color = ColorHalf;
+		shape_sr.color = ColorHalf;
 		if(wholeoverlay == null) {
 			wholeoverlay = GetTileObject(block.transform.position, "plus", Resources.Load<Sprite>(SpritePaths.RecoveryTile), "ShapeOverlay");
 		} else {
@@ -93,10 +97,8 @@ public class Tile:ObjCore {
 		}
 	}
 	public void MakeDestroyTile() {
-		Color c = block.renderer.material.color;
-		c.a = 1.0f;
-		block.renderer.material.color = c;
-		shape.renderer.material.color = c;
+		block_sr.color = Color.white;
+		shape_sr.color = Color.white;
 		if(wholeoverlay == null) {
 			wholeoverlay = GetTileObject(block.transform.position, "destroy", Resources.Load<Sprite>(SpritePaths.DestroyTile), "ShapeOverlay");
 		} else {
@@ -108,9 +110,7 @@ public class Tile:ObjCore {
 	}
 	public void MakeShieldTile(Sprite spr) {
 		if(isShown) {
-			Color c = block.renderer.material.color;
-			c.a = 0.0f;
-			block.renderer.material.color = c;
+			block_sr.color = Color.clear;
 			block.SetActive(true);
 			charoverlay.SetActive(false);
 			if(shape == null) {
@@ -118,13 +118,12 @@ public class Tile:ObjCore {
 				shape.transform.parent = block.transform;
 			}
 			shape.SetActive(true);
-			c.a = 1.0f;
-			shape.renderer.material.color = c;
-			shape.GetComponent<SpriteRenderer>().sprite = spr;
+			block_sr.color = Color.clear;
+			shape_sr.sprite = spr;
 		}
 		isShield = true;
 	}
-	public void ChangeShieldTile(Sprite spr) { if(isShown) { shape.GetComponent<SpriteRenderer>().sprite = spr; } }
+	public void ChangeShieldTile(Sprite spr) { if(isShown) { shape_sr.sprite = spr; } }
 	public void CleanGameObjects() {
 		if(!isShown) { return; }
 		PutGameObjectInBank(charoverlay);
@@ -138,23 +137,21 @@ public class Tile:ObjCore {
 		if(wholeoverlay == null) { return; }
 		if(clearBackOnOverlayWipe) {
 			clearBackOnOverlayWipe = false;
-			Color c = block.renderer.material.color;
-			c.a = 0.0f;
-			block.renderer.material.color = c;
-			if(shape != null) { shape.renderer.material.color = c; }
+			block_sr.color = Color.clear;
+			if(shape != null) { shape_sr.color = Color.clear; }
 		}
 		wholeoverlay.SetActive(false);
 	}
 	public bool IsIrrelevantForSpriteUpdate() { return isConcrete || isAnimating || isEmpty || isShield || !isShown; }
 	public void UpdateSprite(bool hasTop, bool hasBottom) {
 		if(hasTop && hasBottom) {
-			block.GetComponent<SpriteRenderer>().sprite = tileSheet[colorVal];
+			block_sr.sprite = tileSheet[colorVal];
 		} else if(hasTop) {
-			block.GetComponent<SpriteRenderer>().sprite = tileSheet[colorVal + 3];
+			block_sr.sprite = tileSheet[colorVal + 3];
 		} else if(hasBottom) {
-			block.GetComponent<SpriteRenderer>().sprite = tileSheet[colorVal + 9];
+			block_sr.sprite = tileSheet[colorVal + 9];
 		} else {
-			block.GetComponent<SpriteRenderer>().sprite = tileSheet[colorVal + 6];
+			block_sr.sprite = tileSheet[colorVal + 6];
 		}
 	}
 	public int GetColorVal() { return colorVal; }
@@ -165,10 +162,10 @@ public class Tile:ObjCore {
 		isEmpty = true;
 		isShield = false;
 		if(!isShown) { return; }
-		shape.renderer.material.color = Color.white;
+		shape_sr.color = Color.white;
 		shape.SetActive(false);
 		if(wholeoverlay != null) { wholeoverlay.SetActive(false); }
 		block.SetActive(false);
-		block.GetComponent<SpriteRenderer>().sprite = tileSheet[emptySpriteTile];
+		block_sr.sprite = tileSheet[emptySpriteTile];
 	}
 }

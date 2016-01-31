@@ -19,6 +19,7 @@ public class CutsceneChar {
 	private string _name, _path;
 	private Vector3 sheetScale;
 	private GameObject _obj;
+	private SpriteRenderer _obj_sr;
 	private Sprite[] _sheet;
 	private int _player;
 	private PersistData _PD;
@@ -31,6 +32,7 @@ public class CutsceneChar {
 		_name = PD.GetPlayerDisplayName(n);
 		_path = n;
 		_obj = o;
+		_obj_sr = _obj.GetComponent<SpriteRenderer>();
 		_sheet = s;
 		_player = p;
 		_PD = PD;
@@ -66,8 +68,8 @@ public class CutsceneChar {
 	public void FlickerColor(int colortype) {
 		Color c = colortype==0?Color.blue:(colortype==1?Color.red:Color.green);
 		Sequence s = DOTween.Sequence();
-		s.Append(_obj.renderer.material.DOColor(c, 0.15f));
-		s.Append(_obj.renderer.material.DOColor(Color.white, 0.15f));
+		s.Append(_obj_sr.DOColor(c, 0.15f));
+		s.Append(_obj_sr.DOColor(Color.white, 0.15f));
 	}
 	public CutsceneChar SetSprite(int idx) {
 		bobbing = false;

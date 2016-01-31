@@ -57,11 +57,12 @@ public class All:MonoBehaviour {
 			return GetGameObject(pos, name, sprite, collider, sortLayer);
 		}
 		g.SetActive(true);
+		SpriteRenderer g_sr = g.GetComponent<SpriteRenderer>();
 		g.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-		g.renderer.material.color = Color.white;
+		g_sr.color = Color.white;
 		g.transform.position = pos;
 		g.name = name + Random.Range (0, 10000);
-		if(sprite != null) { g.GetComponent<SpriteRenderer>().sprite = sprite; }
+		if(sprite != null) { g_sr.sprite = sprite; }
 		g.renderer.sortingLayerName = sortLayer;
 		return g;
 	}

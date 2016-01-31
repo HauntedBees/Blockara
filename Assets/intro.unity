@@ -348,7 +348,6 @@ MonoBehaviour:
   culture: en
   KEY_DELAY: 0
   GameObjectBank: []
-  TileBank: []
   dontFade: 0
   voicePitch: 1
 --- !u!4 &1693153881
