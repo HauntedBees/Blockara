@@ -17,7 +17,7 @@ using System.Xml;
 public class OptionsController:LeftButtonsMenuController {
 	private MenuCursor cursor2, cursor3;
 	private OptionsSelector cursor2Display;
-	private TextMesh headerText;
+	private TextMesh headerText, funFactText;
 	private int prevPos;
 	private Vector2[] resolutions;
 
@@ -95,6 +95,8 @@ public class OptionsController:LeftButtonsMenuController {
 		FontData font = PD.mostCommonFont.Clone();
 		font.scale = 0.06f;
 		headerText = GetMeshText(new Vector3(x, y + 1.7f), "honk", font);
+		font.scale = 0.035f;
+		funFactText = GetMeshText(new Vector3(x, y + 1.0f), "honk", font);
 		optionsScreen = gameObject.AddComponent<OptionsHandler>();
 		optionsScreen.InitializeMembers(headerText, PD);
 		controlsScreen = gameObject.AddComponent<ControlsHandler>();
@@ -467,6 +469,7 @@ public class OptionsController:LeftButtonsMenuController {
 		if(pos == prevPos) { return; }
 		prevPos = pos;
 		goBack.SetActive(false);
+		funFactText.text = "";
 		switch(pos) {
 			case 3: 
 				optionsScreen.CleanUp();
@@ -492,11 +495,11 @@ public class OptionsController:LeftButtonsMenuController {
 				controlsScreen.CleanUp();
 				accessibilityScreen.CleanUp();
 				headerText.text = GetXmlValue(top, "returntomenu");
+				funFactText.text = GetFunFactText();
 				goBack.SetActive(true);
 				break;
 		}
 	}
-
 	protected override bool HandleMouse() {
 		if(!PD.usingMouse) { return false; }
 		if(menuPosition == 3) {

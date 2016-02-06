@@ -12,6 +12,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.*/
 using UnityEngine;
+using System.Xml;
 public class LeftButtonsMenuController:MenuController {
 	protected Sprite[] leftButton;
 	protected GameObject[][] sidepanels;
@@ -37,5 +38,13 @@ public class LeftButtonsMenuController:MenuController {
 	protected GameObject GetGoBackImage(float x, float y) {
 		Sprite[] sprites = Resources.LoadAll<Sprite>(SpritePaths.PersistDataBack);
 		return GetGameObject(new Vector3(x, y - 0.926f), "Return", sprites[Random.Range(0, 5)], false, "HUD");
+	}
+	protected string GetFunFactText() {
+		XmlDocument doc = new XmlDocument();
+		TextAsset ta = Resources.Load<TextAsset>("XML/" + PD.culture + "/facts");
+		doc.LoadXml(ta.text);
+		XmlNode top = doc.SelectSingleNode("facts");
+		int numFacts = top.ChildNodes.Count;
+		return top.ChildNodes[Random.Range(0, numFacts)].InnerText.Replace("{0}", "\r\n");
 	}
 }

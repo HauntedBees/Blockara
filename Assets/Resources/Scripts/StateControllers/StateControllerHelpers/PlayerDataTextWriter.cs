@@ -16,20 +16,19 @@ using System.Collections.Generic;
 using System.Xml;
 public class PlayerDataTextWriter:ScoreTextFormatter {
 	private TextMesh headerText;
-	private TextMesh infoPaneTextCenter;
-	private TextMesh infoPaneTextLeft;
-	private TextMesh infoPaneTextRight;
+	private TextMesh infoPaneTextCenter, infoPaneTextLeft, infoPaneTextRight, infoPaneFunFact;
 	private SaveData sd;
 	private List<XmlNode> characterBios;
 	private XmlNode navDetails;
 	private GameObject characters, goBack;
 	private Sprite[] charSheet;
 	private Vector2 bounds;
-	public PlayerDataTextWriter(TextMesh h, TextMesh c, TextMesh l, TextMesh r, List<XmlNode> cb, XmlNode top, GameObject ch, GameObject gb, PersistData p) {
+	public PlayerDataTextWriter(TextMesh h, TextMesh c, TextMesh l, TextMesh r, TextMesh ff, List<XmlNode> cb, XmlNode top, GameObject ch, GameObject gb, PersistData p) {
 		headerText = h;
 		infoPaneTextCenter = c;
 		infoPaneTextLeft = l;
 		infoPaneTextRight = r;
+		infoPaneFunFact = ff;
 		sd = p.GetSaveData();
 		characterBios = cb;
 		characters = ch;
@@ -73,6 +72,7 @@ public class PlayerDataTextWriter:ScoreTextFormatter {
 		res += "\n" + GetXmlValue("gamecompletionpercent") + ": " + sd.CalculateGameCompletionPercent() + "%";
 		
 		infoPaneTextCenter.text = res;
+		infoPaneFunFact.text = "";
 		infoPaneTextLeft.text = "";
 		infoPaneTextRight.text = "";
 	}
@@ -85,6 +85,7 @@ public class PlayerDataTextWriter:ScoreTextFormatter {
 			case PersistData.GT.Arcade: headerText.text = GetXmlValue("arcade"); break;
 			case PersistData.GT.Campaign: headerText.text = GetXmlValue("campaign"); break;
 		}
+		infoPaneFunFact.text = "";
 		infoPaneTextCenter.text = "";
 		LoadHighScores(type);
 	}
@@ -106,12 +107,14 @@ public class PlayerDataTextWriter:ScoreTextFormatter {
 			resScores += GetRowText(scoreName, scoreText, false) + "\n";
 			resTimes += GetRowText(timeName, timeText, true) + "\n";
 		}
+		infoPaneFunFact.text = "";
 		infoPaneTextLeft.text = resScores;
 		infoPaneTextRight.text = resTimes;
 	}
-	public void SetToBackPanel() {
+	public void SetToBackPanel(string t) {
 		goBack.SetActive(true);
 		headerText.text = GetXmlValue("returntomenu");
+		infoPaneFunFact.text = t;
 		infoPaneTextCenter.text = "";
 		infoPaneTextLeft.text = "";
 		infoPaneTextRight.text = "";
@@ -119,12 +122,14 @@ public class PlayerDataTextWriter:ScoreTextFormatter {
 	public void SetToSoundTest() {
 		goBack.SetActive(false);
 		headerText.text = "";
+		infoPaneFunFact.text = "";
 		infoPaneTextLeft.text = "";
 		infoPaneTextRight.text = "";
 		infoPaneTextCenter.text = "";
 	}
 	public void SetToBiosPanel(int pos, PersistData pers) {
 		goBack.SetActive(false);
+		infoPaneFunFact.text = "";
 		infoPaneTextCenter.text = "";
 		infoPaneTextLeft.text = "";
 		LoadCharacterBio(pos, pers);

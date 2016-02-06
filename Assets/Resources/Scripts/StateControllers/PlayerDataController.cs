@@ -51,6 +51,8 @@ public class PlayerDataController:LeftButtonsMenuController {
 		TextMesh infoPaneTextCenter = GetMeshText(new Vector3(x, y + 1.2f), "honk", font);
 		TextMesh infoPaneTextLeft = GetMeshText(new Vector3(x - 1.0f, y + 1.2f), "honk", font);
 		TextMesh infoPaneTextRight = GetMeshText(new Vector3(x + 1.0f, y + 1.2f), "honk", font);
+		font.scale = 0.035f;
+		TextMesh infoPaneTextFunFact = GetMeshText(new Vector3(x, y + 1.2f), "honk", font);
 
 		navigationArrows = gameObject.AddComponent<OptionsSelector>();
 		navigationArrows.Setup(x - 2.35f, y - 1.6f, 0.0f, true);
@@ -64,7 +66,7 @@ public class PlayerDataController:LeftButtonsMenuController {
 		List<XmlNode> bios = GetFilteredBiosList();
 		GameObject characters = GetGameObject(new Vector3(x - 1.4f, y), "BioChar", null, false, "HUD");
 		GameObject goBack = GetGoBackImage(x, y);
-		writer = new PlayerDataTextWriter(headerText, infoPaneTextCenter, infoPaneTextLeft, infoPaneTextRight, bios, GetXMLHead(), characters, goBack, PD);
+		writer = new PlayerDataTextWriter(headerText, infoPaneTextCenter, infoPaneTextLeft, infoPaneTextRight, infoPaneTextFunFact, bios, GetXMLHead(), characters, goBack, PD);
 		bioCount = bios.Count - 1;
 	}
 	private List<XmlNode> GetFilteredBiosList() {
@@ -148,7 +150,7 @@ public class PlayerDataController:LeftButtonsMenuController {
 			case 3: writer.SetToHighScorePanel(PersistData.GT.Campaign); ToggleBioInfo(false); soundTest.ToggleVisibility(false); break;
 			case 2: writer.SetToBiosPanel(charIdx, PD); ToggleBioInfo(true); soundTest.ToggleVisibility(false); break;
 			case 1: writer.SetToSoundTest(); ToggleBioInfo(false); soundTest.ToggleVisibility(true); break;
-			case 0: writer.SetToBackPanel(); ToggleBioInfo(false); soundTest.ToggleVisibility(false); break;
+			case 0: writer.SetToBackPanel(GetFunFactText()); ToggleBioInfo(false); soundTest.ToggleVisibility(false); break;
 		}
 	}
 	private void ToggleBioInfo(bool show) {
