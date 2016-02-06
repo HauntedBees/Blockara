@@ -151,7 +151,7 @@ public class InGameHUD:All {
 		for(int i = 0; i < 50; i++) {
 			float y = -0.1f + Random.Range(0.0f, 0.2f), y2 = -0.1f + Random.Range(0.0f, 0.2f);
 
-			GameObject particle = GetGameObject(new Vector3(-4.0f + 8.0f * i/100, y), "particle", particleSprites[d], false, "Cover HUD Dialog Box");
+			GameObject particle = GetGameObject_Tile(new Vector3(-4.0f + 8.0f * i/100, y), "particle", particleSprites[d], "Cover HUD Dialog Box");
 			SpriteRenderer particle_sr = particle.GetComponent<SpriteRenderer>();
 			particle_sr.color = empty;
 			Sequence s = DOTween.Sequence();
@@ -160,7 +160,7 @@ public class InGameHUD:All {
 			s.Append(particle_sr.DOColor(empty, 0.5f));
 			s.Join(particle.transform.DOMoveY(y * 2.5f, 0.5f));
 
-			GameObject particle2 = GetGameObject(new Vector3(4.0f - 8.0f * i/100, y), "particle2", particleSprites[d2], false, "Cover HUD Dialog Box");
+			GameObject particle2 = GetGameObject_Tile(new Vector3(4.0f - 8.0f * i/100, y), "particle2", particleSprites[d2], "Cover HUD Dialog Box");
 			SpriteRenderer particle2_sr = particle2.GetComponent<SpriteRenderer>();
 			particle2_sr.color = empty;
 			Sequence s2 = DOTween.Sequence();
@@ -171,7 +171,7 @@ public class InGameHUD:All {
 		}
 		for(int i = 50; i < 100; i++) {
 			float y = -0.1f + Random.Range(0.0f, 0.2f);
-			GameObject particle = GetGameObject(new Vector3(winPlayer == 1 ? (-4.0f + 8.0f * i/100) : (4.0f - 8.0f * i/100), y), "particle", particleSprites[winPlayer==1?d:d2], false, "Cover HUD Dialog Box");
+			GameObject particle = GetGameObject_Tile(new Vector3(winPlayer == 1 ? (-4.0f + 8.0f * i/100) : (4.0f - 8.0f * i/100), y), "particle", particleSprites[winPlayer==1?d:d2], "Cover HUD Dialog Box");
 			SpriteRenderer particle_sr = particle.GetComponent<SpriteRenderer>();
 			particle_sr.color = empty;
 			Sequence s = DOTween.Sequence();

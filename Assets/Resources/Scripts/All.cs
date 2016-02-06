@@ -49,14 +49,8 @@ public class All:MonoBehaviour {
 		return g;
 	}
 	protected GameObject GetGameObject_Tile(Vector3 pos, string name, Sprite sprite, string sortLayer) {
-		GameObject g;
-		if(PD.GameObjectBank.Count > 0) {
-			g = PD.GameObjectBank[0];
-			PD.GameObjectBank.Remove(g);
-		} else {
-			return GetGameObject(pos, name, sprite, collider, sortLayer);
-		}
-		g.SetActive(true);
+		GameObject g = PD.GetBankObject();
+		if(g == null) { return GetGameObject(pos, name, sprite, collider, sortLayer); }
 		SpriteRenderer g_sr = g.GetComponent<SpriteRenderer>();
 		g.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
 		g_sr.color = Color.white;
@@ -70,7 +64,7 @@ public class All:MonoBehaviour {
 		if(g==null){ return; }
 		g.SetActive(false);
 		g.transform.parent = null;
-		PD.GameObjectBank.Add(g);
+		PD.AddToBank(g);
 	}
 
 	protected GameObject GetCollider(string name, Vector3 pos, float scaleX = 1.0f, float scaleY = 1.0f) {

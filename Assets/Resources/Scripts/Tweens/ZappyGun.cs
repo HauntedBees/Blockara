@@ -18,34 +18,34 @@ public class ZappyGun:MonoBehaviour {
 	private List<GameObject> zappers;
 	private List<EENdeets> EENs;
 	private Sprite EEN;
-	private GameObject EENprefab;
 	private float maxY;
 	private bool up;
 	private int tileType;
+	private PersistData PD;
 	public bool dead;
-	public void Init(int type, int length, Vector3 topPos, float topDest, bool mirror = false) {
+	public void Init(PersistData p, int type, int length, Vector3 topPos, float topDest, bool mirror = false) {
+		PD = p;
 		dead = false; tileType = type;
 		maxY = topDest + (mirror ? ((length - 1) * Consts.TILE_SIZE + 0.6f) : Consts.TILE_SIZE);
 		up = topDest > topPos.y;
-		EENprefab = Resources.Load<GameObject>("Prefabs/Tile");
 		Sprite[] sheet = Resources.LoadAll<Sprite> (SpritePaths.Zapper);
 		zappers = new List<GameObject>();
 		Vector3 newPos = topPos;
-		GameObject top = Instantiate(EENprefab, newPos, Quaternion.identity) as GameObject;
+		GameObject top = GetGameObject(newPos);
 		top.renderer.sortingLayerName = "Zapper";
 		top.GetComponent<SpriteRenderer>().sprite = sheet[type];
 		top.transform.parent = gameObject.transform;
 		zappers.Add(top);
 		for(int i = 2; i < length; i++) {
 			newPos.y -= ZAP_SIZE;
-			GameObject middlin = Instantiate(EENprefab, newPos, Quaternion.identity) as GameObject;
+			GameObject middlin = GetGameObject(newPos);
 			middlin.GetComponent<SpriteRenderer>().sprite = sheet[type + 3];
 			middlin.renderer.sortingLayerName = "Zapper";
 			middlin.transform.parent = gameObject.transform;
 			zappers.Add(middlin);
 		}
 		newPos.y -= ZAP_SIZE;
-		GameObject bottom = Instantiate(EENprefab, newPos, Quaternion.identity) as GameObject;
+		GameObject bottom = GetGameObject(newPos);
 		bottom.GetComponent<SpriteRenderer>().sprite = sheet[type + 6];
 		bottom.transform.parent = gameObject.transform;
 		bottom.renderer.sortingLayerName = "Zapper";
@@ -65,7 +65,7 @@ public class ZappyGun:MonoBehaviour {
 		float py = zappers[0].transform.position.y;
 		if(Random.value > 0.6f) {
 			float dx = Random.Range(-0.1f, 0.1f);
-			GameObject o = Instantiate(EENprefab, new Vector3(zappers[0].transform.position.x + dx, zappers[0].transform.position.y), Quaternion.identity) as GameObject;
+			GameObject o = GetGameObject(new Vector3(zappers[0].transform.position.x + dx, zappers[0].transform.position.y));
 			o.renderer.sortingLayerName = "HUD";
 			o.GetComponent<SpriteRenderer>().sprite = EEN;
 			int x = dx<0?-1:1;
@@ -76,6 +76,15 @@ public class ZappyGun:MonoBehaviour {
 		} else {
 			MoveZaps();
 		}
+	}
+	private GameObject GetGameObject(Vector3 pos) {
+		GameObject g = PD.GetBankObject();
+		if(g == null) {
+			g = Instantiate(PD.universalPrefab, pos, Quaternion.identity) as GameObject;
+		} else {
+			g.transform.position = pos;
+		}
+		return g;
 	}
 	private void UpdateEENs() {
 		if(EENs.Count == 0) { return; }
@@ -95,12 +104,13 @@ public class ZappyGun:MonoBehaviour {
 			e.g.transform.position = pos;
 		}
 		if(!anyAlive) {
-			for(int i = 0; i < EENs.Count; i++) { Destroy(EENs[i].g); }
+			for(int i = 0; i < EENs.Count; i++) { CleanUpObject(EENs[i].g); }
 			EENs.Clear();
 			dead = true;
 		}
 	}
-	private void DeleteZaps() { for(int i = 0; i < zappers.Count; i++) { Destroy(zappers[i]); } zappers.Clear(); }
+	private void CleanUpObject(GameObject g) { PD.AddToBank(g); }
+	private void DeleteZaps() { for(int i = 0; i < zappers.Count; i++) { CleanUpObject(zappers[i]); } zappers.Clear(); }
 	private void MoveZaps() {
 		for(int i = 0; i < zappers.Count; i++) {
 			GameObject zap = zappers[i];

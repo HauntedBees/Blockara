@@ -61,9 +61,23 @@ public class PersistData:MonoBehaviour {
 		override2P = false;
 	}
 	#region "Tile Bank"
-	public List<GameObject> GameObjectBank;
+	private List<GameObject> GameObjectBank;
+	public GameObject GetBankObject() {
+		if(GameObjectBank.Count == 0) { return null; }
+		GameObject g = GameObjectBank[0];
+		g.SetActive(true);
+		g.transform.rotation = Quaternion.identity;
+		GameObjectBank.Remove(g);
+		return g;
+	}
+	public void AddToBank(GameObject g) {
+		GameObjectBank.Add(g);
+		g.transform.parent = null;
+		g.SetActive(false);
+	}
 	public void InitGameObjectBank() {
-		int count = gameType == GT.Versus ? 800 : 400;
+		if(GameObjectBank == null) { GameObjectBank = new List<GameObject>(); }
+		int count = gameType == GT.Versus ? 900 : 450;
 		for(int i = 0; i < count; i++) {
 			GameObjectBank.Add(Instantiate(universalPrefab, Vector3.zero, Quaternion.identity) as GameObject);
 		}

@@ -507,14 +507,14 @@ public class GameController:CharDisplayController {
 			GameObject zGo = GetGameObject(Vector3.zero, "zGo", null, false, "Zapper");
 			ZappyGun z = zGo.AddComponent<ZappyGun>();
 			Vector3 pos = victim.GetMirror().GetScreenPosFromXY(invertedX, victim.GetHitDepth(invertedX, lI.len, lI.type));
-			z.Init(lI.type, lI.len, launcher.GetScreenPosFromXY(lI.x, lI.topy), pos.y - 0.4f);
+			z.Init(PD, lI.type, lI.len, launcher.GetScreenPosFromXY(lI.x, lI.topy), pos.y - 0.4f);
 			zaps.Add(z);
 		}
 		if(player == 1 && player2Human || player == 2 && player1Human) {
 			GameObject zGoMirror = GetGameObject(Vector3.zero, "zGoMirror", null, false, "Zapper");
 			ZappyGun mirrorZ = zGoMirror.AddComponent<ZappyGun>();
 			Vector3 pos = victim.GetScreenPosFromXY(invertedX, victim.GetHitDepth(invertedX, lI.len, lI.type));
-			mirrorZ.Init(lI.type, lI.len, launcher.GetMirror().GetScreenPosFromXY(lI.x, lI.topy), pos.y - 0.4f, true);
+			mirrorZ.Init(PD, lI.type, lI.len, launcher.GetMirror().GetScreenPosFromXY(lI.x, lI.topy), pos.y - 0.4f, true);
 			zaps.Add(mirrorZ);
 		}
 		launcher.AcceptLaunch();
