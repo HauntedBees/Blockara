@@ -211,7 +211,6 @@ public class MainMenuController:MenuController {
 				PD.InhaleHelium();
 			}
 		}
-		if(PD.controller.Nav_Up() || PD.controller.Nav_Right() || PD.controller.Nav_Left() || PD.controller.Nav_Down()) { konamiCodeState = 0; }
 	}
 	
 	protected override bool HandleMouse() {
