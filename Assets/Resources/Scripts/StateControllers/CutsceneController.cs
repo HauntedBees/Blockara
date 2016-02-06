@@ -124,7 +124,7 @@ public class CutsceneController:CharDisplayController {
 			AdvanceToGameOrCredits();
 			return;
 		}
-		playeractor.bobbing = false; opponentactor.bobbing = false;
+		playeractor.EndBob(); opponentactor.EndBob();
 		XmlNode line = dialogArr[frame];
 		string textToSay = line.InnerText;
 		if(line.Attributes["speaker"].Value == "1" && PD.p1Char == PersistData.C.FuckingBalloon) {
@@ -145,7 +145,5 @@ public class CutsceneController:CharDisplayController {
 		int poseInt = int.Parse(pose);
 		dialogueBox.SetName(fucker.GetName(), fucker == playeractor);
 		fucker.SetSprite(poseInt);
-		fucker.bobbing = true;
-		fucker.Bob();
 	}
 }

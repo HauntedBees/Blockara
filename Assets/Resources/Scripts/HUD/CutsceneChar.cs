@@ -25,7 +25,7 @@ public class CutsceneChar {
 	private int _player;
 	private PersistData _PD;
 	public int loseFrame;
-	public bool bobbing, hidden;
+	public bool hidden;
 	private bool inGame; 
 	private float localy;
 	public CutsceneChar(string n, GameObject o, Sprite[] s, int p, PersistData PD, bool gameChar = false) {
@@ -42,7 +42,6 @@ public class CutsceneChar {
 		sheetScale = new Vector3(_obj.transform.localScale.x, _obj.transform.localScale.y);
 		loseFrame = 5;
 		hidden = false;
-		bobbing = false;
 		localy = o.transform.localPosition.y;
 	}
 	public string GetPath(bool isBalloonCutscene = false) { return isBalloonCutscene?"White":_path; }
@@ -51,22 +50,27 @@ public class CutsceneChar {
 	public CutsceneChar SetSortingLayer(string s) { _obj.GetComponent<SpriteRenderer>().sortingLayerName = s; return this; }
 
 	private float tweenHeight = 0.2f, tweenLength = 0.3f;
-	public void Bob() {
-		if(!bobbing) { _obj.transform.DOComplete(); return; }
-		Sequence bobSequence = DOTween.Sequence();
+	private Sequence bobSequence;
+	private void Bob(bool reset = false) {
+		if(!reset && bobSequence != null) { bobSequence.Play(); return; }
+		if(bobSequence != null) { bobSequence.Kill(); }
+		bobSequence = DOTween.Sequence();
 		bobSequence.Append(_obj.transform.DOLocalMoveY(localy - tweenHeight, 0.01f).SetDelay(tweenLength));
 		bobSequence.Append(_obj.transform.DOLocalMoveY(localy, 0.01f).SetDelay(tweenLength));
-		bobSequence.OnComplete(Bob);
+		bobSequence.OnComplete(ResetBob);
 	}
+	private void ResetBob() { Bob(true); }
 	private float inGameTweenSpeed = 0.7f;
 	private void LowerTweenSpeed() { inGameTweenSpeed = Mathf.Max(inGameTweenSpeed - 0.025f, 0.2f); }
-	public void InGameBob() {
-		if(!bobbing) { return; }
-		Sequence bobSequence = DOTween.Sequence();
+	private void InGameBob(bool reset = false) {
+		if(!reset && bobSequence != null) { bobSequence.Play(); return; }
+		if(bobSequence != null) { bobSequence.Kill(); }
+		bobSequence = DOTween.Sequence();
 		bobSequence.Append(_obj.transform.DOLocalMoveY(localy - 0.05f, 0.01f).SetDelay(inGameTweenSpeed));
 		bobSequence.Append(_obj.transform.DOLocalMoveY(localy, 0.01f).SetDelay(inGameTweenSpeed));
-		bobSequence.OnComplete(InGameBob);
+		bobSequence.OnComplete(ResetInGameBob);
 	}
+	private void ResetInGameBob() { InGameBob(true); }
 	public void FlickerColor(int colortype) {
 		Color c = colortype==0?Color.blue:(colortype==1?Color.red:Color.green);
 		Sequence s = DOTween.Sequence();
@@ -74,18 +78,21 @@ public class CutsceneChar {
 		s.Append(_obj_sr.DOColor(_baseColor, 0.15f));
 	}
 	public CutsceneChar SetSprite(int idx) {
-		bobbing = false;
-		if(_obj.GetComponent<SpriteRenderer>().sprite == null) { ChangeSprite(idx); return this; }
-		if(_obj.GetComponent<SpriteRenderer>().sprite == _sheet[idx]) { return this; }
-		Vector3 newScale = new Vector3(sheetScale.x * 0.8f, sheetScale.y * 1.2f);
-		Sequence s = DOTween.Sequence();
-		s.Append(_obj.transform.DOScale(newScale, 0.05f).OnComplete(()=>ChangeSprite(idx)));
-		s.Append(_obj.transform.DOScale(sheetScale, 0.05f));
-		s.Append(_obj.transform.DOScale(sheetScale, Random.Range(0.1f, 0.25f)));
-		s.OnComplete(ReturnBob);
+		if(_obj.GetComponent<SpriteRenderer>().sprite == null) {
+			ChangeSprite(idx);
+			ReturnBob();
+		} else if(_obj.GetComponent<SpriteRenderer>().sprite != _sheet[idx]) {
+			Vector3 newScale = new Vector3(sheetScale.x * 0.8f, sheetScale.y * 1.2f);
+			Sequence s = DOTween.Sequence();
+			s.Append(_obj.transform.DOScale(newScale, 0.05f).OnComplete(()=>ChangeSprite(idx)));
+			s.Append(_obj.transform.DOScale(sheetScale, 0.05f));
+			s.Append(_obj.transform.DOScale(sheetScale, Random.Range(0.1f, 0.25f)));
+			s.OnComplete(ReturnBob);
+		}
 		return this;
 	}
-	private void ReturnBob() { bobbing = true; if(inGame) { InGameBob(); } else { Bob(); } }
+	public void EndBob() { if(bobSequence != null) { bobSequence.Pause(); } }
+	private void ReturnBob() { if(inGame) { InGameBob(true); } else { Bob(true); } }
 	private void ChangeSprite(int idx) { _obj.GetComponent<SpriteRenderer>().sprite = _sheet[idx]; }
 
 	public CutsceneChar SetScale(float f) {

@@ -21,9 +21,9 @@ public class EndArcadeMatchOverlay:CharDisplayController {
 	public void Setup(bool won) {
 		GetPersistData();
 		didP1Win = won;
-		playeractor = CreateActor(PD.GetPlayerSpritePath(PD.p1Char), new Vector3(-2.1f, 0.2f), false, true);
+		playeractor = CreateActor(PD.GetPlayerSpritePath(PD.p1Char), new Vector3(-2.1f, 0.2f), false, true, true);
 		playeractor.SetScale(0.4f);
-		opponentactor = CreateActor(PD.GetPlayerSpritePath(PD.p2Char), new Vector3(2.1f, 0.2f), true, true);
+		opponentactor = CreateActor(PD.GetPlayerSpritePath(PD.p2Char), new Vector3(2.1f, 0.2f), true, true, true);
 		opponentactor.SetScale(0.4f);
 		tbox = (DialogContainer) gameObject.AddComponent("DialogContainer");
 		tbox.Setup(new Vector3(0.0f, -1.4f), true);
