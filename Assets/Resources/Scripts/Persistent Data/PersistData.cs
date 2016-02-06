@@ -65,9 +65,10 @@ public class PersistData:MonoBehaviour {
 	public GameObject GetBankObject() {
 		if(GameObjectBank.Count == 0) { return null; }
 		GameObject g = GameObjectBank[0];
+		GameObjectBank.Remove(g);
+		if(g == null) { return null; }
 		g.SetActive(true);
 		g.transform.rotation = Quaternion.identity;
-		GameObjectBank.Remove(g);
 		return g;
 	}
 	public void AddToBank(GameObject g) {
