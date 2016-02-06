@@ -32,6 +32,7 @@ public class GameController:CharDisplayController {
 	private GameTouchHandler touchHandler;
 	private Sprite[] pauseButtonSheet;
 	private List<GameObject> roundLabels;
+	private List<ZappyGun> zapsToDelete;
 	private KeyCode medicKey;
 	public void Start() {
 		StateControllerInit(false);
@@ -40,6 +41,7 @@ public class GameController:CharDisplayController {
 		player1Human = !PD.isDemo; player2Human = (PD.gameType == PersistData.GT.Versus);
 		bh = new BlockHandler(PD, PD.GetPuzzleLevel());
 		zaps = new List<ZappyGun>();
+		zapsToDelete = new List<ZappyGun>();
 		SetupCountdown();
 		SetupActors();
 		SetupRoundDisplay();
@@ -398,10 +400,9 @@ public class GameController:CharDisplayController {
 	}
 
 	private void UpdateTweens() {
-		List<ZappyGun> dels = new List<ZappyGun>();
-		foreach(ZappyGun z in zaps) { z.Update(); if(z.dead) { dels.Add(z); } }
-		foreach(ZappyGun dead in dels) { Destroy(dead.gameObject); zaps.Remove(dead); }
-		dels.Clear();
+		zapsToDelete.Clear();
+		foreach(ZappyGun z in zaps) { z.Update(); if(z.dead) { zapsToDelete.Add(z); } }
+		foreach(ZappyGun dead in zapsToDelete) { Destroy(dead.gameObject); zaps.Remove(dead); }
 	}
 	private void UpdateCursors() {
 		depthPenetrateKill t1 = GetDepthAndKillForDisplay(cursor1, board1, board2);
