@@ -20,6 +20,7 @@ public class CutsceneChar {
 	private Vector3 sheetScale;
 	private GameObject _obj;
 	private SpriteRenderer _obj_sr;
+	private Color _baseColor;
 	private Sprite[] _sheet;
 	private int _player;
 	private PersistData _PD;
@@ -33,6 +34,7 @@ public class CutsceneChar {
 		_path = n;
 		_obj = o;
 		_obj_sr = _obj.GetComponent<SpriteRenderer>();
+		_baseColor = _obj_sr.color;
 		_sheet = s;
 		_player = p;
 		_PD = PD;
@@ -69,7 +71,7 @@ public class CutsceneChar {
 		Color c = colortype==0?Color.blue:(colortype==1?Color.red:Color.green);
 		Sequence s = DOTween.Sequence();
 		s.Append(_obj_sr.DOColor(c, 0.15f));
-		s.Append(_obj_sr.DOColor(Color.white, 0.15f));
+		s.Append(_obj_sr.DOColor(_baseColor, 0.15f));
 	}
 	public CutsceneChar SetSprite(int idx) {
 		bobbing = false;
@@ -91,7 +93,7 @@ public class CutsceneChar {
 		sheetScale = new Vector3(_obj.transform.localScale.x, _obj.transform.localScale.y);
 		return this;
 	}
-	public CutsceneChar SetTint(Color c) { _obj.renderer.material.SetColor("_Color", c); return this; }
+	public CutsceneChar SetTint(Color c) { _obj_sr.color = c; return this; }
 	virtual public void DoReaction(Reaction r, bool sender) {
 		switch(r) {
 		case Reaction.firstStrike:

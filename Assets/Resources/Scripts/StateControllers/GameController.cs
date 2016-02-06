@@ -91,7 +91,7 @@ public class GameController:CharDisplayController {
 			actor2 = CreateActor("Doug", new Vector3(posx, posy), true, false, true);
 			actor2.SetScale(scale); actor2.SetSprite(0); actor2.bobbing = true; actor2.InGameBob();
 		} else {
-			actor2 = CreateActor(PD.GetPlayerSpritePath(PD.p2Char), new Vector3(posx, posy), true, false, true);
+			actor2 = CreateActor(PD.GetPlayerSpritePath(PD.p2Char), new Vector3(posx, posy), true, false, true, PD.p1Char == PD.p2Char);
 			actor2.SetScale(scale); actor2.SetSprite(0); actor2.bobbing = true; actor2.InGameBob();
 			if(PD.gameType == PersistData.GT.Campaign || PD.gameType == PersistData.GT.Challenge || PD.gameType == PersistData.GT.Training) { actor2.Hide(); }
 		}
