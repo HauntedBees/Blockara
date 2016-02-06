@@ -49,7 +49,7 @@ public class TutorialHelper:StateController {
 			case 9: return type == 0 && y == 0;
 			case 10: return type == 2 && x == 4;
 			case 11: return type == 0 && y >= 3;
-			case 12: return (type == 0 && y >= 3) || (type == 2 && x == 4 && AreAllTilesOfType(4, 3, 1));
+			case 12: return (type == 0 && y >= 3) || (type == 2 && x == 4 && AreAllTilesOfType(4, 3, 0));
 			case 13: return type != 2;
 			case 14: return type == 2 && x == 3;
 			case 16: return type == 2;
