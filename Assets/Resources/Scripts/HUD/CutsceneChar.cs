@@ -77,17 +77,19 @@ public class CutsceneChar {
 		s.Append(_obj_sr.DOColor(c, 0.15f));
 		s.Append(_obj_sr.DOColor(_baseColor, 0.15f));
 	}
-	public CutsceneChar SetSprite(int idx) {
+	public CutsceneChar SetSprite(int idx, bool doBob = true) {
 		if(_obj.GetComponent<SpriteRenderer>().sprite == null) {
 			ChangeSprite(idx);
-			ReturnBob();
+			if(doBob) { ReturnBob(); }
 		} else if(_obj.GetComponent<SpriteRenderer>().sprite != _sheet[idx]) {
 			Vector3 newScale = new Vector3(sheetScale.x * 0.8f, sheetScale.y * 1.2f);
-			Sequence s = DOTween.Sequence();
-			s.Append(_obj.transform.DOScale(newScale, 0.05f).OnComplete(()=>ChangeSprite(idx)));
-			s.Append(_obj.transform.DOScale(sheetScale, 0.05f));
-			s.Append(_obj.transform.DOScale(sheetScale, Random.Range(0.1f, 0.25f)));
-			s.OnComplete(ReturnBob);
+			if(doBob) {
+				Sequence s = DOTween.Sequence();
+				s.Append(_obj.transform.DOScale(newScale, 0.05f).OnComplete(()=>ChangeSprite(idx)));
+				s.Append(_obj.transform.DOScale(sheetScale, 0.05f));
+				s.Append(_obj.transform.DOScale(sheetScale, Random.Range(0.1f, 0.25f)));
+				s.OnComplete(ReturnBob);
+			}
 		}
 		return this;
 	}

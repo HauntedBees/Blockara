@@ -32,7 +32,7 @@ public class MatchOverController:CharDisplayController {
 		PD.sounds.SetMusicAndPlay(SoundPaths.M_Title_DerivPath + PD.GetPlayerSpritePath(winChar));
 
 		winner = CreateActor(PD.GetPlayerSpritePath(winChar), new Vector3(-2.06f, -0.5f));
-		winner.SetScale(0.4f).SetSprite(2).SetSortingLayer("BG1");
+		winner.SetScale(0.4f).SetSprite(2, false).SetSortingLayer("BG1");
 
 		PD.sounds.SetVoiceAndPlay(SoundPaths.NarratorPath + (Random.value > 0.5f ? "039" : "040"), 0);
 		int narratorIndex = 24 + (int) winChar;
@@ -42,7 +42,7 @@ public class MatchOverController:CharDisplayController {
 		PD.sounds.SetSoundVolume(PD.GetSaveData().savedOptions["vol_s"] / 115.0f);
 
 		loser = CreateActor(PD.GetPlayerSpritePath(loseChar), new Vector3(2.81f, -1.25f), true);
-		loser.SetSprite(loser.loseFrame).SetScale(0.2f).SetSortingLayer("BG1").SetTint(new Color(0.5f, 0.5f, 0.5f));
+		loser.SetSprite(loser.loseFrame, false).SetScale(0.2f).SetSortingLayer("BG1").SetTint(new Color(0.5f, 0.5f, 0.5f));
 		GetGameObject(new Vector3(1.3f, 0.7f), "infoBox", Resources.Load<Sprite>(SpritePaths.DetailsBox));
 		System.Xml.XmlNode top = GetXMLHead();
 		FontData f = PD.mostCommonFont.Clone();
