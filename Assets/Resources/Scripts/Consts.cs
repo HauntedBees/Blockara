@@ -120,7 +120,6 @@ public static class SpritePaths {
 	public const string BGBlackFadeCharSel 		= BGPath + "blackFadeCharSel";
 	public const string BGBlackFadeLeft 		= BGPath + "blackFadeLeft";
 	public const string DefaultBG 				= BGPath + "Default";
-	public const string HighScoreBG 			= BGPath + "RealActualHighScore";
 	public const string OpeningAnimTiles		= CharPath + "OpeningRects";
 	public const string EyeSparkle				= CharPath + "EyeSparkle";
 	public const string CharSelCursors 			= CharPath + "charSelCursors";

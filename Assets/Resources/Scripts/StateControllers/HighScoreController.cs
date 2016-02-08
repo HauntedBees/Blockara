@@ -33,7 +33,7 @@ public class HighScoreController:MenuController {
 		characters = new char[] {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0'};
 		string savedName = sd.highScoreName;
 		inputName = new int[] {System.Array.IndexOf(characters, savedName[0]), System.Array.IndexOf(characters, savedName[1]), System.Array.IndexOf(characters, savedName[2])};
-		GetGameObject(Vector3.zero, "BG", Resources.Load<Sprite>(SpritePaths.HighScoreBG), false, "BG0");
+		GetGameObject(Vector3.zero, "BG", Resources.Load<Sprite>(SpritePaths.DefaultBG), false, "BG0");
 
 		keyPress = new Regex("[A-Za-z0-9]");
 
