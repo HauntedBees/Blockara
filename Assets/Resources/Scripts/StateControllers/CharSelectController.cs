@@ -297,7 +297,6 @@ public class CharSelectController:MenuController {
 		PD.playerRoundScores = new List<int>();
 		PD.playerRoundTimes = new List<int>();
 		PD.currentRound = 1;
-		PD.SaveGeemu();
 		if(PD.isTutorial) { PD.rowCount = 6; }
 		PD.SetPlayer1(cursor.getX(), p1eggState == 3);
 		if(cursor2 == null) { PD.SetPlayer2(-1); } else { PD.SetPlayer2(cursor2.getX()); }

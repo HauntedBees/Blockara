@@ -55,7 +55,7 @@ public class PersistData:MonoBehaviour {
 		mostCommonFont = new FontData(TextAnchor.UpperCenter, TextAlignment.Center, 0.03f);
 		SetupFadeVars();
 		LoadGeemu();
-		SaveGeemu();
+		StartCoroutine(SameScreenSave(false, true));
 		KEY_DELAY = saveInfo.savedOptions["keydelay"];
 		SetRes();
 		override2P = false;
@@ -104,7 +104,7 @@ public class PersistData:MonoBehaviour {
 		string buttonPrefix = (35 + buttonIdx * 2).ToString();
 		string analogPrefix = "joy" + analogIdx;
 		saveInfo.UpdateGamepadNumber(player, buttonPrefix, analogPrefix);
-		SaveGeemu();
+		StartCoroutine(SameScreenSave());
 	}
 
 	public bool IsKeyDownOrButtonPressed() {
@@ -170,6 +170,7 @@ public class PersistData:MonoBehaviour {
 		fade = Resources.Load<Texture2D>(SpritePaths.FullBlackCover);
 	}
 	public void OnGUI() {
+		//ShowFPS();
 		if(isFading) {
 			fadeAlpha += fadeDir * fadeSpeed * Time.deltaTime;
 			fadeAlpha = Mathf.Clamp01(fadeAlpha);
@@ -183,11 +184,26 @@ public class PersistData:MonoBehaviour {
 			GUI.DrawTexture(new Rect(0.0f, 0.0f, Screen.width, Screen.height), fade);
 		}
 	}
+	float deltaTime = 0.0f;
+	void Update() { deltaTime += (Time.deltaTime - deltaTime) * 0.1f; }
+	void ShowFPS() {
+		int w = Screen.width, h = Screen.height;
+		GUIStyle style = new GUIStyle();
+		Rect rect = new Rect(0, 0, w, h * 2 / 100);
+		style.alignment = TextAnchor.UpperLeft;
+		style.fontSize = h * 2 / 60;
+		style.normal.textColor = new Color (1.0f, 1.0f, 1.0f, 1.0f);
+		float msec = deltaTime * 1000.0f;
+		float fps = 1.0f / deltaTime;
+		string text = string.Format("{1:0.} fps\r\n{2} GO\r\n{0:0.0} ms", msec, fps, GameObject.FindObjectsOfType(typeof(GameObject)).Length);
+		GUI.Label(rect, text, style);
+	}
 
-	public void SaveAndQuit(int time) { saveInfo.addPlayTime(gameType, time); SaveGeemu(); Application.Quit(); }
-	public void SaveAndReset(int time) { saveInfo.addPlayTime(gameType, time); SaveGeemu(); ChangeScreen(GS.Game); }
-	public void SaveAndMainMenu(int time) { saveInfo.addPlayTime(gameType, time); SaveGeemu(); GoToMainMenu(); }
-	public void SaveAndPuzzleSelect(int time) { saveInfo.addPlayTime(gameType, time); SaveGeemu(); ChangeScreen(GS.PuzSel); }
+
+	public void SaveAndQuit(int time) { saveInfo.addPlayTime(gameType, time); StartCoroutine(SameScreenSave(true)); }
+	public void SaveAndReset(int time) { saveInfo.addPlayTime(gameType, time); StartCoroutine(ChangeScreenAndSave(GS.Game)); }
+	public void SaveAndMainMenu(int time) { saveInfo.addPlayTime(gameType, time); StartCoroutine(ChangeScreenAndSave(GS.MainMenu)); }
+	public void SaveAndPuzzleSelect(int time) { saveInfo.addPlayTime(gameType, time); StartCoroutine(ChangeScreenAndSave(GS.PuzSel)); }
 	public void GoToMainMenu() { ChangeScreen(GS.MainMenu); }
 	public void ChangeScreen(GS type) {
 		if(isTransitioning) { return; }
@@ -196,6 +212,59 @@ public class PersistData:MonoBehaviour {
 		StartFade(1);
 		StartCoroutine(ChangeScreenInner(type));
 	}
+	public System.Collections.IEnumerator ChangeScreenAndSave(GS type) {
+		GameObject g = Instantiate(universalPrefab, new Vector3(3.28f, 1.7f), Quaternion.identity) as GameObject;
+		g.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(SpritePaths.Saving);
+		g.renderer.sortingLayerName = "Pause HUD Cursor";
+		for(int i = 0; i < 10; i++) {
+			if(g == null) { break; }
+			g.transform.Rotate(0.0f, 0.0f, -3.0f);
+			yield return new WaitForSeconds(0.01f);
+		}
+		SaveGeemu();
+		for(int i = 0; i < 10; i++) {
+			if(g == null) { break; }
+			g.transform.Rotate(0.0f, 0.0f, -3.0f);
+			yield return new WaitForSeconds(0.01f);
+		}
+		if(g != null) { Destroy(g); }
+		ChangeScreen(type);
+	}
+	public System.Collections.IEnumerator SameScreenSave(bool quitAtEnd = false, bool isIntroScreen = false) {
+		GameObject g = Instantiate(universalPrefab, new Vector3(3.28f, 1.7f), Quaternion.identity) as GameObject;
+		GameObject meshText = null;
+		g.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(SpritePaths.Saving);
+		g.renderer.sortingLayerName = "Pause HUD Cursor";
+		int imax = 10;
+		if(isIntroScreen) {
+			meshText = Instantiate(Resources.Load<GameObject>("Prefabs/Text/Size48"), new Vector3(7.2f, 4.4f), Quaternion.identity) as GameObject;
+			TextMesh mesh = meshText.GetComponent<TextMesh>();
+			mesh.text = "Now Saving. Please do not power off your machine.";
+			mesh.color = Color.white;
+			mesh.alignment = TextAlignment.Right;
+			mesh.anchor = TextAnchor.MiddleRight;
+			meshText.renderer.sortingLayerName = "Pause HUD Cursor";
+			meshText.transform.localScale = new Vector3(0.1f, 0.1f);
+			g.transform.localScale = new Vector3(2.5f, 2.5f);
+			g.transform.position = new Vector3(8.2f, 4.4f);
+			imax = 40;
+		}
+		for(int i = 0; i < imax; i++) {
+			if(g == null) { break; }
+			g.transform.Rotate(0.0f, 0.0f, -3.0f);
+			yield return new WaitForSeconds(0.01f);
+		}
+		SaveGeemu();
+		for(int i = 0; i < imax; i++) {
+			if(g == null) { break; }
+			g.transform.Rotate(0.0f, 0.0f, -3.0f);
+			yield return new WaitForSeconds(0.01f);
+		}
+		if(g != null) { Destroy(g); }
+		if(meshText != null) { Destroy(meshText); }
+		if(quitAtEnd) { Application.Quit(); }
+	}
+
 	private System.Collections.IEnumerator ChangeScreenInner(GS type) { yield return new WaitForSeconds(0.3f); currentScreen = type; Application.LoadLevel((int) type); }
 	public void OnLevelWasLoaded() {
 		isTransitioning = false;
@@ -273,7 +342,6 @@ public class PersistData:MonoBehaviour {
 		} else {
 			saveInfo.incrementCharacterFrequency(GetPlayerSpritePath(p1Char));
 		}
-		SaveGeemu();
 	}
 	public void SetPlayer2(int i) { p2Char = (C)i; }
 	public string GetPlayerName(C p) { return System.Enum.GetName(typeof(C), p); }
@@ -328,8 +396,12 @@ public class PersistData:MonoBehaviour {
 			int justInCaseTheUnlikelyHappensAndThisTakesTooLong = 0;
 			while((p2Char == p1Char || p2Char == C.Null) && justInCaseTheUnlikelyHappensAndThisTakesTooLong++ < 10) { p2Char = (C) Random.Range(0, 10); }
 		}
-		if(gameType == GT.Arcade) { GetNextOpponent(); ChangeScreen(GS.CutScene); }
-		else { ChangeScreen(GS.Game); }
+		if(gameType == GT.Arcade) {
+			GetNextOpponent();
+			StartCoroutine(ChangeScreenAndSave(GS.CutScene));
+		} else {
+			StartCoroutine(ChangeScreenAndSave(GS.Game));
+		}
 	}
 	#endregion
 	#region "Arcade Mode"
@@ -401,8 +473,7 @@ public class PersistData:MonoBehaviour {
 					unlockNew = 2;
 				}
 			}
-			SaveGeemu();
-			GoToMainMenu();
+			StartCoroutine(ChangeScreenAndSave(GS.MainMenu));
 			return;
 		}
 		if(rounds > 0) {
@@ -421,19 +492,17 @@ public class PersistData:MonoBehaviour {
 				playerRoundScores.Sort();
 				runningTime = (playerRoundTimes.Count > 0) ? playerRoundTimes[0] : 0;
 				runningScore = (playerRoundScores.Count > 0) ? playerRoundScores[playerRoundScores.Count - 1] : 0;
-				if(rounds > 1) { ChangeScreen(GS.RoundWinner); }
+				if(rounds > 1) { StartCoroutine(ChangeScreenAndSave(GS.RoundWinner)); return; }
 			}
 		}
 		bool advanceToWinScreenFromPuzzleScreen = false;
 		if(gameType == GT.QuickPlay || gameType == GT.Campaign) {
 			saveInfo.addPlayTime(gameType, runningTime);
-			SaveGeemu();
-			ChangeScreen(GS.HighScore);
+			StartCoroutine(ChangeScreenAndSave(GS.HighScore));
 			return;
 		} else if(gameType == GT.Challenge) {
 			int prevComplet = saveInfo.CalculateGameCompletionPercent();
 			if(won) { saveInfo.addToPuzzles(level, runningScore, runningTime); }
-			SaveGeemu();
 			int newComplet = saveInfo.CalculateGameCompletionPercent();
 			if(prevComplet < 50 && newComplet >= 50) {
 				unlockNew = 1;
@@ -445,21 +514,20 @@ public class PersistData:MonoBehaviour {
 		} 
 		if(gameType != GT.Arcade) {
 			saveInfo.addPlayTime(gameType, runningTime);
-			SaveGeemu();
 			runningScore = 0;
 			runningTime = 0;
 			if(gameType == GT.Challenge && advanceToWinScreenFromPuzzleScreen) {
 				p1Char = unlockNew == 1 ? C.White : C.September;
 				p2Char = p1Char;
-				ChangeScreen(GS.WinnerIsYou); 
+				StartCoroutine(ChangeScreenAndSave(GS.WinnerIsYou)); 
 				return;
 			}
-			ChangeScreen(gameType==GT.Challenge?GS.PuzSel:GS.CharSel); 
+			GS nextScreen = gameType==GT.Challenge?GS.PuzSel:GS.CharSel;
+			StartCoroutine(ChangeScreenAndSave(nextScreen)); 
 			return;
 		}
 		if(lost) {
 			saveInfo.addPlayTime(gameType, runningTime);
-			SaveGeemu();
 			string name = GetPlayerSpritePath(p1Char);
 			if(winType > 0) { 
 				won = true;
@@ -472,8 +540,8 @@ public class PersistData:MonoBehaviour {
 					unlockNew = 2;
 				}
 			}
-			SaveGeemu();
-			ChangeScreen(won?GS.WinnerIsYou:GS.HighScore);
+			GS nextScreen = won?GS.WinnerIsYou:GS.HighScore;
+			StartCoroutine(ChangeScreenAndSave(nextScreen));
 			return;
 		}
 		int dragonScore = 100 * GetScore(2, 5, 1.0f, initialDifficulty), puhLoonScore = (int) (dragonScore * 2.8);
@@ -484,11 +552,9 @@ public class PersistData:MonoBehaviour {
 				ChangeScreen(GS.WinnerIsYou);
 				winType = 2;
 				saveInfo.addPlayTime(gameType, runningTime);
-				SaveGeemu();
 				string name = GetPlayerSpritePath(p1Char);
 				saveInfo.saveArcadeVictory(name, winType);
-				SaveGeemu();
-				ChangeScreen(GS.WinnerIsYou);
+				StartCoroutine(ChangeScreenAndSave(GS.WinnerIsYou));
 			} else {
 				level++;
 				ChangeScreen(GS.CutScene);
@@ -522,12 +588,12 @@ public class PersistData:MonoBehaviour {
 	public bool IsLeftAlignedHUD() { return saveInfo.savedOptions["hudplacement"] == 0; }
 	public void SetOption(string s, int v) { if(!saveInfo.savedOptions.ContainsKey(s)) { saveInfo.savedOptions.Add(s, v); } else { saveInfo.savedOptions[s] = v; } }
 	public void SetRes() { Screen.SetResolution(saveInfo.savedOptions["width"], saveInfo.savedOptions["height"], saveInfo.savedOptions["fullscreen"] == 1); }
-	public void SaveName(string n) { if(n.Length != 3) { return; } saveInfo.highScoreName = n; SaveGeemu(); }
-	public void SaveScore(string n, int s) { saveInfo.addToHighScore(n, s, gameType); SaveGeemu(); }
-	public void SaveTime(string n, int s) { saveInfo.addToTime(n, s, gameType); SaveGeemu(); }
+	public void StoreName(string n) { if(n.Length != 3) { return; } saveInfo.highScoreName = n; }
+	public void StoreScore(string n, int s) { saveInfo.addToHighScore(n, s, gameType); }
+	public void StoreTime(string n, int s) { saveInfo.addToTime(n, s, gameType); }
 	public void SetCharSelOptionVal(string key, int val) { saveInfo.gameOptionDefaults[key] = val; }
 	public int GetCharSelOptionVal(string key) {
-		if(saveInfo.gameOptionDefaults == null) { saveInfo.setupGameOptionDefaults(); SaveGeemu(); }
+		if(saveInfo.gameOptionDefaults == null) { saveInfo.setupGameOptionDefaults(); StartCoroutine(SameScreenSave()); }
 		return saveInfo.gameOptionDefaults[key];
 	}
 	public void SetKeyBinding(int player, int key, string val) {
@@ -544,7 +610,7 @@ public class PersistData:MonoBehaviour {
 				saveInfo.controlBindingsP2[key] = val;
 			}
 		}
-		SaveGeemu();
+		StartCoroutine(SameScreenSave());
 	}
 	public bool IsKeyInUse(int key) {
 		string skey = key.ToString();
@@ -552,8 +618,8 @@ public class PersistData:MonoBehaviour {
 		return false;
 	}
 	public Dictionary<int, string> GetKeyBindings(int player = 0) {
-		if(saveInfo.controlBindingsP1 == null) { saveInfo.SetupDefaultKeyControls(); SaveGeemu(); }
-		if(saveInfo.controlBindingsGamepadP1 == null) { saveInfo.SetupDefaultPadControls(); SaveGeemu(); }
+		if(saveInfo.controlBindingsP1 == null) { saveInfo.SetupDefaultKeyControls(); StartCoroutine(SameScreenSave()); }
+		if(saveInfo.controlBindingsGamepadP1 == null) { saveInfo.SetupDefaultPadControls(); StartCoroutine(SameScreenSave()); }
 		if(player == 0) {
 			return usingGamepad1 ? saveInfo.controlBindingsGamepadP1 : saveInfo.controlBindingsP1;
 		} else {

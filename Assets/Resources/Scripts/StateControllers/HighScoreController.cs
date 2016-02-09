@@ -195,9 +195,10 @@ public class HighScoreController:MenuController {
 		saved = true;
 		nameCursor.SetVisibility(false);
 		currentName = nameEntry.text;
-		PD.SaveName(currentName);
-		PD.SaveScore(currentName, PD.runningScore);
-		PD.SaveTime(currentName, PD.runningTime);
+		PD.StoreName(currentName);
+		PD.StoreScore(currentName, PD.runningScore);
+		PD.StoreTime(currentName, PD.runningTime);
+		StartCoroutine(PD.SameScreenSave());
 		if(currentScore != null) { currentScore.text = writer.GetRowText(scorePosText + currentName + " ", scoreTxt, false); }
 		if(currentTime != null) { currentTime.text = writer.GetRowText(timePosText + currentName + " ", timeTxt, true); }
 		if(nameCursor != null) { nameCursor.SetVisibility(false); }

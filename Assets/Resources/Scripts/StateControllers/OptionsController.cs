@@ -407,7 +407,7 @@ public class OptionsController:LeftButtonsMenuController {
 		PD.SetOption("keydelay", accessibilityScreen.val_keydelay);
 		PD.SetOption("scopophobia", accessibilityScreen.val_scopo);
 		PD.KEY_DELAY = accessibilityScreen.val_keydelay;
-		PD.SaveGeemu();
+		StartCoroutine(PD.SameScreenSave());
 	}
 	private void SaveAndApplyChanges_Options() {
 		Vector2 resolution = resolutions[resIdx];
@@ -418,7 +418,7 @@ public class OptionsController:LeftButtonsMenuController {
 		PD.SetOption("vol_s", volume_sound);
 		PD.SetOption("vol_v", volume_voice);
 		PD.SetRes();
-		PD.SaveGeemu();
+		StartCoroutine(PD.SameScreenSave());
 	}
 	private void WipeSelected_Options() {
 		if(confirmWipe) {

@@ -125,7 +125,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: .0852822065, g: .0882353187, b: .0668252781, a: .0196078438}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: .0196078438}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -347,7 +347,6 @@ MonoBehaviour:
   universalPrefabCollider: {fileID: 0}
   culture: en
   KEY_DELAY: 0
-  GameObjectBank: []
   dontFade: 0
   voicePitch: 1
 --- !u!4 &1693153881
