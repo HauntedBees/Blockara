@@ -549,6 +549,7 @@ public class PersistData:MonoBehaviour {
 		if(level % 2 == 0) { difficulty++; }
 		if(p1Char == C.White || p1Char == C.September) {
 			if(level == 9) {
+				ChangeScreen(GS.WinnerIsYou);
 				winType = 2;
 				saveInfo.addPlayTime(gameType, runningTime);
 				string name = GetPlayerSpritePath(p1Char);
