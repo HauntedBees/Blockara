@@ -51,7 +51,8 @@
 	<repairshield>Repair{0}{1}G</repairshield>
 	<shieldreplaced>Sheild{0}repaired!</shieldreplaced>
 	<cantafford>You can't{0}afford that!</cantafford>
-	<presstocontinue>Press {1}{0}to continue.</presstocontinue> <!-- {1} is the CONFIRM key here -->
+	<presstocontinue>Press {1}{0}to confirm.</presstocontinue> <!-- {1} is the CONFIRM key here -->
+	<confirm>CONFIRM</confirm>
 	<!-- Character Select -->
 	<chooseyourcharacter>Choose Your Character</chooseyourcharacter>
 	<specialtiles>Special Tiles</specialtiles>

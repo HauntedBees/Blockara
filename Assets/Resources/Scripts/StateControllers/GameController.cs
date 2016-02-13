@@ -263,7 +263,7 @@ public class GameController:CharDisplayController {
 				returnHere = true;
 			}
 			if(campaign.inCampaignShop && !wasInCampaignShop) {
-				pauseText.GetComponent<TextMesh>().text = GetXmlValue(GetXMLHead(), "resumecaps");
+				pauseText.GetComponent<TextMesh>().text = GetXmlValue(GetXMLHead(), "confirm");
 			} else if(wasInCampaignShop && !campaign.inCampaignShop) {
 				pauseText.GetComponent<TextMesh>().text = GetXmlValue(GetXMLHead(), "pause");
 			}
