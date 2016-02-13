@@ -87,9 +87,10 @@ public class GameController:CharDisplayController {
 		actor1 = CreateActor(PD.GetPlayerSpritePath(PD.p1Char), new Vector3(-posx, posy), false, false, true);
 		actor1.SetScale(scale); actor1.SetSprite(0);
 		if(PD.gameType == PersistData.GT.Challenge) { actor1.Hide(); }
-		if(PD.gameType == PersistData.GT.Campaign && Random.Range(0, 500) == 69) {
+		if(PD.gameType == PersistData.GT.Campaign && Random.Range(0, 666) == 69) {
 			actor2 = CreateActor("Doug", new Vector3(posx, posy), true, false, true);
 			actor2.SetScale(scale); actor2.SetSprite(0);
+			PD.p2Char = PersistData.C.Everyone;
 		} else {
 			actor2 = CreateActor(PD.GetPlayerSpritePath(PD.p2Char), new Vector3(posx, posy), true, false, true, PD.p1Char == PD.p2Char);
 			actor2.SetScale(scale); actor2.SetSprite(0);

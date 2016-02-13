@@ -54,6 +54,12 @@ public class Countdown:ScriptableObject {
 					PD.sounds.SetMusicAndPlay(SoundPaths.M_Title_DerivPath + "White");
 				} else if(PD.gameType == PersistData.GT.Challenge) {
 					PD.sounds.SetMusicAndPlay(SoundPaths.M_InGame);
+				} else if(PD.gameType == PersistData.GT.Campaign) {
+					if(PD.p2Char == PersistData.C.Everyone) {
+						PD.sounds.SetMusicAndPlay(SoundPaths.M_LoseMusic);
+					} else {
+						PD.sounds.SetMusicAndPlay(SoundPaths.M_Title_DerivPath + PD.GetPlayerSpritePath(PD.p1Char, false, true));
+					}
 				} else if((PD.gameType == PersistData.GT.Arcade && PD.level > 5) || PD.difficulty > 6) {
 					PD.sounds.SetMusicAndPlay(SoundPaths.M_InGame_Intense);
 				} else {
