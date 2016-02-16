@@ -19,7 +19,9 @@ public class CreditsController:StateController {
 	private GameObject lastun, end;
 	private Sprite[] borbs;
 	private int finalTimeout;
+	private bool startedTransition;
 	public void Update() {
+		if(startedTransition) { return; }
 		if(end.transform.position.y < 0.0f) {
 			int gm = objects.Count;
 			for(int i = 0; i < gm; i++) {
@@ -27,7 +29,7 @@ public class CreditsController:StateController {
 				if(g == null) { continue; }
 				Vector3 p = g.transform.position;
 				p.y += Time.deltaTime * 0.475f;
-				if(g.transform.position.y < -3.0f && p.y >= -3.0f) {
+				if(g.transform.position.y < -6.0f && p.y >= -6.0f) {
 					g.SetActive(true);
 				} else if(g.transform.position.y < 3.0f && p.y >= 3.0f) {
 					Destroy(g);
@@ -36,18 +38,19 @@ public class CreditsController:StateController {
 				g.transform.position = p;
 			}
 		} else {
-			if(finalTimeout-- < 0 && !PD.sounds.IsMusicPlaying()) { PD.DoWin(0, 0, true, false); }
-			if(lastun.transform.position.y < 3.0f) {
+			if(finalTimeout-- < 0 && !PD.sounds.IsMusicPlaying()) { startedTransition = true; PD.DoWin(0, 0, true, false); }
+			if(lastun != null && lastun.transform.position.y < 3.0f) {
 				Vector3 p = lastun.transform.position;
 				p.y += Time.deltaTime * 0.475f;
 				lastun.transform.position = p;
 			}
 		}
 		UpdateMouseInput();
-		if(clicker.isDown() || PD.controller.Pause() || PD.controller.G_Launch() || PD.controller.M_Confirm()) { PD.DoWin(0, 0, true, false); }
+		if(clicker.isDown() || PD.controller.Pause() || PD.controller.G_Launch() || PD.controller.M_Confirm()) { startedTransition = true; PD.DoWin(0, 0, true, false); }
 	}
 	public void Start() {
 		StateControllerInit(false);
+		startedTransition = false;
 		objects = new List<GameObject>();
 		borbs = Resources.LoadAll<Sprite>(SpritePaths.Borbs);
 		XmlNodeList credits = GetXMLHead("/Credits", "credits").SelectNodes("credit");
@@ -120,11 +123,11 @@ public class CreditsController:StateController {
 		AddHeadingCredit(credits[55], 0.0f, -22.5f, 0.06f); // Woldhuis
 		lastun = AddHeadingCredit(credits[56], 0.0f, -23.0f, 0.06f); // AND YOU
 
-		end = GetGameObject(new Vector3(0.0f, -25.0f), "thanks", Resources.Load<Sprite>(SpritePaths.CreditsPath + "11"));
+		end = GetGameObject(new Vector3(0.0f, -26.0f), "thanks", Resources.Load<Sprite>(SpritePaths.CreditsPath + "11"));
 		objects.Add(end);
 
 		foreach(GameObject g in objects) { g.SetActive(false); }
-		objects[0].SetActive(true);
+		for(int i = 0; i < 10; i++) { objects[i].SetActive(true); }
 	}
 	private void AddFullCredit(XmlNode credit, float x, float y) {
 		float gap = 0.43f;

@@ -166,6 +166,7 @@ public class MainMenuController:MenuController {
 		if(PD.controller != null) { PD.sounds.SetSoundAndPlay(SoundPaths.S_Menu_Confirm); CleanupTitle(); }
 	}
 	private void UpdateMenu() {
+		if(Input.GetKeyDown(KeyCode.End)) { PD.ChangeScreen(PersistData.GS.Credits); }
 		if(cursor.back()) { PD.sounds.SetSoundAndPlay(SoundPaths.S_Menu_Deny); CleanupMenu(); return; }
 		KonamiCodeCheck();
 		HandleMouse();
