@@ -355,6 +355,10 @@ public class GameController:CharDisplayController {
 		return paused;
 	}
 	private void HandleVictory() {
+		if(PD.isDemo) {
+			if(!PD.isTransitioning) { PD.MoveOutOfDemo(); }
+			return;
+		}
 		if(gameOver) {
 			if(isTransitioning) { return; }
 			if(PD.gameType == PersistData.GT.Challenge && board1.IsDead()) {
@@ -374,11 +378,9 @@ public class GameController:CharDisplayController {
 				if(isTheEnd) { isTransitioning = true; PD.DoWin(board1.GetScore(), hud.GetTimeInSeconds(), board1.IsDead()); }
 				return;
 			}
-			if(!PD.isDemo) {
-				GetGameObject(Vector3.zero, "Tharsabin", Resources.Load<Sprite>(SpritePaths.TransparentBlackCover), false, "Cover HUD");
-				end = gameObject.AddComponent<EndArcadeMatchOverlay>();
-				end.Setup(!board1.IsDead());
-			}
+			GetGameObject(Vector3.zero, "Tharsabin", Resources.Load<Sprite>(SpritePaths.TransparentBlackCover), false, "Cover HUD");
+			end = gameObject.AddComponent<EndArcadeMatchOverlay>();
+			end.Setup(!board1.IsDead());
 		}
 		if(!gameOver) {
 			PD.totalP1RoundScore += board1.GetScore();
