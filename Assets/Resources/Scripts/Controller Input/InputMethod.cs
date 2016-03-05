@@ -35,8 +35,16 @@ public class InputMethod {
 	virtual public string GetFriendlyActionName(Action a) { return ""; }
 	public string GetFriendlyKeyName(KeyBinding k) { return keyBinds.GetName(k); }
 	public string GetRawKeyVal(KeyBinding k) { return keyBinds.GetRawVal(k); }
+	public InputVal GetInputVal(KeyBinding k) { return keyBinds.bindings[k]; }
 	public bool IsAxis(KeyBinding k) { return keyBinds.IsAxis(k); }
 	public void ChangeKey(KeyBinding k, InputVal v) { keyBinds.bindings[k] = v; }
+	public KeyBinding GetKeyInUse(InputVal v) {
+		string vRaw = v.GetRawVal();
+		foreach(KeyBinding k in keyBinds.bindings.Keys) {
+			if(keyBinds.bindings[k].GetRawVal() == vRaw) { return k; }
+		}
+		return KeyBinding.hidden3;
+	}
 
 	public enum Action { move, shiftL, shiftR, shiftAL, shiftAR, launch, pause }
 	public enum KeyBinding { up = 0, down = 1, left = 2, right = 3, shiftL = 4, shiftR = 5, shiftAL = 6, shiftAR = 7, launch = 8, pause = 9, back = 10, hidden1 = 11 , hidden2 = 12, hidden3 = 13 }

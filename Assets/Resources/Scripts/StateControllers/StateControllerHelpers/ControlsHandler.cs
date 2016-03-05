@@ -145,12 +145,36 @@ public class ControlsHandler:MenuHandler {
 	public void ChangeKey(int y, int newVal, bool player1) {
 		if(player1) {
 			InputVal newInput = new InputVal_Key((KeyCode) newVal);
-			PD.controller.ChangeKey(keyOrdering[y], newInput);
-			PD.SetKeyBinding(0, (int)keyOrdering[y], newInput.GetRawVal());
+			InputMethod.KeyBinding oldK = PD.controller.GetKeyInUse(newInput);
+			if(oldK == keyOrdering[y] || oldK == InputMethod.KeyBinding.hidden3) {
+				PD.controller.ChangeKey(keyOrdering[y], newInput);
+				PD.SetKeyBinding(0, (int)keyOrdering[y], newInput.GetRawVal());
+			} else {
+				InputVal oldInput = PD.controller.GetInputVal(keyOrdering[y]);
+				PD.controller.ChangeKey(keyOrdering[y], newInput);
+				PD.SetKeyBinding(0, (int)keyOrdering[y], newInput.GetRawVal());
+
+				PD.controller.ChangeKey(oldK, oldInput);
+				PD.SetKeyBinding(0, (int)oldK, oldInput.GetRawVal());
+				int idx = System.Array.IndexOf(keyOrdering, oldK);
+				if(idx >= 0) { UndoQuestion(idx, true); }
+			}
 		} else {
 			InputVal newInput = new InputVal_Key((KeyCode) newVal);
-			fakePlayer2.ChangeKey(keyOrdering[y], newInput);
-			PD.SetKeyBinding(1, (int)keyOrdering[y], newInput.GetRawVal());
+			InputMethod.KeyBinding oldK = fakePlayer2.GetKeyInUse(newInput);
+			if(oldK == keyOrdering[y] || oldK == InputMethod.KeyBinding.hidden3) {
+				fakePlayer2.ChangeKey(keyOrdering[y], newInput);
+				PD.SetKeyBinding(1, (int)keyOrdering[y], newInput.GetRawVal());
+			} else {
+				InputVal oldInput = fakePlayer2.GetInputVal(keyOrdering[y]);
+				fakePlayer2.ChangeKey(keyOrdering[y], newInput);
+				PD.SetKeyBinding(1, (int)keyOrdering[y], newInput.GetRawVal());
+				
+				fakePlayer2.ChangeKey(oldK, oldInput);
+				PD.SetKeyBinding(1, (int)oldK, oldInput.GetRawVal());
+				int idx = System.Array.IndexOf(keyOrdering, oldK);
+				if(idx >= 0) { UndoQuestion(idx, false); }
+			}
 		}
 		UndoQuestion(y, player1);
 	}
