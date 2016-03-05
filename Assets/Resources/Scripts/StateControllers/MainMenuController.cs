@@ -178,7 +178,7 @@ public class MainMenuController:MenuController {
 		if(selectedIdx != oldIdx) { menuButtonHighlights[oldIdx].SetActive(false); }
 		menuButtonHighlights[selectedIdx].SetActive(true);
 		menuButtonHighlights[selectedIdx].GetComponent<SpriteRenderer>().color = new Color(1.0f, 1.0f, 1.0f, GetButtonOpacity());
-		if(cursor.launchOrPause()) { ConfirmSelectionAndAdvance(selectedIdx); }
+		if(cursor.launchOrPause()) { isTransitioning = true; ConfirmSelectionAndAdvance(selectedIdx); }
 	}
 	private void ConfirmSelectionAndAdvance(int pos) {
 		int invertPos = 8 - pos;
