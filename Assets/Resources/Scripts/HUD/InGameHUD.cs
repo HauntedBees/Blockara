@@ -114,6 +114,9 @@ public class InGameHUD:All {
 	protected void UpdateTimer() {
 		if(pausing || Time.time < lastCheck + 1.0f) { return; }
 		lastCheck = Time.time;
+
+		if(seconds % 5 == 0) { Resources.UnloadUnusedAssets(); }
+
 		if(++seconds >= 60) { seconds = 0; minutes++; }
 		string res = minutes + (seconds<10?":0":":") + seconds;
 		if(minutes == 100 && seconds == 0) {
