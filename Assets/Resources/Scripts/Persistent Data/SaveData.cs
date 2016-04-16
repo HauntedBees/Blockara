@@ -232,9 +232,9 @@ public class SaveData {
 	}
 	private void setupSavedOptions() {
 		savedOptions = new Dictionary<string, int>();
-		savedOptions.Add("width", Screen.width);
-		savedOptions.Add("height", Screen.height);
-		savedOptions.Add("fullscreen", Screen.fullScreen?1:0);
+		savedOptions.Add("width", 1280);
+		savedOptions.Add("height", 720);
+		savedOptions.Add("fullscreen", 0);
 		savedOptions.Add("vol_m", 80);
 		savedOptions.Add("vol_s", 90);
 		savedOptions.Add("vol_v", 100);
