@@ -46,7 +46,7 @@ public class MainMenuController:MenuController {
 	}
 	private void SetupCopyright() {
 		FontData f = PD.mostCommonFont.Clone(); f.color = Color.white;
-		GetMeshText(new Vector3(1.35f, -1.8f), "Copyright \u00A9 2014-2016 Sean Finch/Haunted Bees Productions", f);
+		GetMeshText(new Vector3(1.35f, -1.8f), "Copyright \u00A9 2014-2017 Sean Finch/Haunted Bees Productions", f);
 	}
 	private void SetupCharacter() {
 		SaveData sd = PD.GetSaveData();
